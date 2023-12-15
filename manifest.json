@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Guarangada",
-    "description": "Plugin para mejorar la usabilidad del Maldito SIU GUARANI",
+    "description": "Plugin para mejorar la usabilidad del inhóspito SIU GUARANI",
     "version": "1.0",
     "action": {
       "default_popup": "index.html",
