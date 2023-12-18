@@ -34,3 +34,25 @@ function fromHTML(html, trim = true) {
     if (result.length === 1) return result[0];
     return result;
   }
+
+
+
+
+function waitForElement(selector, callback, checkFrequencyInMs=1000, timeoutInMs=15000,failure_callback=undefined) {
+  var startTimeInMs = Date.now();
+  (function loopSearch() {
+    element = document.querySelector(selector)
+    if (element) {
+      callback(element);
+    } else {
+      setTimeout(function () {
+        const elapsed = Date.now() - startTimeInMs;
+        if (timeoutInMs &&  elapsed > timeoutInMs){
+          if (failure_callback){failure_callback()}
+        }else{
+          loopSearch();
+        }
+      }, checkFrequencyInMs);
+    }
+  })();
+}
