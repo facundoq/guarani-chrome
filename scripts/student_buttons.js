@@ -75,11 +75,37 @@ function add_row_buttons(form_renglones){
     add_clean_button(row)
   }
 }
+function autofill(rows,autofillData){
+  const table = form_renglones.children[1];
+  const table_body = table.children[1];
+  for (let row of rows){
+      const dni = row.querySelector(".identificacion").value.split(" ")[1];
+      if (autofillData.has(dni)){
+          log(`Autofilling ${dni}`)
+          const rowData = autofillData.get(dni);
+          for (const entry of myMap.entries()) {
+            if (entry.key.equals(key)){ continue;}
+            log(`Autofilling ${dni} with ${entry.key}=${entry.value}`)
+            const selector = `.${entry.key}`
+            row.querySelector(selector).value = entry.value
+          }
+      }else{
 
-function log(message){
-  console.log("Guarangada: ",message)
+      }
+      
+  }
 }
 
+function addAutofillButton(form_renglones){
+  const element = document.getElementById("notas_cursada_query").parentElement
+  const button = fromHTML(`<button> Autofill </button>`)
+  button.onclick = () =>{
+    getSettings( settings =>{
+        autofill(table_body.rows,settings.autofillData)
+    })
+  }
+  element.appendChild(button)
+}
 log("Waiting for form...")
 
 function init(form_renglones){
@@ -88,6 +114,7 @@ function init(form_renglones){
     form_renglones = document.querySelector(form_renglones_selector)
     add_save_button(form_renglones)
     add_row_buttons(form_renglones)
+    addAutofillButton(form_renglones)
     log("Done")
   },100)
 }

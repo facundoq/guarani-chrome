@@ -24,6 +24,8 @@
     {
   
         "js": [ "scripts/utils.js",
+                "scripts/dom_utils.js",        
+                "scripts/csv_utils.js",        
                 "scripts/settings.js",
                 "scripts/student_buttons.js",
                 "scripts/themes.js"

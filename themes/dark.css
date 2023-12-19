@@ -7,3 +7,16 @@ body{
     background-color: #444444;
     color:white;
 }
+
+
+.table-striped tbody>tr:nth-child(odd)>td, .table-striped tbody>tr:nth-child(odd)>th {
+    background-color: #000000;
+}
+
+.js-recuadro_periodo h3, .recuadro h3{
+    color:#FFFFFF !important;
+}
+
+.listado-comisiones tbody>tr:hover{
+    background-color: #222222;
+}
