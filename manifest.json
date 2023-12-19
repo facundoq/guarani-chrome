@@ -14,21 +14,37 @@
         "48": "images/icon-48.png",
         "128": "images/icon-128.png"
     },
+    "web_accessible_resources": [
+      {"resources": ["/themes/*"],
+      "matches": ["https://autogestion.guarani.unlp.edu.ar/*"],
+      "use_dynamic_url": true
+      }
+    ],
     "content_scripts": [
     {
   
         "js": [ "scripts/utils.js",
                 "scripts/settings.js",
-                "scripts/content.js"
+                "scripts/student_buttons.js",
+                "scripts/themes.js"
               ],
+        "css":[ 
+        ],
         "matches": [
         "https://guarani.unlp.edu.ar/*",
         "https://autogestion.guarani.unlp.edu.ar/*"
         ]
     }
     ],
+    "background":[
+      
+    ],
     "permissions": [
-      "storage"
+      "storage",
+      "scripting"
+    ],
+    "host_permissions": [
+      "https://autogestion.guarani.unlp.edu.ar/*"
     ]
     
   }

@@ -9,10 +9,18 @@ function initializeSettings(){
   
 
 
+
 function updateSettings(){
-  setSettings({ date: date.value});
+  getSettings( settings => {
+    settings.date = date.value;
+    setSettings(settings);
+    console.log(`settings ${settings}`)
+  });
+  
 }
 
 
-  document.addEventListener('DOMContentLoaded', initializeSettings);
-  document.getElementById('date').addEventListener('change', updateSettings);
+document.addEventListener('DOMContentLoaded', initializeSettings);
+document.getElementById('date').addEventListener('change', updateSettings);
+
+

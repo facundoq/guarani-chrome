@@ -94,5 +94,8 @@ function init(form_renglones){
 
 // when_form_renglones_ready([add_save_button,add_row_buttons])
 form_renglones_selector = ".form-renglones"
-waitForElement(form_renglones_selector,init)
+timeout= 5000;
+waitForElement(form_renglones_selector,init,timeout,() =>{
+  log(`after waiting for ${timeout}, assuming no form in page.`)
+})
 
