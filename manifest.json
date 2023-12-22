@@ -27,7 +27,10 @@
                 "scripts/dom_utils.js",        
                 "scripts/csv_utils.js",        
                 "scripts/settings.js",
+                "scripts/form_renglones.js",
                 "scripts/student_buttons.js",
+                "scripts/autofill.js",
+                "scripts/save_button.js",
                 "scripts/themes.js"
               ],
         "css":[ 

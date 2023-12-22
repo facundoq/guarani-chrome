@@ -1,11 +1,15 @@
 .form-actions{
-    background-color: #444444;
+    background-color: #222222;
     color:white;
 }
 
 body{
-    background-color: #444444;
+    background-color: #222222;
     color:white;
+}
+
+form .g3-form-form {
+    background-color: #5e5e5e;
 }
 
 
@@ -19,4 +23,15 @@ body{
 
 .listado-comisiones tbody>tr:hover{
     background-color: #222222;
+}
+
+
+.well {
+    background-color: #d5d5d5;
+  
+}
+
+
+#back-to-top{
+    display:none;
 }

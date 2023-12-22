@@ -56,3 +56,12 @@ function waitForElement(selector, callback, checkFrequencyInMs=1000, timeoutInMs
     }
   })();
 }
+function propagateOnChange(element){
+  var event = new Event('change', { bubbles: true });
+  element.dispatchEvent(event);
+}
+
+function cleanPropagate(e){
+  e.value=""
+  propagateOnChange(e)
+}

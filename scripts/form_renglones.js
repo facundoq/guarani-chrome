@@ -1,5 +1,20 @@
+const form_renglones_selector = ".form-renglones"
 
-function when_form_renglones_ready(listeners){
+function failed_callback(){
+  log(`after waiting for ${timeout}, assuming there's no form in page.`);
+}
+
+function when_form_renglones_ready(callback,timeout=5000,additional_wait=100){
+
+  const formCallback = () => {
+    const form_renglones = document.querySelector(form_renglones_selector);
+    callback(form_renglones);
+  }
+  const waitCallback = () => { setTimeout(formCallback,additional_wait)}
+  waitForElement(form_renglones_selector,waitCallback,timeout,failed_callback)
+}
+
+function when_form_renglones_ready_old(listeners){
     const columna = document.querySelector("#columna_1");
       if (!columna) {
         console.log("#Columna_1 not found; not a students form.")

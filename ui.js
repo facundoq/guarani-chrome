@@ -10,6 +10,7 @@ function initializeSettings(){
   getSettings( settings => {
     date.value = settings.date;
     autofillData.value = settings.autofillData
+    updateAutofillDataViewer()
   });
 };
   
@@ -19,11 +20,16 @@ function updateSettings(){
     settings.autofillData=autofillData;
     setSettings(settings);
     log(`settings ${settings}`);
+    
   });
 }
 
 function updateAutofillDataViewer(){
-  autofillDataViewer.innerHTML=`Data loaded correctly, ${autofillData.size} rows:\n ${autofillData.toString()}`;
+  if (autofillData){
+    autofillDataViewer.innerHTML=`Data loaded correctly, ${autofillData.size} rows:\n ${autofillData.toString()}`;
+  }else{
+    autofillDataViewer.innerHTML = "No data loaded"
+  }
 }
 
 
