@@ -28,7 +28,7 @@ function initializeThemeChooser(settings){
     log(`initializing theme chooser`)
     const darkUrl =  chrome.runtime.getURL("themes/dark.css");
     let dark = addCSS(darkUrl)
-
+        
     let darkButton = fromHTML(`<select type="text" name="theme" id="theme">
     <option value="light">Claro 🌕</option>
     <option value="dark">Oscuro 🌑</option>

@@ -1,10 +1,15 @@
+function validateCSV(input,separator=";"){
+  return input.trim().length>0;
+}
 
-function parseCSV(input,separator=";"){
+
+function parseCSV(input,separator=";",normalize_header=false){
     const lines = input.split(/\r\n|\n/).map(r => r.trim())
     const nonemptyLines = lines.filter(r => r.length>0)    
     const splitLines = nonemptyLines.map((l) => l.split(separator))
-    const header = splitLines.shift().map(h => h.trim().toLowerCase())
-    log(header)
+    const basicHeader = splitLines.shift()
+    const header = normalize_header ? basicHeader.map(h => h.trim().toLowerCase()) : basicHeader;
+    
     const rows = [];
     splitLines.forEach((values,i) =>{
         if (header.size!=values.size){
@@ -14,7 +19,8 @@ function parseCSV(input,separator=";"){
         rows.push(row)
         
     });
-    log(rows)
+    
     return [rows, header]
   }
-  parseCSV("dni;h1\n23;v1\n")
+
+  // parseCSV("dni;h1\n23;v1\n  \n  \n")

@@ -36,9 +36,11 @@ function fromHTML(html, trim = true) {
     return result;
   }
 
+function appendChildren(root,children){
+  children.forEach(child => root.appendChild(child));
+}
 
-
-function waitForElement(selector, callback, checkFrequencyInMs=1000, timeoutInMs=15000,failure_callback=undefined) {
+function waitForElement(selector, callback, checkFrequencyInMs=10, timeoutInMs=15000,failure_callback=undefined) {
   var startTimeInMs = Date.now();
   (function loopSearch() {
     element = document.querySelector(selector)

@@ -4,7 +4,7 @@ function failed_callback(){
   log(`after waiting for ${timeout}, assuming there's no form in page.`);
 }
 
-function when_form_renglones_ready(callback,timeout=5000,additional_wait=100){
+function when_form_renglones_ready(callback,timeout=5000,additional_wait=10){
 
   const formCallback = () => {
     const form_renglones = document.querySelector(form_renglones_selector);

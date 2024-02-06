@@ -1,60 +1,85 @@
-const id_key = "dni"
-function sampleData(){
-    const student1 = new Map();
-    student1.set(id_key,"25498891")
-    student1.set("condicion","Aprobado")
-    const student2 = new Map();
-    student2.set(id_key,"25498891")
-    student2.set("condicion","Aprobado")
 
-    const sampleAutofillData = new Map();
-    sampleAutofillData.set(student1.get(id_key),student1)
-    sampleAutofillData.set(student2.get(id_key),student2)
-    return sampleAutofillData
+function dniMatcher(studentData,allData){
+  const matches = allData.filter(s => s.get("dni") == studentData.dni)
+  if (matches.length===1){
+    return Either.Right(matches[0])
+  }else{
+    return Either.Left(matches)
+  }
 }
 
-const sampleAutofillData = sampleData()
+function getStudentData(row){
+  const dni_element_value = row.querySelector(".identificacion").innerText
+  const dni = dni_element_value.split(" ")[1];
+  const nombre = row.querySelector(".nombre").innerText
+  const fecha = row.querySelector(".fecha").value
+  const notaCursada = row.querySelector(".nota_cursada").value
+  const resultado = row.querySelector(".resultado").value
+  const condicion = row.querySelector(".condicion").value
+  
+  const studentData = {
+    dni:dni,
+    nombre:nombre,
+    date:fecha,
+    nota:notaCursada,
+    resultado:resultado,
+    condicion:condicion,
+  }
+  return studentData
+}
+function studentFormEmpty(studentFormData){
+  const s = studentFormData;
+  return (s.date === "") & (s.nota === "") & (s.condicion === "") & (s.resultado === "")
+}
 
 
-function autofill(rows,autofillData){
+
+
+function convertValues(value,column){
+  // TODO test alternative
+  if (csvConfig.values.keys().contains(column)){
+    return csvConfig.values[column][value]
+  }else{
+    return value
+  } 
+}
+
+function autofillStudent(row,studentData){
+  csvConfig.dataColumns.forEach(column =>{
+    if (studentData.has(column)){
+      const autofillValue = convertValues(studentData.get(column),column);
+      const element = row.querySelector(`.${column}`)
+      element.value = autofillValue;
+      var event = new Event('change');
+      element.dispatchEvent(event);
+    }
+  })
+  row.classList.add("autofilledStudent");
+}
+
+function markUnmatchedStudent(row,matches){
+  row.classList.add("unmatchedStudent");
+}
+
+function markAlreadyFilledStudent(row){
+  row.classList.add("alreadyFilledStudent");
+}
+
+function autofill(rows,autofillData,matcher=dniMatcher,onlyEmpty=true){
     
     for (let row of rows){
-        const id_element_value = row.querySelector(".identificacion").innerText
-        log(id_element_value)
-        const id = id_element_value.split(" ")[1];
-        if (autofillData.has(dni)){
-            log(`Autofilling ${dni}`)
-            const rowData = autofillData.get(dni);
-            for (const entry of myMap.entries()) {
-              if (entry.key.equals(key)){ continue;}
-              log(`Autofilling ${dni} with ${entry.key}=${entry.value}`)
-              const selector = `.${entry.key}`
-              row.querySelector(selector).value = entry.value
-            }
-        }else{
-            log(`Could not find match for ${dni}. `)
+        const studentFormData = getStudentData(row) 
+        if (onlyEmpty && !studentFormEmpty(studentFormData)){
+          markAlreadyFilledStudent(row)
+          continue;
         }
-        
-    }
-  }
-  
-  function addAutofillButton(form_renglones){
-    log("adding autofill button")
-    const element = document.getElementById("notas_cursada_query").parentElement
-    log(element)
-    const button = fromHTML(`<button> Autofill </button>`)
-    const table = form_renglones.children[1];
-    const table_body = table.children[1];
 
-    button.onclick = () =>{
-      getSettings( settings =>{
-          autofill(table_body.rows,settings.autofillData)
-      })
+        const studentDataResult = matcher(studentFormData,autofillData);
+        studentDataResult.doRight((studentData) =>{
+          autofillStudent(row,studentData)
+        })
+        studentDataResult.doLeft((matches) =>{
+          markUnmatchedStudent(row,matches)
+        })
     }
-    element.appendChild(button)
-    log(button)
-  }
-  
-
-  when_form_renglones_ready(addAutofillButton);
-  
+  }  

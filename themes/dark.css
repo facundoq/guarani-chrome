@@ -32,6 +32,19 @@ form .g3-form-form {
 }
 
 
-#back-to-top{
-    display:none;
+#autofillConfig{
+    background-color: black;
+    color:white;
+}
+
+.alreadyFilledStudent {
+    background-color: rgb(54, 46, 15)
+}
+
+.autofilledStudent {
+    background-color: rgb(18, 69, 20)
+}
+
+.unmatchedStudent {
+    background-color: rgb(69, 18, 18)
 }

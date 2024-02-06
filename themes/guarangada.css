@@ -1,0 +1,44 @@
+
+#autofillConfig{
+    float:right;
+    position:absolute;
+    box-shadow: inset;
+    border:2px solid gray;
+    z-index:1000;
+    min-height: 400px;
+    min-width: 30%;
+    padding:10px 20px;
+    border-radius: 5px;
+}
+
+
+#back-to-top{
+    display:none;
+}
+
+#autofillSubmitButton{
+    display: block;
+}
+
+#autofillConfigCloseButton{
+    display: block;
+}
+#autofillInput{
+    width:100%;
+    min-height: 70px;
+}
+#guarangadaLogo{
+    width:24px;
+}
+#autofillDataViewer{
+    cursor: text;
+    width: 100%;
+    min-height: 200px;
+}
+
+#autofillContainer{
+    padding:2px;
+    background-color: rgb(20, 20, 20);
+    display: flex;
+    align-items: flex-end;
+}
