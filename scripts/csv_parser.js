@@ -1,3 +1,4 @@
+
 const csvConfig = {
   dataColumns: ["fecha", "condicion", "nota_cursada", "resultado"],
   keyColumns: ["dni", "nombre"],
@@ -27,10 +28,18 @@ const csvConfig = {
 }
 
 function checkValues(column,values,autofillData){
-  const rowsWithWrongValues = autofillData.filter(s => {!values.includes(s.get(column)) });
-  return (rowsWithWrongValues.length===0)? Some(rowsWithWrongValues) : None
+  const rowsWithWrongValues = autofillData.filter(s => !values.includes(s.get(column)));
+  return (rowsWithWrongValues.length===0)? None: Some(rowsWithWrongValues);
 }
 
+function printRow(row){
+  return Array.from(row.values()).join(csvConfig.csvSeparator);
+}
+function printAutofillData(data,header){
+    let headerRow = header.join(csvConfig.csvSeparator)
+    let rows = data.map(printRow).join("\n")
+    return `${headerRow}\n${rows}\n`
+}
 
 function csv2autofillData(data){
 
@@ -50,20 +59,18 @@ function csv2autofillData(data){
         if (autofillData.length === 0){
           return Either.Left(`El csv solo contiene un encabezado, y no contiene datos.\n - Encabezado: ${header}`)
         }
-
+        console.log("Validating values..")
         for ( [key, values] of Object.entries(csvConfig.values)) {
           if (header.includes(key)){
             const validValues = Object.keys(values);
+            console.log(validValues)
             const valueCheck = checkValues(key,validValues,autofillData);
             if (valueCheck.isSome()){
-              console.log(valueCheck)
-              return Either.Left(`Column ${key} contains invalid values.\n Valid values ${validValues}.\n Rows with invalid values:\n${valueCheck.get()} `)
+              let rowsWithErrors = valueCheck.get()
+              return Either.Left(`La columna ${key} contiene valores inválidos.\n Valores válidos: ${validValues}.\n Filas con valores inválidos:\n${printAutofillData(rowsWithErrors,header)}`)
             }
           }
         }
 
         return Either.Right([autofillData,header])
-        
-
-
     }

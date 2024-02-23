@@ -16,7 +16,7 @@ function updateTheme(dark,darkButton){
         setSettings(settings);
     });
 
-    log(`Changing theme to ${darkButton.value}`)
+    console.log(`Changing theme to ${darkButton.value}`)
     if (darkButton.value == "dark"){
         dark.disabled = false;
     }else{
@@ -25,7 +25,7 @@ function updateTheme(dark,darkButton){
 }
 
 function initializeThemeChooser(settings){
-    log(`initializing theme chooser`)
+    console.log(`initializing theme chooser`)
     const darkUrl =  chrome.runtime.getURL("themes/dark.css");
     let dark = addCSS(darkUrl)
         

@@ -37,7 +37,8 @@ function studentFormEmpty(studentFormData){
 
 function convertValues(value,column){
   // TODO test alternative
-  if (csvConfig.values.keys().contains(column)){
+  
+  if (column in csvConfig.values){
     return csvConfig.values[column][value]
   }else{
     return value
@@ -55,14 +56,23 @@ function autofillStudent(row,studentData){
     }
   })
   row.classList.add("autofilledStudent");
+  addEmojiStudent(row,"✅")
 }
 
 function markUnmatchedStudent(row,matches){
   row.classList.add("unmatchedStudent");
+  addEmojiStudent(row,"❌")
 }
 
+function addEmojiStudent(row,emoji){
+  let alumnoDiv = row.querySelector(".nombre");
+  alumnoDiv.innerText += emoji
+}
 function markAlreadyFilledStudent(row){
   row.classList.add("alreadyFilledStudent");
+  addEmojiStudent(row,"⚠️")
+  // let resultImage = document.createElement('img')
+  // alumnoDiv.appendChild()
 }
 
 function autofill(rows,autofillData,matcher=dniMatcher,onlyEmpty=true){

@@ -6,17 +6,12 @@ function dictFromLists(keys,vals){
       [k,v]= kv;
       dict.set(k,v);
     })
-    log(dict)
     return dict
 }
 
 function listOfDictToDictOfDict(rows,key="dni"){   
   const keys = rows.map(row => {return row.get(key)})
   return dictFromLists(keys,rows)
-}
-
-function log(message){
-  console.log("Guarangada: ",message)
 }
 
 

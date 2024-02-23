@@ -1,7 +1,7 @@
 const sampleCSV = `dni;condicion
 44960966;Aprobado
-45814671;Aprobado
 44785441;Insuficiente
+45814671;Aprobado
 96172896;Desaprobado`
  
 function autofillDataToString(autofillData,k=5){
@@ -185,11 +185,11 @@ function AutofillDataViewer(){
 
   function AutofillUI(rows_element){
   const container = fromHTML(`<div class="span3" id="autofillContainer"> </div>`)
-  log("adding autofill button")
+  console.log("adding autofill button")
 
   const guarangadaLogo = fromHTML(`<img id="guarangadaLogo" src="/images/logo.png"/>`)
   const autofillStartButtonUI = AutofillStartButtonUI(rows_element)
-  log("adding autofill config button")
+  console.log("adding autofill config button")
   const autofillConfigUI = AutofillConfigUI(autofillStartButtonUI)
 
   appendChildren(container,[guarangadaLogo,autofillStartButtonUI,autofillConfigUI])
