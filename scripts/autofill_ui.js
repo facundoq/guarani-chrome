@@ -110,7 +110,7 @@ function AutofillDataViewer(){
     Cols. de identificación: ${csvConfig.keyColumns}
     Cols. de datos: ${csvConfig.dataColumns}
     `
-    const label = fromHTML(`<label for="autofillInput" style="display:block" title="${labelTitle}">Carga de CSV para autollenado:</label>`)
+    const label = fromHTML(`<label for="autofillInput" style="display:block" title="${labelTitle}">Carga de CSV para autollenado 🛈:</label>`)
     const autofillDataInput = fromHTML(`
     <textarea type="text" name="autofill" id="autofillInput"> 
       ${sampleCSV} 
@@ -129,19 +129,43 @@ function AutofillDataViewer(){
       submit.disabled = !validateAutofillData(autofillDataInput);
     }
     autofillDataInput.onchange()
-
-    root.appendChild(label)
-    appendChildren(root,[closeButton,label,autofillDataInput,submit,resultLabel, resultViewer,autofillDataViewerLabel,autofillDataViewer,autofillDeleteButton])
+    const autofillOverwriteConfigUI = AutofillOverwriteConfigUI(value =>{
+      getAndSetSettings(
+        (settings) => {
+          settings.overwriteOnAutofill=value;
+          console.log(settings)
+          return settings  
+        },);
+    })
+    // root.appendChild(autofillOverwriteConfigUI);
+    // root.appendChild(label);
+    appendChildren(root,[closeButton,autofillOverwriteConfigUI,label,autofillDataInput,submit,resultLabel, resultViewer,autofillDataViewerLabel,autofillDataViewer,autofillDeleteButton])
     
 
     autofillDataViewer.update()
     return root
   }
+  function AutofillOverwriteConfigUI(onchangeCallback){
+    const root = fromHTML(`<div id="autofillOverwrite"></div>`)
+    const labelTitle = "Sobreescribir valores (notas, condición, fecha, etc) existentes al rellenar."
+    const label = fromHTML(`<label title="${labelTitle}" style="display:inline;">Sobreescribir valores: </label>`)
+    const checkbox = fromHTML(`<input type="checkbox" id="autofillOverwriteCheckbox"/>`)
+    checkbox.onchange = (e) =>{
+      onchangeCallback(checkbox.checked)
+    }
+    root.appendChild(label)
+    root.appendChild(checkbox)
+    getSettings(s =>{
+      console.log(s.overwriteOnAutofill)
+      checkbox.checked = s.overwriteOnAutofill;
+    })
+    return root
+  }
 
   function AutofillConfigUI(autofillStartButton){
     const root = fromHTML(`<div id="autofillConfigContainer" style="display:inline"></div>`)
-    const openButton = fromHTML(`<button type='button'> Config </button>`)
-    const closeButton = fromHTML(`<button type='button' id="autofillConfigCloseButton"> Cerrar </button>`)
+    const openButton = fromHTML(`<button type='button'> Config ⚙️ </button>`)
+    const closeButton = fromHTML(`<button type='button' id="autofillConfigCloseButton"> Cerrar ✖</button>`)
     const config = AutofillConfigPopUpUI(autofillStartButton,closeButton)
     
     openButton.onclick = () =>{
