@@ -1,4 +1,7 @@
-_settings = chrome.storage.sync.get({ date: '01/01/2024',theme:"light",overwriteOnAutofill:false},() => {});
+_settings = { date: '01/01/2024',theme:"light",overwriteOnAutofill:false}
+chrome.storage.sync.get((s) => {
+  _settings = s
+});
 
 function getSettings(f){
   f(_settings)

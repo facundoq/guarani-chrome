@@ -81,11 +81,14 @@ class FakeSync {
 	this.values = v
 	callback()
   }
-  get(def,callback){
+  get(default_value,callback){
 	if (this.values){
 		callback(this.values)
+		console.log("REturning stored value")
 	}else{
-		callback(def)
+		console.log("REturning default value", default_value)
+		this.values = default_value
+		callback(default_value)
 	}
   }
 }
@@ -93,13 +96,13 @@ chrome.storage = {sync:new FakeSync()}
 chrome.runtime= {getURL:(url) => `/${url}`}
 </script>
 
+	<script src="../../scripts/settings.js" charset="utf-8"></script>
 	<script src="../../scripts/utils.js" charset="utf-8"></script>
     <script src="../../scripts/guarangada_utils.js" charset="utf-8"></script>
     <script src="../../scripts/dom_utils.js" charset="utf-8"></script>
     <script src="../../scripts/csv_utils.js" charset="utf-8"></script>
 	<script src="../../scripts/form_renglones.js" charset="utf-8"></script>
 	<script src="../../scripts/csv_parser.js" charset="utf-8"></script>
-    <script src="../../scripts/settings.js" charset="utf-8"></script>
 	<script src="../../scripts/autofill.js" charset="utf-8"></script>
 	<script src="../../scripts/student_buttons.js" charset="utf-8"></script>
 	<script src="../../scripts/themes.js" charset="utf-8"></script>
