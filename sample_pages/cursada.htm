@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 <link rel="icon" href="https://autogestion.guarani.unlp.edu.ar/_comp/siu/img/favicon.ico" type="image/x-icon">
 
-<title>SIU Guaran? - Carga de notas de cursada</title>
+<title>SIU Guaraní - Carga de notas de cursada</title>
 
 	<!-- <script type="text/javascript" async="" src="./cursada_files/ga.js">-->
 
@@ -17,7 +17,7 @@
     <link type="text/css" href="./cursada_files/font-awesome.min.css" rel="stylesheet">
 
 
-	<link type="text/css" href="../themes/dark.css" rel="stylesheet">
+	<!-- <link type="text/css" href="../themes/dark.css" rel="stylesheet"> -->
 
 <!--[if lt IE 9]>
 	<script type='text/javascript' src='/_comp/js/html5.js'></script>
@@ -75,25 +75,29 @@ var autocompletar_input_habilitado = false;
 // add sync map to chrome.storage to fake being in an extension
 class FakeSync {
   constructor() {
-    this.values = undefined
+    this.values = {}
   }
-  set(v,callback){
-	this.values = v
+  set(kv,callback){
+	for (const [k, v] of Object.entries(kv)) {
+		this.values[k] = v
+	}
 	callback()
   }
-  get(default_value,callback){
-	if (this.values){
-		callback(this.values)
-		console.log("REturning stored value")
-	}else{
-		console.log("REturning default value", default_value)
-		this.values = default_value
-		callback(default_value)
-	}
+  get(key,callback){
+	callback(this.values[key])
+	// if (this.values){
+	// 	callback(this.values)
+	// 	console.log("REturning stored value")
+	// }else{
+	// 	console.log("REturning default value", key)
+	// 	this.values = key
+	// 	callback(key)
+	// }
   }
 }
 chrome.storage = {sync:new FakeSync()}
 chrome.runtime= {getURL:(url) => `/${url}`}
+
 </script>
 
 	<script src="../../scripts/settings.js" charset="utf-8"></script>
@@ -135,10 +139,6 @@ chrome.runtime= {getURL:(url) => `/${url}`}
 										<i class="icon-envelope"></i>
 										<span id="js-cant-mensajes" class="badge">0</span>
 									</a>
-								<select type="text" name="theme" id="theme">
-    <option value="light">Claro &#127765;</option>
-    <option value="dark">Oscuro &#127761;</option>
-    </select></li>
 								<li class="dropdown">
 								<a href="https://autogestion.guarani.unlp.edu.ar/cursada/edicion/bab2b8ae1c57a3003ee0383f7fd5771b543bf28d8b9bbd00de1704c453878bfc6819618776bcff0a/2#" class="dropdown-toggle no-ajax" data-toggle="dropdown"><i class="icon-user"></i> Facundo Manuel Quiroga <b class="caret"></b></a>
 								<ul class="dropdown-menu">

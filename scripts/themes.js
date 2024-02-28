@@ -10,40 +10,41 @@ function addCSS(href){
     return link
 }
 
-function updateTheme(dark,darkButton){
-    getSettings( settings => {
-        settings.theme = darkButton.value;
-        setSettings(settings);
-    });
-
-    console.log(`Changing theme to ${darkButton.value}`)
-    if (darkButton.value == "dark"){
+function updateTheme(dark,themeButton){
+    console.log(`Changing theme to "${themeButton.value}"`)
+    setSettings("theme",themeButton.value);
+    
+    if (themeButton.value == "dark"){
         dark.disabled = false;
     }else{
         dark.disabled = true;
     }
 }
 
-function initializeThemeChooser(settings){
+function initializeThemeChooser(){
     console.log(`initializing theme chooser`)
     const darkUrl =  chrome.runtime.getURL("themes/dark.css");
+    console.log(`Loading ${darkUrl}`)
     let dark = addCSS(darkUrl)
-        
-    let darkButton = fromHTML(`<select type="text" name="theme" id="theme">
+    let themeSelect = fromHTML(`<select type="text" name="theme" id="theme">
     <option value="light">Claro 🌕</option>
     <option value="dark">Oscuro 🌑</option>
     </select>`)
-
-    darkButton.selected = settings.theme
-    darkButton.onchange = () => updateTheme(dark,darkButton)
+    themeSelect.value = getSettings("theme")
 
     let notifications = document.querySelector(".notificaciones")
     if (notifications){
-        notifications.appendChild(darkButton)
+        notifications.appendChild(themeSelect)
+    }else{
+        console.log(`Did not find element ".notificaciones" to append the theme chooser`)
     }
-    updateTheme(dark,darkButton)
+
+    themeSelect.addEventListener('change', (event) => updateTheme(dark,themeSelect))
+    
+    updateTheme(dark,themeSelect)
 }
-getSettings( settings => {
-    initializeThemeChooser(settings)
-})
+
+// when_form_renglones_ready(initializeThemeChooser);
+ready(initializeThemeChooser)
+
 

@@ -27,7 +27,7 @@ function getStudentData(row){
   }
   return studentData
 }
-function studentFormEmpty(studentFormData){
+function isStudentFormEmpty(studentFormData){
   const s = studentFormData;
   return (s.date === "") & (s.nota === "") & (s.condicion === "") & (s.resultado === "")
 }
@@ -55,41 +55,79 @@ function autofillStudent(row,studentData){
       element.dispatchEvent(event);
     }
   })
-  row.classList.add("autofilledStudent");
-  addEmojiStudent(row,"✅")
+  
 }
 
+function addToStudentTitle(row,message){
+ const nombre = row.querySelector(".nombre")
+ const id = row.querySelector(".identificacion")
+ const emoji = row.querySelector(".result-emoji")
+ nombre.title = `${nombre.title}: ${message}`
+ id.title = `${id.title}: ${message}`
+ emoji.title = message;
+}
+
+function setStudentClass(row,klass){
+  row.classList.remove(...row.classList);
+  row.classList.add(klass);
+}
+function markFilledStudent(row){
+  setStudentClass(row,"autofilledStudent")
+  addEmojiStudent(row,"✅")
+  addToStudentTitle(row,"ha sido completado automaticamente")
+  
+}
+
+function markOverwrittenStudent(row){
+  setStudentClass(row,"modifiedStudent");
+  addEmojiStudent(row,"✏️")
+  addToStudentTitle(row,"ha sido editado automáticamente")
+  
+}
 function markUnmatchedStudent(row,matches){
-  row.classList.add("unmatchedStudent");
+  setStudentClass(row,"unmatchedStudent");
   addEmojiStudent(row,"❌")
+  addToStudentTitle(row,"no se pudo encontrar en el csv")
 }
 
 function addEmojiStudent(row,emoji){
-  let alumnoDiv = row.querySelector(".nombre");
-  alumnoDiv.innerText += emoji
+  let alumnoDiv = row.querySelector(".datos-alumno");
+  const emojiElement = fromHTML(`<span class="result-emoji"> ${emoji}<span>`)
+  alumnoDiv.appendChild(emojiElement)
+  // alumnoDiv.innerText += emoji
 }
 function markAlreadyFilledStudent(row){
-  row.classList.add("alreadyFilledStudent");
+  setStudentClass(row,"alreadyFilledStudent");
   addEmojiStudent(row,"⚠️")
-  // let resultImage = document.createElement('img')
+  addToStudentTitle(row,"No se modificó porque ya tenía valores cargados")
+    // let resultImage = document.createElement('img')
   // alumnoDiv.appendChild()
 }
 
-function autofill(rows,autofillData,matcher=dniMatcher,onlyEmpty=true){
-    
+function autofill(rows,autofillData,overwrite,matcher=dniMatcher){
     for (let row of rows){
-        const studentFormData = getStudentData(row) 
-        if (onlyEmpty && !studentFormEmpty(studentFormData)){
+        const studentFormData = getStudentData(row)
+        const studentFormEmpty = isStudentFormEmpty(studentFormData) 
+        if (!overwrite && !studentFormEmpty){
           markAlreadyFilledStudent(row)
           continue;
         }
-
+        
         const studentDataResult = matcher(studentFormData,autofillData);
         studentDataResult.doRight((studentData) =>{
           autofillStudent(row,studentData)
+          if (studentFormEmpty){
+            markFilledStudent(row)
+          }else{
+            markOverwrittenStudent(row)
+          }
         })
         studentDataResult.doLeft((matches) =>{
-          markUnmatchedStudent(row,matches)
+          if (studentFormEmpty){
+            markUnmatchedStudent(row,matches)
+          }else{
+            markAlreadyFilledStudent(row)
+          }
         })
     }
   }  

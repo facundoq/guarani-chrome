@@ -38,11 +38,16 @@ form .g3-form-form {
 }
 
 .alreadyFilledStudent {
-    background-color: rgb(54, 46, 15)
+    background-color: rgba(71, 69, 34, 0.604)
 }
 
 .autofilledStudent {
     background-color: rgb(18, 69, 20)
+}
+
+
+.modifiedStudent {
+    background-color: rgb(78, 110, 2)
 }
 
 .unmatchedStudent {

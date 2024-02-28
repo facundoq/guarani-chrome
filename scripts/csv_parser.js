@@ -59,11 +59,9 @@ function csv2autofillData(data){
         if (autofillData.length === 0){
           return Either.Left(`El csv solo contiene un encabezado, y no contiene datos.\n - Encabezado: ${header}`)
         }
-        console.log("Validating values..")
         for ( [key, values] of Object.entries(csvConfig.values)) {
           if (header.includes(key)){
             const validValues = Object.keys(values);
-            console.log(validValues)
             const valueCheck = checkValues(key,validValues,autofillData);
             if (valueCheck.isSome()){
               let rowsWithErrors = valueCheck.get()

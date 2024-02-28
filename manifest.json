@@ -3,7 +3,7 @@
     "name": "Guarangada",
     "homepage_url": "https://github.com/facundoq/guarangada",
     "description": "Plugin para mejorar la usabilidad del inhóspito SIU GUARANI.\n *Guarangada* sólo soporta GUARANI 3, y está limitado a dominios de la UNLP. Si querés usarlo en otra universidad, [contactános](https://github.com/facundoq/guarangada/issues)",
-    "version": "2023.12.1",
+    "version": "2024.02.27",
     "action": {
       "default_popup": "index.html",
       "default_icon": "guarangada.png"
@@ -15,7 +15,7 @@
         "128": "images/icon-128.png"
     },
     "web_accessible_resources": [
-      {"resources": ["/themes/*","/images/*"],
+      {"resources": ["themes/*","images/*"],
       "matches": ["https://autogestion.guarani.unlp.edu.ar/*"],
       "use_dynamic_url": true
       }
@@ -23,10 +23,12 @@
     "content_scripts": [
     {
   
-        "js": [ "scripts/utils.js",
+        "js": [ 
+                "scripts/settings.js",
+                "scripts/utils.js",
                 "scripts/dom_utils.js",        
                 "scripts/csv_utils.js",        
-                "scripts/settings.js",
+                
                 "scripts/form_renglones.js",
                 "scripts/student_buttons.js",
                 "scripts/csv_parser.js",

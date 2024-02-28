@@ -1,8 +1,9 @@
-const sampleCSV = `dni;condicion
-44960966;Aprobado
-44785441;Insuficiente
-45814671;Aprobado
-96172896;Desaprobado`
+const sampleCSV = `dni;condicion;fecha;resultado;nota
+44960966;Aprobado;1/02/2024;Aprobado;A
+44785441;Insuficiente;1/02/2024;Reprobado;D
+45814671;Aprobado;1/02/2024;Aprobado;A
+96172896;Desaprobado;1/02/2024;Reprobado;D
+`
  
 function autofillDataToString(autofillData,k=5){
   const n = autofillData.size;
@@ -29,15 +30,13 @@ function AutofillDataViewer(){
     No hay datos cargados
     </textarea>`)
     root.update = () => {
-      getSettings( settings => {
-        const autofillData = settings.autofillData
-        if (autofillData){
-          const k = 5;
-          root.value=`${autofillDataToString(autofillData,k)}\n...\nTotal: ${autofillData.length} filas.\n`;
-        }else{
-          root.value = "No hay datos guardados."
-        }
-      });
+      const autofillData = getSettings("autofillData")
+      if (autofillData){
+        const k = 5;
+        root.value=`${autofillDataToString(autofillData,k)}\n...\nTotal: ${autofillData.length} filas.\n`;
+      }else{
+        root.value = "No hay datos guardados."
+      }
     }
     return root
   }
@@ -60,18 +59,11 @@ function AutofillDataViewer(){
          ${errors}\n`;
       })
       result.doRight(([autofillData,header])=>{
-        getAndSetSettings(
-          (settings) => {
-            settings.autofillData=autofillData;
-            return settings  
-          },
-          () => {
-            resultViewer.innerHTML=`Carga exitosa.\n - Filas: ${autofillData.length}\n - Columnas: ${header.length} (${header})`;
-            autofillDataViewer.update();
-            autofillStartButton.update();
-            autofillDeleteButton.update();
-          }
-        );
+        setSettings("autofillData",autofillData)
+        resultViewer.innerHTML=`Carga exitosa.\n - Filas: ${autofillData.length}\n - Columnas: ${header.length} (${header})`;
+        autofillDataViewer.update();
+        autofillStartButton.update();
+        autofillDeleteButton.update();
       });
     }
     return root
@@ -86,20 +78,14 @@ function AutofillDataViewer(){
   function AutofillDeleteButton(autofillDataViewer,autofillStartButton){
     const root = fromHTML(`<button  type="button" name="autofillDeleteButton" id="autofillDeleteButton"> Borrar datos cargados </button>`)
     root.onclick= () =>{
-      getSettings( (settings) => {
-        settings.autofillData = undefined;
-        setSettings(settings, ()=>{
-          autofillDataViewer.update();
-          autofillStartButton.update();
-          root.update();
-        })
-      })
+      setSettings("autofillData",undefined)
+      autofillDataViewer.update();
+      autofillStartButton.update();
+      root.update();
     }
 
     root.update = () =>{
-      getSettings( (settings) =>{
-        root.disabled = typeof settings.autofillData === 'undefined'
-      })
+      root.disabled = typeof getSettings("autofillData") === 'undefined'
     }
     root.update()
     return root
@@ -110,10 +96,12 @@ function AutofillDataViewer(){
     Cols. de identificación: ${csvConfig.keyColumns}
     Cols. de datos: ${csvConfig.dataColumns}
     `
+    var autofillData = getSettings("autofillData")
+    if (!autofillData){ autofillData = sampleCSV}
     const label = fromHTML(`<label for="autofillInput" style="display:block" title="${labelTitle}">Carga de CSV para autollenado 🛈:</label>`)
     const autofillDataInput = fromHTML(`
     <textarea type="text" name="autofill" id="autofillInput"> 
-      ${sampleCSV} 
+      ${autofillData} 
     </textarea>
       `)
     
@@ -130,12 +118,7 @@ function AutofillDataViewer(){
     }
     autofillDataInput.onchange()
     const autofillOverwriteConfigUI = AutofillOverwriteConfigUI(value =>{
-      getAndSetSettings(
-        (settings) => {
-          settings.overwriteOnAutofill=value;
-          console.log(settings)
-          return settings  
-        },);
+      setSettings("overwriteOnAutofill",value)
     })
     // root.appendChild(autofillOverwriteConfigUI);
     // root.appendChild(label);
@@ -155,10 +138,7 @@ function AutofillDataViewer(){
     }
     root.appendChild(label)
     root.appendChild(checkbox)
-    getSettings(s =>{
-      console.log(s.overwriteOnAutofill)
-      checkbox.checked = s.overwriteOnAutofill;
-    })
+    checkbox.checked = getSettings("overwriteOnAutofill");
     return root
   }
 
@@ -188,20 +168,17 @@ function AutofillDataViewer(){
   }
 
   function AutofillStartButtonUI(rows){
-    const button = fromHTML(`<button type='button'> Autofill </button>`)
+    const button = fromHTML(`<button type='button'> Autofill 📝</button>`)
     button.onclick = () =>{
-      getSettings( settings =>{
-          autofill(rows,settings.autofillData)
-      })
+
+      autofill(rows,getSettings("autofillData"),getSettings("overwriteOnAutofill"))
     }
     button.update = () =>{
-    getSettings(settings =>{
-        if (settings.autofillData){
-          button.disabled=false;
-        }else{
-          button.disabled=true;
-        }
-      })
+      if (getSettings("autofillData") ){
+        button.disabled=false;
+      }else{
+        button.disabled=true;
+      }
     }
     button.update()
     return button
