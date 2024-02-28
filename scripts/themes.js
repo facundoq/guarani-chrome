@@ -13,7 +13,7 @@ function addCSS(href){
 function updateTheme(dark,themeButton){
     console.log(`Changing theme to "${themeButton.value}"`)
     setSettings("theme",themeButton.value);
-    
+    console.log(getSettings("theme"))
     if (themeButton.value == "dark"){
         dark.disabled = false;
     }else{
@@ -31,7 +31,7 @@ function initializeThemeChooser(){
     <option value="dark">Oscuro 🌑</option>
     </select>`)
     themeSelect.value = getSettings("theme")
-
+    console.log(getSettings("theme"))
     let notifications = document.querySelector(".notificaciones")
     if (notifications){
         notifications.appendChild(themeSelect)
