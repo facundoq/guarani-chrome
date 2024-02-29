@@ -1,10 +1,10 @@
 
 const csvConfig = {
-  dataColumns: ["fecha", "condicion", "nota_cursada", "resultado"],
+  dataColumns: ["fecha", "condicion", "nota", "resultado"],
   keyColumns: ["dni", "nombre"],
   csvSeparator: ";",
   values:{
-    nota_cursada: {
+    nota: {
       "U": "U",
       "D": "D",
       "A": "A",

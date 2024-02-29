@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Guarangada",
     "homepage_url": "https://github.com/facundoq/guarangada",
-    "description": "Plugin para mejorar la usabilidad del inhóspito SIU GUARANI.\n *Guarangada* sólo soporta GUARANI 3, y está limitado a dominios de la UNLP. Si querés usarlo en otra universidad, [contactános](https://github.com/facundoq/guarangada/issues)",
+    "description": "Plugin para mejorar la usabilidad del SIU GUARANI.\n (https://github.com/facundoq/guarangada/issues)",
     "version": "2024.02.27",
     "action": {
       "default_popup": "index.html",

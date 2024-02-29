@@ -60,7 +60,7 @@ function AutofillDataViewer(){
       })
       result.doRight(([autofillData,header])=>{
         setSettings("autofillData",autofillData)
-        resultViewer.innerHTML=`Carga exitosa.\n - Filas: ${autofillData.length}\n - Columnas: ${header.length} (${header})`;
+        resultViewer.innerHTML=`Carga exitosa\n - Filas: ${autofillData.length}\n - Columnas: ${header.length}\n\t ${header.join("\n\t")}`;
         autofillDataViewer.update();
         autofillStartButton.update();
         autofillDeleteButton.update();
@@ -211,5 +211,5 @@ function AutofillDataViewer(){
 
 
 
-  when_form_renglones_ready(addAutofillUI);
+when_form_renglones_ready(addAutofillUI);
   

@@ -1,5 +1,7 @@
 # guarangada
 
+Plugin para mejorar la usabilidad del SIU GUARANI. (https://github.com/facundoq/guarangada/issues)
+
 
  La palabra `guarangada' tiene un uso peyorativo para referirse al habla del Guaraní. No obstante, algunas comunidades han [resignificado de forma positiva](http://repositorio.sociales.uba.ar/items/show/1205) el término, tomándolo como propio.
  De una forma similar y por sus diversas dificultades de uso, el sistema SIU GUARANI se ha convertido también en un término cuasi peyorativo entre estudiantes y docentes.

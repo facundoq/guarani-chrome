@@ -1,6 +1,8 @@
 
 function dniMatcher(studentData,allData){
+  console.log(`Matching ${studentData}...`)
   const matches = allData.filter(s => s.get("dni") == studentData.dni)
+  console.log(matches)
   if (matches.length===1){
     return Either.Right(matches[0])
   }else{
@@ -8,20 +10,32 @@ function dniMatcher(studentData,allData){
   }
 }
 
+const elementSelectors = {
+  dni:".identificacion",
+  nombre:".nombre",
+  fecha:".fecha",
+  nota:".nota_cursada",
+  resultado:".resultado",
+  condicion:".condicion",
+}
+
 function getStudentData(row){
-  const dni_element_value = row.querySelector(".identificacion").innerText
+  const dni_element_value = row.querySelector(elementSelectors["dni"]).innerText
   const dni = dni_element_value.split(" ")[1];
-  const nombre = row.querySelector(".nombre").innerText
-  const fecha = row.querySelector(".fecha").value
-  const notaCursada = row.querySelector(".nota_cursada").value
-  const resultado = row.querySelector(".resultado").value
-  const condicion = row.querySelector(".condicion").value
-  
+  const nombre = row.querySelector(elementSelectors["nombre"]).innerText
+  const fecha = row.querySelector(elementSelectors["fecha"]).value
+  const nota = row.querySelector(elementSelectors["nota"]).value
+  const resultado = row.querySelector(elementSelectors["resultado"]).value
+  const condicion = row.querySelector(elementSelectors["condicion"]).value
+  if (nota ==="-"){
+    nota = ""
+  }
+
   const studentData = {
     dni:dni,
     nombre:nombre,
-    date:fecha,
-    nota:notaCursada,
+    fecha:fecha,
+    nota:nota,
     resultado:resultado,
     condicion:condicion,
   }
@@ -29,7 +43,8 @@ function getStudentData(row){
 }
 function isStudentFormEmpty(studentFormData){
   const s = studentFormData;
-  return (s.date === "") & (s.nota === "") & (s.condicion === "") & (s.resultado === "")
+  console.log(s)
+  return (s.fecha === "") && (s.nota === "") & (s.condicion === "") & (s.resultado === "")
 }
 
 
@@ -47,9 +62,11 @@ function convertValues(value,column){
 
 function autofillStudent(row,studentData){
   csvConfig.dataColumns.forEach(column =>{
+    console.log(`Trying ${column}`)
     if (studentData.has(column)){
+      console.log(`Found ${column} `)
       const autofillValue = convertValues(studentData.get(column),column);
-      const element = row.querySelector(`.${column}`)
+      const element = row.querySelector(elementSelectors[column])
       element.value = autofillValue;
       var event = new Event('change');
       element.dispatchEvent(event);
@@ -59,12 +76,12 @@ function autofillStudent(row,studentData){
 }
 
 function addToStudentTitle(row,message){
- const nombre = row.querySelector(".nombre")
- const id = row.querySelector(".identificacion")
- const emoji = row.querySelector(".result-emoji")
- nombre.title = `${nombre.title}: ${message}`
- id.title = `${id.title}: ${message}`
- emoji.title = message;
+ const nombre = row.querySelector(elementSelectors["nombre"])
+ const id = row.querySelector(elementSelectors["dni"])
+ const emoji = row.querySelector(".result-emoji:last-child")
+ nombre.title = `${nombre.title}\n Autofill: ${message}`
+ id.title = `${id.title}\n Autofill: ${message}`
+ emoji.title = `${emoji.title} \n Autofill: ${message}`;
 }
 
 function setStudentClass(row,klass){
@@ -107,7 +124,7 @@ function markAlreadyFilledStudent(row){
 function autofill(rows,autofillData,overwrite,matcher=dniMatcher){
     for (let row of rows){
         const studentFormData = getStudentData(row)
-        const studentFormEmpty = isStudentFormEmpty(studentFormData) 
+        const studentFormEmpty = isStudentFormEmpty(studentFormData)   
         if (!overwrite && !studentFormEmpty){
           markAlreadyFilledStudent(row)
           continue;
