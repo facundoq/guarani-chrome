@@ -1,5 +1,5 @@
-// add sync map to chrome.storage to fake being in an extension
-class FakeSync {
+// add sync/local map to chrome.storage to fake being in an extension
+class FakeStorage {
     constructor() {
       this.values = {}
     }
@@ -11,17 +11,9 @@ class FakeSync {
     }
     get(key,callback){
       callback(localStorage.getItem(key))
-      // if (this.values){
-      // 	callback(this.values)
-      // 	console.log("REturning stored value")
-      // }else{
-      // 	console.log("REturning default value", key)
-      // 	this.values = key
-      // 	callback(key)
-      // }
     }
   }
-  chrome.storage = {sync:new FakeSync()}
+  chrome.storage = {sync:new FakeStorage(),local:new FakeStorage()}
   chrome.runtime= {getURL:(url) => `/${url}`}
   
   

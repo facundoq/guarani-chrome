@@ -8,12 +8,12 @@ function getSettings(key){
 
 function setSettings(key,value){
   _settings[key] = value
-  chrome.storage.sync.set({key: value}, () => {});
+  chrome.storage.local.set({key: value}, () => {});
 };
 
 function initializeSettings(){
   for (k in ["date","theme","overwriteOnAutofill"]){
-    chrome.storage.sync.get(k, (v)=>{
+    chrome.storage.local.get(k, (v)=>{
       _settings[k]=v;
     })
   } 

@@ -168,7 +168,7 @@ function AutofillDataViewer(){
   }
 
   function AutofillStartButtonUI(rows){
-    const button = fromHTML(`<button type='button'> Autofill 📝</button>`)
+    const button = fromHTML(`<button type='button'> Rellenar 📝</button>`)
     button.onclick = () =>{
 
       autofill(rows,getSettings("autofillData"),getSettings("overwriteOnAutofill"))
@@ -205,7 +205,7 @@ function AutofillDataViewer(){
     root.appendChild(autofillUI)
 
     //TODO remove load data for testing automatically
-    document.getElementById("autofillSubmitButton").onclick()
+    //document.getElementById("autofillSubmitButton").onclick()
     
   }
 
