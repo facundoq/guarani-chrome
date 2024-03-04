@@ -50,8 +50,7 @@
       
     ],
     "permissions": [
-      "storage",
-      "scripting"
+      "storage"
     ],
     "host_permissions": [
       "https://autogestion.guarani.unlp.edu.ar/*"

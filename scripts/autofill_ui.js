@@ -184,7 +184,16 @@ function AutofillDataViewer(){
     return button
   }
 
-  function AutofillUI(rows_element){
+function AutofillStatsUI(rows_element){
+  const container = fromHTML(`<span  id="statsUI"> </span>`)
+  const label = fromHTML(`<span> Completados: </span>`)
+  const count = fromHTML(`<span  id="statsUIProgress"> </span>`)
+  // const elementsToWatch = rows_element.querySelectorAll("input, .select")
+  // elementsToWatch.foreach()
+  appendChildren(container, [label,count])
+  return container
+}
+function AutofillUI(rows_element){
   const container = fromHTML(`<div class="span3" id="autofillContainer"> </div>`)
   console.log("adding autofill button")
 
@@ -192,6 +201,8 @@ function AutofillDataViewer(){
   const autofillStartButtonUI = AutofillStartButtonUI(rows_element)
   console.log("adding autofill config button")
   const autofillConfigUI = AutofillConfigUI(autofillStartButtonUI)
+  const autofillStatsUI = AutofillStatsUI(rows_element)
+
 
   appendChildren(container,[guarangadaLogo,autofillStartButtonUI,autofillConfigUI])
   return container
