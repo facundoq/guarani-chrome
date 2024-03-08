@@ -57,6 +57,6 @@ function add_row_buttons(form_renglones){
   }
 }
 
-when_form_renglones_ready(add_row_buttons)
+
 
 

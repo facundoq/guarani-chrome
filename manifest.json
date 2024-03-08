@@ -33,9 +33,12 @@
                 "scripts/student_buttons.js",
                 "scripts/csv_parser.js",
                 "scripts/autofill.js",
+                "scripts/autofill_config_ui.js",
                 "scripts/autofill_ui.js",
                 "scripts/save_button.js",
-                "scripts/themes.js"
+                "scripts/themes.js",
+                "scripts/main.js"
+
               ],
         "css":[ 
           "themes/guarangada.css"

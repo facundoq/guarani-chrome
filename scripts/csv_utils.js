@@ -4,6 +4,10 @@ function validateCSV(input,separator=";"){
 
 
 function parseCSV(input,separator=";",normalize_header=false){
+    input = input.trim()
+    if (input ===""){
+      return [[],[]]
+    }
     const lines = input.split(/\r\n|\n/).map(r => r.trim())
     const nonemptyLines = lines.filter(r => r.length>0)    
     const splitLines = nonemptyLines.map((l) => l.split(separator))

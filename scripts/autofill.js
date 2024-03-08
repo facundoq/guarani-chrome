@@ -1,8 +1,8 @@
 
 function dniMatcher(studentData,allData){
-  console.log(`Matching ${studentData}...`)
+  
   const matches = allData.filter(s => s.get("dni") == studentData.dni)
-  console.log(matches)
+  
   if (matches.length===1){
     return Either.Right(matches[0])
   }else{
@@ -43,7 +43,7 @@ function getStudentData(row){
 }
 function isStudentFormEmpty(studentFormData){
   const s = studentFormData;
-  console.log(s)
+
   return (s.fecha === "") && (s.nota === "") & (s.condicion === "") & (s.resultado === "")
 }
 
@@ -62,9 +62,9 @@ function convertValues(value,column){
 
 function autofillStudent(row,studentData){
   csvConfig.dataColumns.forEach(column =>{
-    console.log(`Trying ${column}`)
+    
     if (studentData.has(column)){
-      console.log(`Found ${column} `)
+      
       const autofillValue = convertValues(studentData.get(column),column);
       const element = row.querySelector(elementSelectors[column])
       element.value = autofillValue;
@@ -120,8 +120,19 @@ function markAlreadyFilledStudent(row){
     // let resultImage = document.createElement('img')
   // alumnoDiv.appendChild()
 }
+root.addMissingStudent = (student) => {
+  const missingStudents = getSettings("missingStudents")
+  if (missingStudents) {
+      missingStudents.push(student)
+      setSettings("missingStudents", missingStudents)
+  } else {
+      textarea.value = "No hay datos guardados."
+      deleteButton.disabled = true;
+  }
+}
 
 function autofill(rows,autofillData,overwrite,matcher=dniMatcher){
+    const unmatched = []
     for (let row of rows){
         const studentFormData = getStudentData(row)
         const studentFormEmpty = isStudentFormEmpty(studentFormData)   
@@ -142,9 +153,11 @@ function autofill(rows,autofillData,overwrite,matcher=dniMatcher){
         studentDataResult.doLeft((matches) =>{
           if (studentFormEmpty){
             markUnmatchedStudent(row,matches)
+            unmatched.push(studentFormData.dni)
           }else{
             markAlreadyFilledStudent(row)
           }
         })
     }
+    return unmatched
   }  

@@ -6,9 +6,12 @@
     border:2px solid gray;
     z-index:1000;
     min-height: 400px;
-    min-width: 30%;
+    min-width: 20%;
+    /* right:10px; */
+
     padding:10px 20px;
     border-radius: 5px;
+    background-color: white;
 }
 
 
@@ -22,12 +25,13 @@
 
 #autofillConfigCloseButton{
     display: block;
+    float:right;
 }
 #autofillInput{
     width:100%;
     min-height: 70px;
 }
-#guarangadaLogo{
+#guaraniChromeLogo{
     width:24px;
 }
 #autofillDataViewer{

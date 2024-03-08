@@ -8,11 +8,13 @@ const csvConfig = {
       "U": "U",
       "D": "D",
       "A": "A",
+      "-": "",
     },
     resultado:{
       "Ausente": "U",
       "Reprobado": "R",
       "Aprobado": "A",
+      "-": "",
     },
     condicion:{
       "Abandono": 2,
@@ -23,6 +25,7 @@ const csvConfig = {
       "No Promociono": 107,
       "Promociono": 5,
       "Regular": 4,
+      "-": "",
     }
   }
 }
@@ -43,7 +46,7 @@ function printAutofillData(data,header){
 
 function csv2autofillData(data){
 
-
+        
         const [autofillData,header] = parseCSV(data,csvConfig.csvSeparator,true);
         
         const keyColumnsPresent = intersection(csvConfig.keyColumns,header)
@@ -65,7 +68,7 @@ function csv2autofillData(data){
             const valueCheck = checkValues(key,validValues,autofillData);
             if (valueCheck.isSome()){
               let rowsWithErrors = valueCheck.get()
-              return Either.Left(`La columna ${key} contiene valores inválidos.\n Valores válidos: ${validValues}.\n Filas con valores inválidos:\n${printAutofillData(rowsWithErrors,header)}`)
+              return Either.Left(`La columna ${key} contiene valores inválidos.\n\n Valores válidos: ${validValues}.\n\n Filas con valores inválidos:\n\n${printAutofillData(rowsWithErrors,header)}`)
             }
           }
         }

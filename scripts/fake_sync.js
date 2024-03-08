@@ -1,16 +1,30 @@
 // add sync/local map to chrome.storage to fake being in an extension
+// Uses localStorage with JSON.stringify to simulate storing JS objects
+// Therefore users should be careful since slight differences in behavior
+// form chrome.storage may occur
+
 class FakeStorage {
     constructor() {
-      this.values = {}
+      
     }
     set(kv,callback){
+      // console.log(`Setting ${Object.entries(kv)}..`)
       for (const [k, v] of Object.entries(kv)) {
-          localStorage.setItem(k,v)
+        // console.log(`Setting key ${k} to ${JSON.stringify(v)}`)
+        localStorage.setItem(k,JSON.stringify(v))
       }
       callback()
     }
-    get(key,callback){
-      callback(localStorage.getItem(key))
+    get(kv,callback){
+      // console.log(`Getting ${Object.entries(kv)}..`)
+      var result = {};
+      for (const [k, v] of Object.entries(kv)) {
+        // console.log(`Found  ${k}:${v} in localStorage`)
+        const item = JSON.parse(localStorage.getItem(k)) || v;
+        result[k] = item;
+      }
+      // console.log(`Set ${Object.entries(result)}..`)
+      callback(result)
     }
   }
   chrome.storage = {sync:new FakeStorage(),local:new FakeStorage()}
