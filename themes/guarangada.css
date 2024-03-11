@@ -1,7 +1,10 @@
+#autofillControlsContainer{
+    float:right;
+    padding-top: 10px;
+    padding-right: 10px;
+}
 
 #autofillConfig{
-    float:right;
-    position:absolute;
     box-shadow: inset;
     border:2px solid gray;
     z-index:1000;

@@ -80,7 +80,7 @@ function autofillSubmit(autofillDataViewer, resultViewer, autofillDataInput, aut
         })
         result.doRight(([autofillData, header]) => {
             setSettings("autofillData", autofillData)
-            resultViewer.innerHTML = `Carga exitosa\n - Filas: ${autofillData.length}\n - Columnas: ${header.length}\n\t ${header.join("\n\t")}`;
+            resultViewer.innerHTML = `Carga exitosa, ${autofillData.length} Filas \n ${header.length} Columnas:  ${header.join(", ")}`;
             autofillDataViewer.update();
             autofillStartButton.update();
         });
@@ -93,7 +93,26 @@ function validateAutofillData(autofillData) {
     }
 }
 
-function AutofillConfigPopUpUI(autofillStartButton, closeButton) {
+
+function AutofillOverwriteConfigUI(onchangeCallback) {
+    const root = fromHTML(`<div id="autofillOverwrite"></div>`)
+    const labelTitle = "Sobreescribir valores (notas, condición, fecha, etc) existentes al rellenar."
+    const label = fromHTML(`<label title="${labelTitle}" style="display:inline;">Sobreescribir valores: </label>`)
+    const checkbox = fromHTML(`<input type="checkbox" id="autofillOverwriteCheckbox"/>`)
+    checkbox.onchange = (e) => {
+        onchangeCallback(checkbox.checked)
+    }
+    root.appendChild(label)
+    root.appendChild(checkbox)
+    checkbox.checked = getSettings("overwriteOnAutofill");
+    return root
+}
+
+
+
+
+
+function AutofillConfigUI(autofillStartButton) {
     const root = fromHTML(`<div id="autofillConfig" ></div>`)
     const labelTitle = `El CSV requiere como mínimo una columna de identificación y una columna de datos:\n
       Cols. de identificación: ${csvConfig.keyColumns}
@@ -127,25 +146,9 @@ function AutofillConfigPopUpUI(autofillStartButton, closeButton) {
     })
     
 
-    appendChildren(root, [closeButton, autofillOverwriteConfigUI, label, autofillDataInput,  resultLabel, resultViewer, autofillDataViewerLabel, autofillDataViewer,])
+    appendChildren(root, [autofillOverwriteConfigUI, label, autofillDataInput,  resultLabel, resultViewer, autofillDataViewerLabel, autofillDataViewer,])
 
 
     autofillDataViewer.update()
     return root
 }
-
-function AutofillOverwriteConfigUI(onchangeCallback) {
-    const root = fromHTML(`<div id="autofillOverwrite"></div>`)
-    const labelTitle = "Sobreescribir valores (notas, condición, fecha, etc) existentes al rellenar."
-    const label = fromHTML(`<label title="${labelTitle}" style="display:inline;">Sobreescribir valores: </label>`)
-    const checkbox = fromHTML(`<input type="checkbox" id="autofillOverwriteCheckbox"/>`)
-    checkbox.onchange = (e) => {
-        onchangeCallback(checkbox.checked)
-    }
-    root.appendChild(label)
-    root.appendChild(checkbox)
-    checkbox.checked = getSettings("overwriteOnAutofill");
-    return root
-}
-
-
