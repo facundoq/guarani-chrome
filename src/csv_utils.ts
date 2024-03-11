@@ -1,9 +1,11 @@
-function validateCSV(input,separator=";"){
+import { dictFromLists } from "./utils";
+
+export function validateCSV(input,separator=";"){
   return input.trim().length>0;
 }
 
 
-function parseCSV(input,separator=";",normalize_header=false){
+export function parseCSV(input,separator=";",normalize_header=false){
     input = input.trim()
     if (input ===""){
       return [[],[]]

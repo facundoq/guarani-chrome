@@ -1,4 +1,6 @@
 import { getSettings, setSettings } from "./settings";
+import {autofill} from "./autofill";
+import {AutofillConfigUI} from "./autofill_config_ui";
 
 const sampleCSV = `dni;condicion;fecha;resultado;nota
 44960966;Aprobado;1/02/2024;Aprobado;A
@@ -22,7 +24,7 @@ function AutofillStartButtonUI(rows, autofillCallback) {
   button.onclick = () => {
 
     const unmatched = autofill(rows, getSettings("autofillData"), getSettings("overwriteOnAutofill"))
-    const allUnmatched = getSettings("unmatched")
+    const allUnmatched = getSettings("unmatched") as Array<object>
     const newUnmatched = [...new Set(allUnmatched.concat(unmatched))]
     setSettings("unmatched", newUnmatched)
     autofillCallback()

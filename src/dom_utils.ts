@@ -14,7 +14,7 @@ function ready(fn) {
 function observe(element,f, config = { subtree: true,childList:true, attributes:true},disableAfterFirst=true,params=[]){
 
 
-  const mutationObserver = new MutationObserver(async () => {
+  const mutationObserver = new MutationObserver( () => {
     if (disableAfterFirst){
         mutationObserver.disconnect()
     }

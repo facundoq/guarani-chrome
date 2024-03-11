@@ -5,35 +5,35 @@
     "license": "MIT",
     "readmeFilename": "README.md",
     "author": {
-      "name": "Facundo Manuel Quiroga",
-      "email": "facundoq@gmail.com"
+        "name": "Facundo Manuel Quiroga",
+        "email": "facundoq@gmail.com"
     },
     "repository": {
-      "type": "git",
-      "url": "https://github.com/facundoq/guarani-chrome.git"
+        "type": "git",
+        "url": "https://github.com/facundoq/guarani-chrome.git"
     },
     "bugs": {
-      "url": "https://github.com/facundoq/guarani-chrome/issues"
+        "url": "https://github.com/facundoq/guarani-chrome/issues"
     },
     "tags": [
-      "guarani",
-      "notas",
-      "unlp",
-      "typescript",
-      "chrome"
+        "guarani",
+        "notas",
+        "unlp",
+        "typescript",
+        "chrome"
     ],
     "devDependencies": {
-      "@types/node": "^17.0.21",
-      "@types/chrome": "",
-      "typescript": "^4.6.2",
-      "prettier": "^2.5.1"
+        "@types/chrome": "",
+        "@types/node": "^17.0.21",
+        "prettier": "^2.5.1",
+        "typescript": "^4.9.5"
     },
     "dependencies": {
-      "pg": "^8.7.3",
-      "reflect-metadata": "^0.1.13"
+        "pg": "^8.7.3",
+        "reflect-metadata": "^0.1.13"
     },
     "scripts": {
-      "watch": "tsc -w",
-      "start": "tsc && node src/index.js"
+        "watch": "tsc -w",
+        "start": "tsc && node src/index.js"
     }
-  }
+}

@@ -1,4 +1,4 @@
-
+import { getSettings } from "./settings";
 
 const passed_button = '<p style="background-color:#82f5a3;font-weight:bold;cursor: pointer;"> Aprobar </p>'
 const failed_button = '<p style="background-color:#f58982;font-weight:bold;cursor: pointer;"> Desaprobar </p>'
@@ -8,8 +8,8 @@ const clean_button = '<p style="background-color:#AAAAAA;font-weight:bold;cursor
 
 
 function change_row(row,condition,result){
-  const fecha = row.querySelector(".fecha");
-  getSettings(s =>{ fecha.value= s.date;})
+  const fecha = row.querySelector(".fecha")
+  fecha.value = getSettings("date")
   propagateOnChange(fecha)
   // const resultado = row.querySelector(".resultado");
   // resultado.value = result;

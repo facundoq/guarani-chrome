@@ -1,6 +1,8 @@
-const zip = (a, b) => a.map((k, i) => [k, b[i]]);
+export const zip = (a, b) => a.map((k, i) => [k, b[i]]);
 
-function dictFromLists(keys,vals){
+export function intersection(a, b) { return a.filter(value => b.includes(value)); }
+
+export function dictFromLists(keys,vals){
     const dict = new Map()
     zip(keys,vals).forEach(kv=>{
       const [k,v]= kv;
@@ -9,38 +11,47 @@ function dictFromLists(keys,vals){
     return dict
 }
 
-function listOfDictToDictOfDict(rows,key="dni"){   
+export function listOfDictToDictOfDict(rows,key="dni"){   
   const keys = rows.map(row => {return row.get(key)})
   return dictFromLists(keys,rows)
 }
 
+export abstract class Optional{
+  abstract map(f:CallableFunction):Optional
+  abstract isSome():boolean
+  abstract isNone():boolean
+  abstract doSome(f:CallableFunction)
+  abstract doNone(f:CallableFunction)
+}
 
-const Optional = x => (x === undefined || x === null) ? None : Some(x);
+export class Some<a> extends Optional{
+  private x:a
+  constructor(x:a){
+    super();
+    this.x = x;
+  }
 
-const Some = x => ({
-  get: () => x,
-  map: f => Some(f(x)),
-  flatMap: f => f(x),
-  fold: (ifEmpty, f) => f(x),
-  doSome: (f) => {f(x)},
-  doNone: (f) => {},
-  isNone: () => false,
-  isSome: () => true,
-});
+  get(){ return this.x}
+  map(f:CallableFunction){return new Some(f(this.x))}
+  flatMap(f:CallableFunction){return f(this.x)}
+  doSome(f:CallableFunction){f(this.x)}
+  doNone(f:CallableFunction){}
+  isNone(){return false}
+  isSome(){return true}
+}
 
-const None = {
-  map: f => None,
-  flatMap: f => None,
-  fold: (ifEmpty, f) => ifEmpty(),
-  doSome: (f) => {},
-  doNone: (f) => {f()},
-  isNone: () => true,
-  isSome: () => false,
-};
+export class None extends Optional{
+  map(f:CallableFunction){return f(this)}
+  flatMap(f:CallableFunction){this}
+  doSome(f:CallableFunction){}
+  doNone(f:CallableFunction){f()}
+  isNone(){return true}
+  isSome(){return false}
+}
 
 
-class Either<a,b>  {
-  
+
+export class Either<a=object,b=object>  {
 
   static Left(v){ return new Left(v)}
   static Right(v){ return new Right(v)}
@@ -49,12 +60,9 @@ class Either<a,b>  {
 
 
 
-/**
-*Left represents the sad path.
-*/
-class Left<a> extends Either<a,_> {
-  protected _val:object;
-  constructor(val:object) {
+export class Left<a> extends Either<a,undefined> {
+  protected _val:a;
+  constructor(val:a) {
     super();
     this._val = val;
   }
@@ -97,10 +105,10 @@ class Left<a> extends Either<a,_> {
 /**
 *Right represents the happy path
 */
-class Right extends Either {
-  protected _val:object;
+export class Right<b> extends Either<undefined,b> {
+  protected _val:b;
 
-  constructor(val) {
+  constructor(val:b) {
     super()
     this._val = val
   }

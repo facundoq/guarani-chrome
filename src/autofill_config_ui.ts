@@ -1,5 +1,7 @@
 import { Settings, getSettings, setSettings } from "./settings";
+import {csv2autofillData,csvConfig} from "./csv_parser"
 
+// import {csv2autofillData} from "./csv_parser"
 
 function autofillDataToString(autofillData, k) {
     const n = autofillData.length;
@@ -68,9 +70,7 @@ function AutofillDataViewer(max_rows=5) {
 //     return root
 // }
 
-function intersection(a, b) {
-    return a.filter(value => b.includes(value));
-}
+
 
 function autofillSubmit(autofillDataViewer, resultViewer, autofillDataInput, autofillStartButton) {
         resultViewer.innerHTML = "Cargando...";
@@ -117,7 +117,7 @@ function AutofillOverwriteConfigUI(onchangeCallback) {
 
 
 
-function AutofillConfigUI(autofillStartButton) {
+export function AutofillConfigUI(autofillStartButton) {
     const root = fromHTML(`<div id="autofillConfig" ></div>`) as HTMLDivElement
     const labelTitle = `El CSV requiere como mínimo una columna de identificación y una columna de datos:\n
       Cols. de identificación: ${csvConfig.keyColumns}

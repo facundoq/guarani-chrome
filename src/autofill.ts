@@ -1,3 +1,15 @@
+import { getSettings } from "./settings"
+import {Either, Optional} from "./utils"
+import {csv2autofillData,csvConfig} from "./csv_parser"
+
+class Student{
+  constructor(
+    dni:string,
+    nombre:string,
+    fecha:string,
+    nota:string,
+  ){}
+}
 
 function dniMatcher(studentData,allData){
   
@@ -75,10 +87,10 @@ function autofillStudent(row,studentData){
   
 }
 
-function addToStudentTitle(row,message){
- const nombre = row.querySelector(elementSelectors["nombre"])
- const id = row.querySelector(elementSelectors["dni"])
- const emoji = row.querySelector(".result-emoji:last-child")
+function addToStudentTitle(row:HTMLElement,message:string){
+ const nombre = row.querySelector(elementSelectors["nombre"]) as HTMLSpanElement
+ const id = row.querySelector(elementSelectors["dni"]) as HTMLSpanElement
+ const emoji = row.querySelector(".result-emoji:last-child") as HTMLSpanElement
  nombre.title = `${nombre.title}\n Autofill: ${message}`
  id.title = `${id.title}\n Autofill: ${message}`
  emoji.title = `${emoji.title} \n Autofill: ${message}`;
@@ -120,18 +132,19 @@ function markAlreadyFilledStudent(row){
     // let resultImage = document.createElement('img')
   // alumnoDiv.appendChild()
 }
-root.addMissingStudent = (student) => {
-  const missingStudents = getSettings("missingStudents")
-  if (missingStudents) {
-      missingStudents.push(student)
-      setSettings("missingStudents", missingStudents)
-  } else {
-      textarea.value = "No hay datos guardados."
-      deleteButton.disabled = true;
-  }
-}
 
-function autofill(rows,autofillData,overwrite,matcher=dniMatcher){
+//   root.addMissingStudent = (student) => {
+//   const missingStudents = getSettings("missingStudents")
+//   if (missingStudents) {
+//       missingStudents.push(student)
+//       setSettings("missingStudents", missingStudents)
+//   } else {
+//       textarea.value = "No hay datos guardados."
+//       deleteButton.disabled = true;
+//   }
+// }
+
+export function autofill(rows,autofillData,overwrite,matcher=dniMatcher){
     const unmatched = []
     for (let row of rows){
         const studentFormData = getStudentData(row)

@@ -27,7 +27,10 @@ class FakeStorage {
       callback(result)
     }
   }
+  
+  // @ts-ignore
   chrome.storage = {sync:new FakeStorage(),local:new FakeStorage()}
+  // @ts-ignore
   chrome.runtime= {getURL:(url) => `/${url}`}
   
   
