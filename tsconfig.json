@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "target": "ES5",
+      "module": "ES2015",
+      "lib":["dom","es5"],
+      "allowJs": true,
+      "outDir": "dist",
+      "sourceMap": true,
+      "types":["chrome"],
+    },
+    
+  }

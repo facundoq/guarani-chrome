@@ -1,3 +1,5 @@
+import { setSettings,getSettings } from "./settings";
+
 function addCSS(href){
     
     var link = document.createElement('link');
@@ -21,16 +23,18 @@ function updateTheme(dark,themeButton){
     }
 }
 
-function initializeThemeChooser(){
+export function initializeThemeChooser(){
     console.log(`initializing theme chooser`)
     const darkUrl =  chrome.runtime.getURL("themes/dark.css");
     console.log(`Loading ${darkUrl}`)
     let dark = addCSS(darkUrl)
+    const p = document.createElement("div");
+
     let themeSelect = fromHTML(`<select type="text" name="theme" id="theme">
     <option value="light">Claro 🌕</option>
     <option value="dark">Oscuro 🌑</option>
-    </select>`)
-    themeSelect.value = getSettings("theme")
+    </select>`) as HTMLSelectElement
+    themeSelect.value = getSettings("theme") as string
     let notifications = document.querySelector(".notificaciones")
     if (notifications){
         notifications.appendChild(themeSelect)

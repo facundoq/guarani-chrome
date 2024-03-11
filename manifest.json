@@ -24,20 +24,20 @@
     {
   
         "js": [ 
-                "scripts/settings.js",
-                "scripts/utils.js",
-                "scripts/dom_utils.js",        
-                "scripts/csv_utils.js",        
+                "dist/src/settings.js",
+                "dist/src/utils.js",
+                "dist/src/dom_utils.js",        
+                "dist/src/csv_utils.js",        
                 
-                "scripts/form_renglones.js",
-                "scripts/student_buttons.js",
-                "scripts/csv_parser.js",
-                "scripts/autofill.js",
-                "scripts/autofill_config_ui.js",
-                "scripts/autofill_ui.js",
-                "scripts/save_button.js",
-                "scripts/themes.js",
-                "scripts/main.js"
+                "dist/src/form_renglones.js",
+                "dist/src/student_buttons.js",
+                "dist/src/csv_parser.js",
+                "dist/src/autofill.js",
+                "dist/src/autofill_config_ui.js",
+                "dist/src/autofill_ui.js",
+                "dist/src/save_button.js",
+                "dist/src/themes.js",
+                "dist/src/main.js"
 
               ],
         "css":[ 

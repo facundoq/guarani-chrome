@@ -3,7 +3,7 @@ const zip = (a, b) => a.map((k, i) => [k, b[i]]);
 function dictFromLists(keys,vals){
     const dict = new Map()
     zip(keys,vals).forEach(kv=>{
-      [k,v]= kv;
+      const [k,v]= kv;
       dict.set(k,v);
     })
     return dict
@@ -15,7 +15,7 @@ function listOfDictToDictOfDict(rows,key="dni"){
 }
 
 
-const Option = x => (x === undefined || x === null) ? None : Some(x);
+const Optional = x => (x === undefined || x === null) ? None : Some(x);
 
 const Some = x => ({
   get: () => x,
@@ -39,18 +39,24 @@ const None = {
 };
 
 
-Either = {
-  Left:(v) => new Left(v),
-  Right:(v) => new Right(v),
-  if:(condition,valueLeft,valueRight) => (condition)? Either.Right(valueRight) : Either.Left(valueLeft)
+class Either<a,b>  {
+  
+
+  static Left(v){ return new Left(v)}
+  static Right(v){ return new Right(v)}
+  static if(condition,valueLeft,valueRight){ return (condition)? Either.Right(valueRight) : Either.Left(valueLeft)}
 }
+
+
 
 /**
 *Left represents the sad path.
 */
-class Left {
-  constructor(val) {
-      this._val = val;
+class Left<a> extends Either<a,_> {
+  protected _val:object;
+  constructor(val:object) {
+    super();
+    this._val = val;
   }
   isLeft(){
     return true
@@ -91,9 +97,12 @@ class Left {
 /**
 *Right represents the happy path
 */
-class Right {
+class Right extends Either {
+  protected _val:object;
+
   constructor(val) {
-      this._val = val;
+    super()
+    this._val = val
   }
   isLeft(){
     return false

@@ -1,0 +1,39 @@
+{
+    "name": "guarani-chrome",
+    "version": "0.0.1",
+    "description": "Extensiones a Guarani para Chrome.",
+    "license": "MIT",
+    "readmeFilename": "README.md",
+    "author": {
+      "name": "Facundo Manuel Quiroga",
+      "email": "facundoq@gmail.com"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/facundoq/guarani-chrome.git"
+    },
+    "bugs": {
+      "url": "https://github.com/facundoq/guarani-chrome/issues"
+    },
+    "tags": [
+      "guarani",
+      "notas",
+      "unlp",
+      "typescript",
+      "chrome"
+    ],
+    "devDependencies": {
+      "@types/node": "^17.0.21",
+      "@types/chrome": "",
+      "typescript": "^4.6.2",
+      "prettier": "^2.5.1"
+    },
+    "dependencies": {
+      "pg": "^8.7.3",
+      "reflect-metadata": "^0.1.13"
+    },
+    "scripts": {
+      "watch": "tsc -w",
+      "start": "tsc && node src/index.js"
+    }
+  }

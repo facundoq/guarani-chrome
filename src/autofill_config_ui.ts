@@ -1,3 +1,4 @@
+import { Settings, getSettings, setSettings } from "./settings";
 
 
 function autofillDataToString(autofillData, k) {
@@ -20,12 +21,15 @@ function autofillDataToString(autofillData, k) {
     return samples
 }
 
+
+
 function AutofillDataViewer(max_rows=5) {
-    const root = fromHTML(`<textarea id="autofillDataViewer" disabled="true">
-      No hay datos cargados
-      </textarea>`)
-    root.update = () => {
-        const autofillData = getSettings("autofillData")
+    const root = document.createElement("textarea")
+    root.disabled = true
+    root.textContent = "No hay datos cargados"
+    
+    root["update"] = () => {
+        const autofillData = getSettings("autofillData") as [object]
         if (autofillData && autofillData.length>0)  {
             root.value = `${autofillDataToString(autofillData, max_rows)}\n...\nTotal: ${autofillData.length} filas.\n`;
         } else {
@@ -35,33 +39,34 @@ function AutofillDataViewer(max_rows=5) {
     return root
 }
 
-function AutofillMissingUI() {
-    const root = fromHTML(`<div id="autofillMissingUI> </div>`)
-    const deleteButton = fromHTML(`<button  type="button" id="autofillDeleteMissingButton"> Borrar faltantes </button>`)
+// function AutofillMissingUI() {
+//     const root = document.createElement("div")
+//     root.id = "autofillMissingUI"
+//     const deleteButton = fromHTML(`<button  type="button" id="autofillDeleteMissingButton"> Borrar faltantes </button>`)
 
-    const textarea = fromHTML(`<textarea id="autofillMissingViewer" disabled="true">
+//     const textarea = fromHTML(`<textarea id="autofillMissingViewer" disabled="true">
     
-    </textarea>`)
+//     </textarea>`)
 
-    root.update = () => {
-        const missingStudents = getSettings("missingStudents")
-        if (missingStudents) {
-            textarea.value = missingStudents;
-            deleteButton.disabled = false;
-        } else {
-            textarea.value = "No hay datos guardados."
-            deleteButton.disabled = true;
-        }
-    }
-    deleteButton.onclick = (e) => {
-        setSettings("missingStudents", [])
-        root.update()
-    }
+//     root.update = () => {
+//         const missingStudents = getSettings("missingStudents")
+//         if (missingStudents) {
+//             textarea.value = missingStudents;
+//             deleteButton.disabled = false;
+//         } else {
+//             textarea.value = "No hay datos guardados."
+//             deleteButton.disabled = true;
+//         }
+//     }
+//     deleteButton.onclick = (e) => {
+//         setSettings("missingStudents", [])
+//         root.update()
+//     }
 
-    root.appendChild(textarea)
-    root.appendChild(deleteButton)
-    return root
-}
+//     root.appendChild(textarea)
+//     root.appendChild(deleteButton)
+//     return root
+// }
 
 function intersection(a, b) {
     return a.filter(value => b.includes(value));
@@ -95,16 +100,16 @@ function validateAutofillData(autofillData) {
 
 
 function AutofillOverwriteConfigUI(onchangeCallback) {
-    const root = fromHTML(`<div id="autofillOverwrite"></div>`)
+    const root = fromHTML(`<div id="autofillOverwrite"></div>`) as HTMLDivElement
     const labelTitle = "Sobreescribir valores (notas, condición, fecha, etc) existentes al rellenar."
-    const label = fromHTML(`<label title="${labelTitle}" style="display:inline;">Sobreescribir valores: </label>`)
-    const checkbox = fromHTML(`<input type="checkbox" id="autofillOverwriteCheckbox"/>`)
+    const label = fromHTML(`<label title="${labelTitle}" style="display:inline;">Sobreescribir valores: </label>`) as HTMLLabelElement
+    const checkbox = fromHTML(`<input type="checkbox" id="autofillOverwriteCheckbox"/>`) as HTMLInputElement
     checkbox.onchange = (e) => {
         onchangeCallback(checkbox.checked)
     }
     root.appendChild(label)
     root.appendChild(checkbox)
-    checkbox.checked = getSettings("overwriteOnAutofill");
+    checkbox.checked = getSettings("overwriteOnAutofill") as boolean;
     return root
 }
 
@@ -113,20 +118,18 @@ function AutofillOverwriteConfigUI(onchangeCallback) {
 
 
 function AutofillConfigUI(autofillStartButton) {
-    const root = fromHTML(`<div id="autofillConfig" ></div>`)
+    const root = fromHTML(`<div id="autofillConfig" ></div>`) as HTMLDivElement
     const labelTitle = `El CSV requiere como mínimo una columna de identificación y una columna de datos:\n
       Cols. de identificación: ${csvConfig.keyColumns}
       Cols. de datos: ${csvConfig.dataColumns}
       `
-    var autofillDataCSV = getSettings("autofillDataCSV")
-    // TODO remove for final version
-    if (autofillDataCSV ==="") { autofillDataCSV = sampleCSV }
+    const autofillDataCSV = getSettings("autofillDataCSV")
 
     const label = fromHTML(`<label for="autofillInput" style="display:block" title="${labelTitle}">Carga de CSV para autollenado 🛈:</label>`)
 
     const autofillDataInput = fromHTML(`
       <textarea type="text" name="autofill" 
-      id="autofillInput">${autofillDataCSV}</textarea>`)
+      id="autofillInput">${autofillDataCSV}</textarea>`) as HTMLTextAreaElement
 
     const resultLabel = fromHTML(`<p">Resultado de la carga:</p>`)
     const resultViewer = fromHTML(`<pre></pre>`)
@@ -134,7 +137,7 @@ function AutofillConfigUI(autofillStartButton) {
     const autofillDataViewer = AutofillDataViewer()
 
         const inputUpdate = () => {
-            setSettings(Settings.AutofillDataCSV,autofillDataInput.value)
+            setSettings(Settings.AutofillDataCSV,autofillDataInput.textContent)
             autofillSubmit(autofillDataViewer, resultViewer, autofillDataInput, autofillStartButton)
         }
     autofillDataInput.onchange = inputUpdate

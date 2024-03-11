@@ -1,3 +1,7 @@
+interface HTMLElement {
+  update(): void;
+}
+
 
 function ready(fn) {
     if (document.readyState !== 'loading') {
@@ -20,7 +24,7 @@ function observe(element,f, config = { subtree: true,childList:true, attributes:
   return mutationObserver
 }
 
-function fromHTML(html, trim = true) {
+function fromHTML(html:string, trim = true) {
     // Process the HTML string.
     html = trim ? html : html.trim();
     if (!html) return null;
@@ -32,18 +36,19 @@ function fromHTML(html, trim = true) {
   
     // Then return either an HTMLElement or HTMLCollection,
     // based on whether the input HTML had one or more roots.
-    if (result.length === 1) return result[0];
-    return result;
-  }
+    if (result.length !== 1) throw Error(`fromHTML must create one and only one element (possibly with many children, found ${result})`)
+    
+    return result[0] as HTMLElement
+  } 
 
-function appendChildren(root,children){
+function appendChildren(root:HTMLElement,children:HTMLElement[]){
   children.forEach(child => root.appendChild(child));
 }
 
-function waitForElement(selector, callback, checkFrequencyInMs=10, timeoutInMs=15000,failure_callback=undefined) {
+function waitForElement(selector:string, callback:CallableFunction, checkFrequencyInMs=10, timeoutInMs=15000,failure_callback:CallableFunction=undefined) {
   var startTimeInMs = Date.now();
   (function loopSearch() {
-    element = document.querySelector(selector)
+    const element = document.querySelector(selector)
     if (element) {
       callback(element);
     } else {
@@ -58,7 +63,7 @@ function waitForElement(selector, callback, checkFrequencyInMs=10, timeoutInMs=1
     }
   })();
 }
-function propagateOnChange(element){
+function propagateOnChange(element:HTMLElement){
   var event = new Event('change', { bubbles: true });
   element.dispatchEvent(event);
 }

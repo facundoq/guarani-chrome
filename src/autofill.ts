@@ -24,7 +24,7 @@ function getStudentData(row){
   const dni = dni_element_value.split(" ")[1];
   const nombre = row.querySelector(elementSelectors["nombre"]).innerText
   const fecha = row.querySelector(elementSelectors["fecha"]).value
-  const nota = row.querySelector(elementSelectors["nota"]).value
+  var nota = row.querySelector(elementSelectors["nota"]).value
   const resultado = row.querySelector(elementSelectors["resultado"]).value
   const condicion = row.querySelector(elementSelectors["condicion"]).value
   if (nota ==="-"){
@@ -44,7 +44,7 @@ function getStudentData(row){
 function isStudentFormEmpty(studentFormData){
   const s = studentFormData;
 
-  return (s.fecha === "") && (s.nota === "") & (s.condicion === "") & (s.resultado === "")
+  return (s.fecha === "") && (s.nota === "") && (s.condicion === "") && (s.resultado === "")
 }
 
 

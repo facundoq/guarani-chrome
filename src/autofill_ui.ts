@@ -1,3 +1,5 @@
+import { getSettings, setSettings } from "./settings";
+
 const sampleCSV = `dni;condicion;fecha;resultado;nota
 44960966;Aprobado;1/02/2024;Aprobado;A
 44785441;Insuficiente;1/02/2024;Reprobado;D
@@ -16,7 +18,7 @@ function toggleElement(el, display = "block") {
 
 
 function AutofillStartButtonUI(rows, autofillCallback) {
-  const button = fromHTML(`<button type='button' class="btn btn-small"> 📝 Autocompletar </button>`)
+  const button = fromHTML(`<button type='button' class="btn btn-small"> 📝 Autocompletar </button>`) as HTMLButtonElement
   button.onclick = () => {
 
     const unmatched = autofill(rows, getSettings("autofillData"), getSettings("overwriteOnAutofill"))
@@ -24,7 +26,8 @@ function AutofillStartButtonUI(rows, autofillCallback) {
     const newUnmatched = [...new Set(allUnmatched.concat(unmatched))]
     setSettings("unmatched", newUnmatched)
     autofillCallback()
-  }
+  } 
+  
   button.update = () => {
     if (getSettings("autofillData")) {
       button.disabled = false;
