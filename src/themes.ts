@@ -22,7 +22,7 @@ function updateTheme(dark,themeButton){
         dark.disabled = true;
     }
 }
-
+ 
 export function initializeThemeChooser(){
     console.log(`initializing theme chooser`)
     const darkUrl =  chrome.runtime.getURL("themes/dark.css");

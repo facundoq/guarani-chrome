@@ -1,0 +1,18 @@
+{   "include": [
+      "./src/**/*"
+    ],
+    "exclude": [".sample_pages/**/*"],
+    "compilerOptions": {
+      "target": "ES5",
+      "module": "CommonJS",
+      "esModuleInterop": true,
+      "noEmitOnError": true,
+      
+      "lib":["dom","ES2019"],
+      "allowJs": true,
+      "outDir": "dist",
+      "sourceMap": true,
+      "types":["chrome"]
+    },
+    
+ }

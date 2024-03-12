@@ -17,7 +17,9 @@ function toggleElement(el, display = "block") {
   }
 }
 
+function set2array(){
 
+}
 
 function AutofillStartButtonUI(rows, autofillCallback) {
   const button = fromHTML(`<button type='button' class="btn btn-small"> 📝 Autocompletar </button>`) as HTMLButtonElement
@@ -25,8 +27,8 @@ function AutofillStartButtonUI(rows, autofillCallback) {
 
     const unmatched = autofill(rows, getSettings("autofillData"), getSettings("overwriteOnAutofill"))
     const allUnmatched = getSettings("unmatched") as Array<object>
-    const newUnmatched = [...new Set(allUnmatched.concat(unmatched))]
-    setSettings("unmatched", newUnmatched)
+    const newUnmatched = new Set(allUnmatched.concat(unmatched))
+    setSettings("unmatched",  Array.from(newUnmatched))
     autofillCallback()
   } 
   

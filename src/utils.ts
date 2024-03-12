@@ -55,7 +55,7 @@ export class Either<a=object,b=object>  {
 
   static Left(v){ return new Left(v)}
   static Right(v){ return new Right(v)}
-  static if(condition,valueLeft,valueRight){ return (condition)? Either.Right(valueRight) : Either.Left(valueLeft)}
+  static if(condition:boolean,valueLeft:object,valueRight:object){ return (condition)? Either.Right(valueRight) : Either.Left(valueLeft)}
 }
 
 
