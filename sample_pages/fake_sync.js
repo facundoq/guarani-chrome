@@ -31,6 +31,6 @@ class FakeStorage {
   // @ts-ignore
   chrome.storage = {sync:new FakeStorage(),local:new FakeStorage()}
   // @ts-ignore
-  chrome.runtime= {getURL:(url) => `/${url}`}
+  chrome.runtime= {getURL:(url) => `/dist/${url}`}
   
   

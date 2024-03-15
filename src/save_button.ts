@@ -1,3 +1,6 @@
+import { observe } from "./utils/dom_utils";
+import { when_form_renglones_ready } from "./form_renglones";
+
 function add_save_button(form_renglones){
     const basic_save_button = document.querySelector("#js-btn-guardar") as HTMLInputElement;
     const save_button = document.createElement("input")

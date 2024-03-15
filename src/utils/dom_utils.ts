@@ -1,9 +1,11 @@
-interface HTMLElement {
-  update(): void;
+
+export abstract class UI{
+
+  public abstract root:HTMLElement
+  
 }
 
-
-function ready(fn) {
+export function ready(fn) {
     if (document.readyState !== 'loading') {
       fn();
       return;
@@ -11,7 +13,7 @@ function ready(fn) {
     document.addEventListener('DOMContentLoaded', fn);
   }
 
-function observe(element,f, config = { subtree: true,childList:true, attributes:true},disableAfterFirst=true,params=[]){
+export function observe(element,f, config = { subtree: true,childList:true, attributes:true},disableAfterFirst=true,params=[]){
 
 
   const mutationObserver = new MutationObserver( () => {
@@ -24,7 +26,16 @@ function observe(element,f, config = { subtree: true,childList:true, attributes:
   return mutationObserver
 }
 
-function fromHTML(html:string, trim = true) {
+
+export function toggleElement(el, display = "block") {
+  if (el.style.display === "none") {
+    el.style.display = display;
+  } else {
+    el.style.display = "none";
+  }
+}
+
+export function fromHTML(html:string, trim = true) {
     // Process the HTML string.
     html = trim ? html : html.trim();
     if (!html) return null;
@@ -38,14 +49,15 @@ function fromHTML(html:string, trim = true) {
     // based on whether the input HTML had one or more roots.
     if (result.length !== 1) throw Error(`fromHTML must create one and only one element (possibly with many children, found ${result})`)
     
-    return result[0] as HTMLElement
+    return result[0] as unknown as  HTMLElement
   } 
 
-function appendChildren(root:HTMLElement,children:HTMLElement[]){
+export function appendChildren(root:HTMLElement,children:HTMLElement[]){
+  
   children.forEach(child => root.appendChild(child));
 }
 
-function waitForElement(selector:string, callback:CallableFunction, checkFrequencyInMs=10, timeoutInMs=15000,failure_callback:CallableFunction=undefined) {
+export function waitForElement(selector:string, callback:CallableFunction, checkFrequencyInMs=10, timeoutInMs=15000,failure_callback:CallableFunction=undefined) {
   var startTimeInMs = Date.now();
   (function loopSearch() {
     const element = document.querySelector(selector)
@@ -63,12 +75,12 @@ function waitForElement(selector:string, callback:CallableFunction, checkFrequen
     }
   })();
 }
-function propagateOnChange(element:HTMLElement){
+export function propagateOnChange(element:Element){
   var event = new Event('change', { bubbles: true });
   element.dispatchEvent(event);
 }
 
-function cleanPropagate(e){
+export function cleanPropagate(e){
   e.value=""
   propagateOnChange(e)
 }

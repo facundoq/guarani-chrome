@@ -6,7 +6,7 @@
     "version": "2024.02.29",
     "action": {
       "default_popup": "index.html",
-      "default_icon": "guarangada.png"
+      "default_icon": "images/logo.png"
     },
     "icons": {
         "16": "images/icon-16.png",
@@ -24,24 +24,11 @@
     {
   
         "js": [ 
-                "dist/src/settings.js",
-                "dist/src/utils.js",
-                "dist/src/dom_utils.js",        
-                "dist/src/csv_utils.js",        
-                
-                "dist/src/form_renglones.js",
-                "dist/src/student_buttons.js",
-                "dist/src/csv_parser.js",
-                "dist/src/autofill.js",
-                "dist/src/autofill_config_ui.js",
-                "dist/src/autofill_ui.js",
-                "dist/src/save_button.js",
-                "dist/src/themes.js",
-                "dist/src/main.js"
+                "js/index.js"
 
               ],
         "css":[ 
-          "themes/guarangada.css"
+          "themes/guarani-chrome.css"
         ],
         "matches": [
         "https://guarani.unlp.edu.ar/*",
@@ -56,7 +43,15 @@
       "storage"
     ],
     "host_permissions": [
-      "https://autogestion.guarani.unlp.edu.ar/*"
+      "https://autogestion.guarani.unlp.edu.ar/*",
+      "https://autogestion-guarani.unr.edu.ar/*",
+      "https://autogestion.guarani.unc.edu.ar/*",
+      "https://autogestion.uvq.edu.ar/*",
+      "https://guarani.unaj.edu.ar/*",
+      "https://guarani.unt.edu.ar/*",
+      "https://guarani.unp.edu.ar/",
+      "https://guarani.uba.ar/*",
+      "https://g3w.uns.edu.ar/*"
     ]
     
   }

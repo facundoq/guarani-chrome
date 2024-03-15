@@ -1,3 +1,5 @@
 date=$(date +"%Y-%m-%d-%HH-%MM-%SS")
+filename="../releases/guarani${date}.zip"
+echo "Generating release $filename..."
 
-zip releases/guarani${date}.zip -r index.html manifest.json LICENSE guarangada.png themes/ scripts/ images/
+(cd dist && zip $filename -r .  && echo "Done.")

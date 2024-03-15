@@ -1,4 +1,5 @@
 import { getSettings } from "./settings";
+import {cleanPropagate,propagateOnChange,fromHTML} from "./utils/dom_utils"
 
 const passed_button = '<p style="background-color:#82f5a3;font-weight:bold;cursor: pointer;"> Aprobar </p>'
 const failed_button = '<p style="background-color:#f58982;font-weight:bold;cursor: pointer;"> Desaprobar </p>'

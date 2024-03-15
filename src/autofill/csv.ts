@@ -1,14 +1,25 @@
-import { dictFromLists } from "./utils";
+import { dictFromLists } from "../utils/utils";
 
 export function validateCSV(input,separator=";"){
   return input.trim().length>0;
 }
 
-
-export function parseCSV(input,separator=";",normalize_header=false){
+class CSVParseError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'CSVParseError';
+  }
+}
+export type CSVRow = Map<string,string>
+export type CSVData = Array<CSVRow>
+export type CSVHeader = Array<string>
+export class CSV {
+  constructor(public rows:CSVData,public header:CSVHeader){}
+}
+export function parseCSV(input,separator=";",normalize_header=false):CSV{
     input = input.trim()
     if (input ===""){
-      return [[],[]]
+      return new CSV([],[])
     }
     const lines = input.split(/\r\n|\n/).map(r => r.trim())
     const nonemptyLines = lines.filter(r => r.length>0)    
@@ -26,7 +37,7 @@ export function parseCSV(input,separator=";",normalize_header=false){
         
     });
     
-    return [rows, header]
+    return new CSV(rows, header)
   }
 
   // parseCSV("dni;h1\n23;v1\n  \n  \n")

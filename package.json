@@ -22,7 +22,7 @@
         "typescript",
         "chrome"
     ],
-    "main": "main.js",
+    "main": "index.js",
     "scripts": {
       "watch": "webpack --config webpack/webpack.dev.js --watch",
       "build": "webpack --config webpack/webpack.prod.js",

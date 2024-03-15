@@ -2,18 +2,13 @@ export const zip = (a, b) => a.map((k, i) => [k, b[i]]);
 
 export function intersection(a, b) { return a.filter(value => b.includes(value)); }
 
-export function dictFromLists(keys,vals){
-    const dict = new Map()
+export function dictFromLists(keys:Array<string>,vals:Array<Map<string,string>>){
+    const dict = new Map<string,string>()
     zip(keys,vals).forEach(kv=>{
       const [k,v]= kv;
       dict.set(k,v);
     })
     return dict
-}
-
-export function listOfDictToDictOfDict(rows,key="dni"){   
-  const keys = rows.map(row => {return row.get(key)})
-  return dictFromLists(keys,rows)
 }
 
 export abstract class Optional{
@@ -50,20 +45,12 @@ export class None extends Optional{
 }
 
 
-
-export class Either<a=object,b=object>  {
-
-  static Left(v){ return new Left(v)}
-  static Right(v){ return new Right(v)}
-  static if(condition:boolean,valueLeft:object,valueRight:object){ return (condition)? Either.Right(valueRight) : Either.Left(valueLeft)}
-}
+export type Either<a,b> = Left<a> | Right<b>
 
 
-
-export class Left<a> extends Either<a,undefined> {
+export class Left<a>{
   protected _val:a;
   constructor(val:a) {
-    super();
     this._val = val;
   }
   isLeft(){
@@ -105,11 +92,10 @@ export class Left<a> extends Either<a,undefined> {
 /**
 *Right represents the happy path
 */
-export class Right<b> extends Either<undefined,b> {
+export class Right<b>{
   protected _val:b;
 
   constructor(val:b) {
-    super()
     this._val = val
   }
   isLeft(){
@@ -145,4 +131,16 @@ export class Right<b> extends Either<undefined,b> {
       const str = this._val.toString();
       return `Right(${str})`;
   }
+}
+
+export function mapValues<a,b,c>(map:Map<a,b>, fn:(t: b) => c) {
+  return new Map<a,c>(Array.from(map, ([key, value]) => [key, fn(value)]))
+}
+
+export function mapKeys<a,b,c>(map:Map<a,b>, fn:(t: a) => c) {
+  return new Map<c,b>(Array.from(map, ([key, value]) => [fn(key), value]))
+}
+
+export function mapMap<a,b,c,d>(map:Map<a,b>, fn:(t:a,x:b) => [c,d]) {
+  return new Map<c,d>(Array.from(map, ([key, value]) => fn(key,value)))
 }

@@ -1,23 +1,23 @@
 
+export const Settings = {
+  MissingStudents:"missingStudents",
+  Theme:"theme",
+  Date:"date",
+  OverwriteOnAutofill:"overwriteOnAutofill",
+  AutofillData:"autofillData",
+  AutofillDataCSV:"autofillDataCSV",
+  Unmatched:"unmatched"
+}
 
-export const Settings = {MissingStudents:"missingStudents",
-            Theme:"theme",
-            Date:"date",
-            OverwriteOnAutofill:"overwriteOnAutofill",
-            AutofillData:"autofillData",
-            AutofillDataCSV:"autofillDataCSV"
-            
-            }
-
-var _settings = { date: '01/01/2024',
-              theme:"dark",
-              overwriteOnAutofill:false,
+export var _settings = { [Settings.Date]: '01/01/2024',
+              [Settings.Theme]:"dark",
+              [Settings.OverwriteOnAutofill]:false,
             [Settings.AutofillDataCSV]:"",
-            [Settings.AutofillData]:{},
+            [Settings.AutofillData]:[],
             unmatched:[],
           }
 
-
+console.log(_settings)
 export function getSettings(key:string){
   return _settings[key]
 }

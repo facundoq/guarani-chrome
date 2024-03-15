@@ -7,11 +7,6 @@
 #autofillConfig{
     box-shadow: inset;
     border:2px solid gray;
-    z-index:1000;
-    min-height: 400px;
-    min-width: 20%;
-    /* right:10px; */
-
     padding:10px 20px;
     border-radius: 5px;
     background-color: white;
@@ -32,15 +27,16 @@
 }
 #autofillInput{
     width:100%;
-    min-height: 70px;
+    min-height: 150px;
 }
 #guaraniChromeLogo{
     width:24px;
 }
-#autofillDataViewer{
+#autofillResult{
     cursor: text;
     width: 100%;
-    min-height: 200px;
+    min-height: 150px;
+    overflow-y: scroll;
 }
 
 #autofillContainer{
@@ -48,4 +44,9 @@
     background-color: rgb(20, 20, 20);
     display: flex;
     align-items: flex-end;
+}
+
+    
+#autofillResult{
+    width:100%;
 }
