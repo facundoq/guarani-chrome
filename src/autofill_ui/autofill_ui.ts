@@ -7,6 +7,7 @@ import {
   UI,
   toggleElement,
 } from "../utils/dom_utils";
+import { AutofillStatsUI } from "./autofill_status_ui";
 
 const sampleCSV = `dni;condicion;fecha;resultado;nota
 44960966;Aprobado;1/02/2024;Aprobado;A
@@ -59,7 +60,7 @@ function shortenToolButtonsNames() {
 export class AutofillUI extends UI {
   // Create a bar above main form
   root = fromHTML(`<div id="autofillBar"> </div>`);
-  constructor(protected rows_element: HTMLElement[]) {
+  constructor(protected rowsElement: HTMLElement[]) {
     super();
 
     // add a container with the autofill config, a toggle button to open/close it, and an autofill button to operate it
@@ -67,7 +68,7 @@ export class AutofillUI extends UI {
       `<button id="autofillAdvanced" class="btn btn-small" href="#"><i   class="icon-wrench"></i> Configurar autocompletado </button>`
     );
     const autofillStartButton = new AutofillStartButtonUI(
-      rows_element,
+      rowsElement,
       () => {}
     );
 
@@ -79,8 +80,10 @@ export class AutofillUI extends UI {
       toggleElement(config, "block");
     };
 
+    const statsUI = new AutofillStatsUI(rowsElement)
     controls.appendChild(toggleButton);
     controls.appendChild(autofillStartButton.root);
+    controls.appendChild(statsUI.root)
 
     this.root.appendChild(controls);
     this.root.appendChild(config);
@@ -90,14 +93,16 @@ export class AutofillUI extends UI {
   }
 }
 
+
 export function addAutofillUI(form_renglones) {
   // const root = document.getElementById("notas_cursada_query").parentElement.parentElement.parentElement
-  const table = form_renglones.children[1];
-  const table_body = table.children[1];
-  const autofillUI = new AutofillUI(table_body.rows);
+  const table = form_renglones.children[1]
+  const table_body = table.children[1]
+  const rows = Array.from(table_body.rows) as HTMLElement[]
+  const autofillUI = new AutofillUI(rows)
 
-  const renglones = document.getElementById("renglones");
-  renglones.parentElement.insertBefore(autofillUI.root, renglones);
+  const renglones = document.getElementById("renglones")
+  renglones.parentElement.insertBefore(autofillUI.root, renglones)
 
-  shortenToolButtonsNames();
+  shortenToolButtonsNames()
 }

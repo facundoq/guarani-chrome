@@ -4,7 +4,8 @@ import { csv2autofillData, csvConfig } from "./parser";
 import { fromHTML } from "../utils/dom_utils";
 import { CSV, CSVData } from "./csv";
 
-class Student {
+export class Student {
+
   static elementSelectors = {
     dni: ".identificacion",
     nombre: ".nombre",
@@ -14,6 +15,7 @@ class Student {
     condicion: ".condicion",
     observacion: ".observacion",
   };
+
   static fromRow(row) {
     const dni_element_value = row.querySelector(
       Student.elementSelectors["dni"]
@@ -45,6 +47,8 @@ class Student {
       condicion,
       observacion
     );
+
+
   }
 
   constructor(
@@ -56,6 +60,17 @@ class Student {
     public condicion: string,
     public observacion: string
   ) {}
+
+  fillableFields(){
+    return [this.nota,this.fecha,this.resultado,this.condicion]
+  }
+  complete(){
+    return this.fillableFields().filter(f => f==="").length ===0
+  }
+  nonEmpty(){
+    
+    return this.fillableFields().filter(f => f==="").length <4
+  }
 }
 
 function dniMatcher(studentData: Student, data: CSV) {
