@@ -81,9 +81,9 @@ export class AutofillUI extends UI {
     };
 
     const statsUI = new AutofillStatsUI(rowsElement)
+    controls.appendChild(statsUI.root)
     controls.appendChild(toggleButton);
     controls.appendChild(autofillStartButton.root);
-    controls.appendChild(statsUI.root)
 
     this.root.appendChild(controls);
     this.root.appendChild(config);
