@@ -60,7 +60,15 @@ export class Student {
     public condicion: string,
     public observacion: string
   ) {}
-
+  asDict(){
+    return {dni:this.dni,
+            nombre:this.nombre,
+            fecha:this.fecha,
+            nota:this.nota,
+            resultado:this.resultado,
+            condicion:this.condicion,
+            observacion:this.observacion}
+  }
   fillableFields(){
     return [this.nota,this.fecha,this.resultado,this.condicion]
   }
