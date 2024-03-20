@@ -3,85 +3,9 @@ import { Either, Left, Optional, Right } from "../utils/utils";
 import { csv2autofillData, csvConfig } from "./parser";
 import { fromHTML } from "../utils/dom_utils";
 import { CSV, CSVData } from "./csv";
+import { StudentCursada } from "../guarani/StudentCursada";
 
-export class Student {
-
-  static elementSelectors = {
-    dni: ".identificacion",
-    nombre: ".nombre",
-    fecha: ".fecha",
-    nota: ".nota_cursada",
-    resultado: ".resultado",
-    condicion: ".condicion",
-    observacion: ".observacion",
-  };
-
-  static fromRow(row) {
-    const dni_element_value = row.querySelector(
-      Student.elementSelectors["dni"]
-    ).innerText;
-    const dni = dni_element_value.split(" ")[1];
-    const nombre = row.querySelector(
-      Student.elementSelectors["nombre"]
-    ).innerText;
-    const fecha = row.querySelector(Student.elementSelectors["fecha"]).value;
-    var nota = row.querySelector(Student.elementSelectors["nota"]).value;
-    const resultado = row.querySelector(
-      Student.elementSelectors["resultado"]
-    ).value;
-    const condicion = row.querySelector(
-      Student.elementSelectors["condicion"]
-    ).value;
-    const observacion = row.querySelector(
-      Student.elementSelectors["observacion"]
-    ).value;
-    if (nota === "-") {
-      nota = "";
-    }
-    return new Student(
-      dni,
-      nombre,
-      fecha,
-      nota,
-      resultado,
-      condicion,
-      observacion
-    );
-
-
-  }
-
-  constructor(
-    public dni: string,
-    public nombre: string,
-    public fecha: string,
-    public nota: string,
-    public resultado: string,
-    public condicion: string,
-    public observacion: string
-  ) {}
-  asDict(){
-    return {dni:this.dni,
-            nombre:this.nombre,
-            fecha:this.fecha,
-            nota:this.nota,
-            resultado:this.resultado,
-            condicion:this.condicion,
-            observacion:this.observacion}
-  }
-  fillableFields(){
-    return [this.nota,this.fecha,this.resultado,this.condicion]
-  }
-  complete(){
-    return this.fillableFields().filter(f => f==="").length ===0
-  }
-  nonEmpty(){
-    
-    return this.fillableFields().filter(f => f==="").length <4
-  }
-}
-
-function dniMatcher(studentData: Student, data: CSV) {
+function dniMatcher(studentData: StudentCursada, data: CSV) {
   const matches = data.rows.filter((s) => s.get("dni") == studentData.dni);
 
   if (matches.length === 1) {
@@ -91,7 +15,7 @@ function dniMatcher(studentData: Student, data: CSV) {
   }
 }
 
-function isStudentFormEmpty(studentFormData: Student) {
+function isStudentFormEmpty(studentFormData: StudentCursada) {
   const s = studentFormData;
 
   return (
@@ -113,7 +37,7 @@ function autofillStudent(row, studentData) {
   csvConfig.dataColumns.forEach((column) => {
     if (studentData.has(column)) {
       const autofillValue = convertValues(studentData.get(column), column);
-      const element = row.querySelector(Student.elementSelectors[column]);
+      const element = row.querySelector(StudentCursada.elementSelectors[column]);
       element.value = autofillValue;
       var event = new Event("change");
       element.dispatchEvent(event);
@@ -123,10 +47,10 @@ function autofillStudent(row, studentData) {
 
 function addToStudentTitle(row: HTMLElement, message: string) {
   const nombre = row.querySelector(
-    Student.elementSelectors["nombre"]
+    StudentCursada.elementSelectors["nombre"]
   ) as HTMLSpanElement;
   const id = row.querySelector(
-    Student.elementSelectors["dni"]
+    StudentCursada.elementSelectors["dni"]
   ) as HTMLSpanElement;
   const emoji = row.querySelector(
     ".result-emoji:last-child"
@@ -179,7 +103,7 @@ export function autofill(
 ) {
   const unmatched = [];
   for (let row of rows) {
-    const studentFormData = Student.fromRow(row);
+    const studentFormData = StudentCursada.fromRow(row);
     const studentFormEmpty = isStudentFormEmpty(studentFormData);
     if (!overwrite && !studentFormEmpty) {
       markAlreadyFilledStudent(row);
