@@ -1,0 +1,1 @@
+kernel.renderer.registrar_pagelet("actas",function(a){return{onload:function(){}}});

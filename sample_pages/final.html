@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<!-- saved from url=(0146)https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489 -->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="icon" href="https://autogestion.guarani.unlp.edu.ar/_comp/siu/img/favicon.ico" type="image/x-icon">
+
+	<title>SIU Guaraní - Carga de notas a mesa de examen</title>
+
+	<!-- <script type="text/javascript" async="" src="./final_files/analytics.js.descarga"></script> -->
+	<script type="text/javascript" async="" src="./final_files/js"></script>
+	 <!-- <script type="text/javascript" src="./final_files/guarani_mash.js" charset="iso-8859-1"></script>  -->
+	<link type="text/css" href="./final_files/guarani_mash.css" rel="stylesheet">
+
+	<!-- No se agrega en "guarani_mash.css" porque sino pierde la referencia de las fuentes -->
+	<link type="text/css" href="./final_files/font-awesome.min.css" rel="stylesheet">
+
+
+
+	<!--[if lt IE 9]>
+	<script type='text/javascript' src='/_comp/js/html5.js'></script>
+<![endif]-->
+
+
+
+	<script type="text/javascript">
+		var kernel_config = {
+			widget_count: 1,
+			// Stalls js load until all widgets have loaded css and rendered its content
+			stall_js: false,
+			log: true,
+			alias: '',
+			pretty_urls: true,
+			op_default: 'inicio_docente',
+			op_actual: 'zona_comisiones',
+			historia_activa: false,
+			es_produccion: true
+		};
+		var url_cambio_perfil = "https://autogestion.guarani.unlp.edu.ar/acceso/perfil";
+		var url_cambio_carrera = "https://autogestion.guarani.unlp.edu.ar/acceso/cambiar_carrera";
+
+		var autocompletar_input_habilitado = false;
+
+	</script>
+	<!-- Google tag (gtag.js) -->
+	<script async="" src="./final_files/js(1)"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-65070398-24');
+	</script>
+	<link href="./final_files/default.css" rel="stylesheet" class="lazyload" charset="utf-8">
+	<!-- <script src="./final_files/plugin.form.js.descarga" class="lazyload" charset="utf-8"></script>
+	<script src="./final_files/plugin_botonera.js.descarga" class="lazyload" charset="utf-8"></script>
+	<script src="./final_files/plugin_autocompletar.js.descarga" class="lazyload" charset="utf-8"></script>
+	<script src="./final_files/pagelet_comisiones.js.descarga" class="lazyload" charset="utf-8"></script>
+	<link rel="stylesheet" href="chrome-extension://fhfpefbfoljhmjegehhjigfmoamocgmi/themes/dark.css" type="text/css"
+		disabled="">
+	<link href="./final_files/default(1).css" rel="stylesheet" class="lazyload" charset="utf-8">
+	<script src="./final_files/pagelet_home.js.descarga" class="lazyload" charset="utf-8"></script>
+	<link href="./final_files/default(2).css" rel="stylesheet" class="lazyload" charset="utf-8">
+	<script src="./final_files/pagelet_zona.js.descarga" class="lazyload" charset="utf-8"></script>
+	<link href="./final_files/default(3).css" rel="stylesheet" class="lazyload" charset="utf-8">
+	<script src="./final_files/pagelet_actas.js.descarga" class="lazyload" charset="utf-8"></script>
+	<link href="./final_files/default(4).css" rel="stylesheet" class="lazyload" charset="utf-8">
+	<script src="./final_files/pagelet_mesas.js.descarga" class="lazyload" charset="utf-8"></script>
+	<script src="./final_files/date-es-AR.js.descarga" class="lazyload" charset="utf-8"></script>
+	<link href="./final_files/default(5).css" rel="stylesheet" class="lazyload" charset="utf-8">
+	<script src="./final_files/pagelet_home(1).js.descarga" class="lazyload" charset="utf-8"></script>
+	<link href="./final_files/default(6).css" rel="stylesheet" class="lazyload" charset="utf-8">
+	<script src="./final_files/pagelet_actas(1).js.descarga" class="lazyload" charset="utf-8"></script>
+	<script src="./final_files/pagelet_cabecera.js.descarga" class="lazyload" charset="utf-8"></script>
+	<link href="./final_files/default(7).css" rel="stylesheet" class="lazyload" charset="utf-8">
+	<script src="./final_files/pagelet_herramientas.js.descarga" class="lazyload" charset="utf-8"></script>
+	<link href="./final_files/default(8).css" rel="stylesheet" class="lazyload" charset="utf-8">
+	<script src="./final_files/pagelet_renglones.js.descarga" class="lazyload" charset="utf-8"></script>
+	<script src="./final_files/escala_243.js.descarga" class="lazyload" charset="utf-8"></script>
+	<script src="./final_files/plugin_renglones.js.descarga" class="lazyload" charset="utf-8"></script>
+	<script src="./final_files/cond_res.js.descarga" class="lazyload" charset="utf-8"></script> -->
+	<script src="./fake_sync.js" charset="utf-8"></script>
+	<script src="../../dist/js/index.js" charset="utf-8"></script>
+
+	<link href="../dist/themes/guarani-chrome.css" rel="stylesheet" charset="utf-8">
+
+</head>
+
+<body>
+	<div class="brand-nav">
+		<div class="container">
+			<div class="row-fluid">
+				<div class="span3">
+					<a class="brand" href="https://autogestion.guarani.unlp.edu.ar/inicio_docente"><img
+							src="./final_files/logo-transparente.png"></a>
+				</div>
+
+				<div class="span9">
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="navbar user-navbar clearfix">
+								<ul class="nav pull-right">
+
+
+
+									<li class="notificaciones">
+										<a href="https://autogestion.guarani.unlp.edu.ar/mensajes">
+											<i class="icon-envelope"></i>
+											<span id="js-cant-mensajes" class="badge">0</span>
+										</a>
+									</li>
+									<li class="dropdown">
+										<a href="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489#"
+											class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i>
+											FRANCO RONCHETTI <b class="caret"></b></a>
+										<ul class="dropdown-menu">
+											<li><a href="https://autogestion.guarani.unlp.edu.ar/configuracion"><i
+														class="icon-cog"></i> Configuraci�n</a></li>
+											<li><a href="https://autogestion.guarani.unlp.edu.ar/acceso/logout"
+													class="no-ajax"><i class="icon-off"></i> Cerrar sesi�n</a></li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="navbar main-nav">
+		<div class="navbar-inner">
+			<div class="container">
+				<div role="navigation">
+					<ul id="js-nav" class="nav">
+
+
+
+						<li id="zona_comisiones" class="js-menuitem-root">
+							<a class="" href="https://autogestion.guarani.unlp.edu.ar/zona_comisiones">Cursadas</a>
+						</li>
+
+
+						<li id="zona_clases" class="js-menuitem-root">
+							<a class="" href="https://autogestion.guarani.unlp.edu.ar/zona_clases">Clases</a>
+						</li>
+
+
+						<li id="zona_examenes" class="js-menuitem-root">
+							<a class="" href="https://autogestion.guarani.unlp.edu.ar/zona_examenes">Ex�menes</a>
+						</li>
+
+
+						<li class="dropdown js-menuitem-root">
+
+
+							<a href="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489#"
+								class="dropdown-toggle" data-toggle="dropdown">Reportes <b class="caret"></b></a>
+
+							<ul class="dropdown-menu">
+
+
+
+								<li id="agenda_examenes"><a
+										href="https://autogestion.guarani.unlp.edu.ar/agenda_examenes">Agenda de
+										ex�menes</a></li>
+
+
+
+
+								<li id="inscriptos_cursadas"><a
+										href="https://autogestion.guarani.unlp.edu.ar/inscriptos_cursadas">Inscriptos a
+										comisiones</a></li>
+
+
+
+
+								<li id="inscriptos_examenes"><a
+										href="https://autogestion.guarani.unlp.edu.ar/inscriptos_examenes">Inscriptos a
+										ex�menes</a></li>
+
+
+
+
+								<li id="inscriptos_rechazados"><a
+										href="https://autogestion.guarani.unlp.edu.ar/inscriptos_rechazados">Inscriptos
+										rechazados en comisiones</a></li>
+
+
+
+
+								<li id="reporte_actas"><a
+										href="https://autogestion.guarani.unlp.edu.ar/reporte_actas">Reporte de
+										Actas</a></li>
+
+
+
+
+								<li id="resumen_cursada"><a
+										href="https://autogestion.guarani.unlp.edu.ar/resumen_cursada">Resultado de
+										Cursadas</a></li>
+
+
+
+
+							</ul>
+
+
+
+						</li>
+
+
+						<li class="dropdown js-menuitem-root">
+
+
+							<a href="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489#"
+								class="dropdown-toggle" data-toggle="dropdown">Encuestas <b class="caret"></b></a>
+
+							<ul class="dropdown-menu">
+
+
+
+								<li id="encuestas_kolla"><a
+										href="https://autogestion.guarani.unlp.edu.ar/encuestas_kolla">Encuestas
+										Pendientes</a></li>
+
+
+
+
+								<li id="encuestas_respondidas"><a
+										href="https://autogestion.guarani.unlp.edu.ar/encuestas_respondidas">Encuestas
+										respondidas</a></li>
+
+
+
+
+								<li id="encuestas_resultados"><a
+										href="https://autogestion.guarani.unlp.edu.ar/encuestas_resultados">Resultados
+										de encuestas</a></li>
+
+
+
+
+								<li id="encuestas_resultados_docente"><a
+										href="https://autogestion.guarani.unlp.edu.ar/encuestas_resultados_docente">Resultados
+										de encuestas docentes</a></li>
+
+
+
+
+							</ul>
+
+
+
+						</li>
+
+
+						<li class="dropdown js-menuitem-root">
+
+
+							<a href="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489#"
+								class="dropdown-toggle" data-toggle="dropdown">Derechos <b class="caret"></b></a>
+
+							<ul class="dropdown-menu">
+
+
+
+								<li id="admin_derechos_comision"><a
+										href="https://autogestion.guarani.unlp.edu.ar/derechos_comision">Administrar
+										derechos en comisiones</a></li>
+
+
+
+
+							</ul>
+
+
+
+						</li>
+
+
+						<li class="dropdown js-menuitem-root menu-item-curso">
+							<a href="https://autogestion.guarani.unlp.edu.ar/acceso/perfil?id=Cursos"
+								class="no-ajax toogle-curso" title="" data-toggle="popover" data-placement="bottom"
+								data-content="Acceso a cursos disponibles para la comunidad" data-original-title=""
+								data-trigger="hover">Cursos</a>
+						</li>
+					</ul>
+
+					<ul id="js-selector-perfiles" class="nav pull-right perfiles">
+						<li class="dropdown">
+							<a href="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489#"
+								class="dropdown-toggle" data-toggle="dropdown"><span class="js-texto-perfil">Perfil:
+									Docente</span> <b class="caret"></b></a>
+							<ul class="dropdown-menu" id="js-select-perfil">
+								<li data-perfil="Alumno" class="js-perfil-item"><a
+										href="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489#">Alumno</a>
+								</li>
+								<li data-perfil="Docente" data-perfilnombre="Docente"
+									class="js-seleccion-perfil js-perfil-item">
+									<a
+										href="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489#"><i
+											class="icon-ok"></i> Docente</a>
+								</li>
+								<li data-perfil="Cursos" class="js-perfil-item"><a
+										href="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489#">Cursos</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div><!-- container-fluid -->
+		</div><!-- navbar-inner -->
+	</div><!-- navbar -->
+
+	<!-- https://api.jqueryui.com/autocomplete/#option-minLength -->
+	<input type="hidden" id="js-ui-autocomplete-min-length" name="ui-autocomplete-min-length" value="3"
+		autocomplete="off">
+
+	<!-- https://gist.github.com/tentacode/3892186 -->
+
+	<div id="loading" class="" style="display: none;"></div>
+	<div id="loading_top" style="top: 0px; left: 640px; display: none;" class="">Cargando...</div>
+	<div id="_msg_placeholder" style="display:none;" class="msg_placeholder alert-success"></div>
+	<div id="kernel_contenido" class="container">
+		<div id="zona" class="pagelet" style="display: block; clear: both;">
+			<div class="navegacion visible-desktop">
+				<ul class="nav pull-left"><a href="https://autogestion.guarani.unlp.edu.ar/zona_examenes"
+						class="btn zona-btn-home"><i class="icon-home"></i></a><select
+						class="form-control span6 js-combo-nav">
+						<option value="0" selected=""
+							data-link="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489">
+							Conceptos de Organizacion de Computadoras: Conceptos de Organizacion de Computadoras
+						</option>
+					</select></ul>
+				<ul class="nav nav-pills pull-right">
+					<li><a
+							href="https://autogestion.guarani.unlp.edu.ar/zona_examenes/home/d853a61f3419c9f211cfa9d82e7569ae65d348bd00ecee41b544d4e9b0fe75b108e0bab7ca59a861">Inicio</a>
+					</li>
+					<li class="active"><a
+							href="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489">Cargar
+							Notas</a></li>
+					<li><a
+							href="https://autogestion.guarani.unlp.edu.ar/inscriptos_examen/info/5ddecb1f21ee9811dbcddfebd90b105be50b4887a79dc532d4631dc037c272f6a1e0d90d4cf11728">Alumnos</a>
+					</li>
+					<li><a
+							href="https://autogestion.guarani.unlp.edu.ar/actas_examen/08d3f4526a000fae12e2b6fb57859ed3044aa821f655804fbae18cd986cd91e6a7457d4431b242eb">Actas</a>
+					</li>
+				</ul>
+			</div>
+			<div class="hidden-desktop">
+				<div class="input-prepend"><a href="https://autogestion.guarani.unlp.edu.ar/zona_examenes"
+						class="btn"><i class="icon-home"></i></a><select class="form-control js-combo-nav">
+						<option value="0" selected=""
+							data-link="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489">
+							Conceptos de Organizacion de Computadoras: Conceptos de Organizacion de Computadoras
+						</option>
+					</select></div>
+				<div class="nav nav-pills">
+					<li><a
+							href="https://autogestion.guarani.unlp.edu.ar/zona_examenes/home/d853a61f3419c9f211cfa9d82e7569ae65d348bd00ecee41b544d4e9b0fe75b108e0bab7ca59a861">Inicio</a>
+					</li>
+					<li class="active"><a
+							href="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489">Cargar
+							Notas</a></li>
+					<li><a
+							href="https://autogestion.guarani.unlp.edu.ar/inscriptos_examen/info/5ddecb1f21ee9811dbcddfebd90b105be50b4887a79dc532d4631dc037c272f6a1e0d90d4cf11728">Alumnos</a>
+					</li>
+					<li><a
+							href="https://autogestion.guarani.unlp.edu.ar/actas_examen/08d3f4526a000fae12e2b6fb57859ed3044aa821f655804fbae18cd986cd91e6a7457d4431b242eb">Actas</a>
+					</li>
+				</div>
+			</div>
+			<div class="span12 row-fluid detalle-contenedor well well-small">
+				<div class="clearfix detalle-cabecera" id="js-colapsar-detalles-zona">
+					<h3 class="clearfix"><span class="pull-left">Conceptos de Organizacion de Computadoras - (00CNC)
+						</span>
+						<div class="pull-right"><label><i class="icon-th-list"></i> Detalles</label></div>
+					</h3>
+				</div>
+				<div id="zona-detalle" style="	display: none;">
+					<table class="table table-condensed detalle-detalle detalle-tabla">
+						<tbody>
+							<tr>
+								<td class="zona-detalle-label">
+									Docentes:
+								</td>
+								<td colspan="3"> VILLAGARCIA HORACIO (Presidente), Iba�ez Eduardo Javier (Presidente),
+									RONCHETTI FRANCO (Presidente) </td>
+							</tr>
+							<tr>
+								<td class="zona-detalle-label" colspan="1">
+									Fecha:
+								</td>
+								<td>11/03/2024</td>
+								<td class="zona-detalle-label" colspan="1">
+									Horario:
+								</td>
+								<td>08:00
+								</td>
+							</tr>
+							<tr>
+								<td class="zona-detalle-label">
+									Mesa:
+								</td>
+								<td> Conceptos de Organizacion de Computadoras </td>
+								<td class="zona-detalle-label">
+									A�o acad�mico:
+								</td>
+								<td> 2023 </td>
+							</tr>
+							<tr>
+								<td class="zona-detalle-label">
+									Turno:
+								</td>
+								<td>Red Ingreso 2do Semestre</td>
+								<td>Llamado:</td>
+								<td>Llamado del Turno Red Ingreso 2do Semestre</td>
+							</tr>
+							<tr>
+								<td class="zona-detalle-label">
+									Ubicaci�n:
+								</td>
+								<td>Facultad de Inform�tica</td>
+								<td>Instancias:</td>
+								<td>Regular</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="layout_una_columna" class="row-fluid">
+			<div id="columna_1" class="span12">
+
+				<div id="cabecera" class="pagelet" style="display: block; clear: both;">
+					<div class="titulo_operacion row-fluid">
+						<div class="span12">
+							<h2 class="clearfix"><span class="pull-left">Carga de notas a mesa de examen</span>
+								<div class="pull-right"><button class="btn btn-small" id="js-colapsar-info-mesa"><i
+											class="icon-th-list"></i>
+										Escalas
+									</button><button class="btn btn-small" id="js-colapsar-herramientas"><i
+											class="icon-wrench"></i>
+										Autocompletar
+									</button><button class="btn btn-small" id="js-colapsar-actas"><i
+											class="icon-wrench"></i>
+										Ver actas
+									</button></div>
+							</h2>
+						</div>
+					</div>
+					<div class="pull-right"></div>					
+				</div>
+
+				<div id="herramientas" class="pagelet" style="display: block; clear: both;">
+					<div class="js-barra-herramientas" style="display: none;">
+						<form id="preset_form" class="form-inline" autocomplete="off"><select id="preset_campo"
+								class="combo_campos">
+								<option value="3,243">Notas de instancia Regular</option>
+								<option value="fecha">Fecha del examen</option>
+								<option value="resultado">Resultado</option>
+							</select><input id="preset-otros" class="preset_valor otros input-small" type="text"
+								value="" autocomplete="off"><input id="preset-fecha"
+								class="preset_valor fecha input-small hasDatepicker" type="text" value=""
+								style="display: none;" autocomplete="off"><select id="preset-resultado"
+								class="preset_valor resultado input-small" readonly="" style="display: none;">
+								<option value="U">Ausente</option>
+							</select><label for="preset_solo_vacio" class="checkbox"><input id="preset_solo_vacio"
+									type="checkbox" checked="checked" autocomplete="off">Completar s�lo vac�os
+							</label><button id="btnCompletar" type="submit" class="btn btn-small" disabled="disabled"><i
+									class="icon-edit"></i> Completar</button><button id="preset_undo" type="reset"
+								class="btn btn-small" disabled="disabled"><i class="icon-arrow-left"></i>
+								Deshacer</button></form>
+						<p class="advertencia">
+							Tenga en cuenta que s�lo se completar�n los renglones de esta p�gina.
+						</p>
+					</div>
+				</div>
+
+				<div id="actas" class="pagelet" style="display: block; clear: both;">
+					<div class="js-detalle-actas" style="display: none;">
+						<table class="table table-condensed">
+							<thead>
+								<tr>
+									<th>Nro acta</th>
+									<th>Instancias</th>
+									<th>Observaciones</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>26730</td>
+									<td>
+										Regular
+									</td>
+									<td></td>
+									<td>
+										<div class="pull-right"><span class="link-no-acceso disabled btn btn-small"
+												data-placement="top" data-toggle="tooltip"
+												data-original-title="No ten�s derechos"><i class="icon-eye-open"></i>
+												Editar
+											</span></div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div id="renglones" class="pagelet" style="display: block; clear: both;">
+					<form class="form-renglones"
+						action="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/guardar/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489/1"
+						method="post" autocomplete="off">
+						<div class="form-actions clearfix">
+							<div class="pagination pagination-small pull-left"></div>
+							<div class="form-inline pull-left form-busqueda"><label
+									class="control-label notas_cursada_query" for="notas_cursada_query">B�squeda de
+									alumnos por apellido&nbsp;&nbsp;</label><input type="text" id="notas_cursada_query"
+									name="query" value="" class="input ui-autocomplete-input" autocomplete="off"></div>
+							<input type="submit" value="Guardar" class="btn btn-info btn-small pull-right"
+								autocomplete="off">
+						</div>
+						<table class="tabla-renglones table table-bordered table-condensed">
+							<thead>
+								<tr>
+									<th>Alumno</th>
+									<th>Instancia</th>
+									<th>Acta</th>
+									<th>Fecha</th>
+									<th>Nota</th>
+									<th>Resultado</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="renglon_401042" title="" class="">
+									<!-- Nombre del alumno -------------------------------------------->
+									<td>
+										<div class="ficha-alumno clearfix pull-left"
+											data-url-ficha="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/ficha_alumno?id_imagen=&amp;alumno=401042&amp;actividad=23942"
+											title="Cliquee para ver la cursada de la actividad"><img
+												src="./final_files/mm.png" width="35" height="35"
+												class="pull-left img-alumno">
+											<div class="pull-left"><span class="nombre">Firlikowski, Claudio
+													Manfredo</span><span class="identificacion">DNI 30590997</span>
+											</div><!-- Instancia de inscripci�n -----------------------------><input
+												type="hidden" class="instancia" data-tipo="instancia"
+												name="renglones[401042][instancia]" value="3"
+												autocomplete="off"><!-- Escala de notas de la instancia ----------------------><input
+												type="hidden" class="escala_nota" data-tipo="escala_nota"
+												name="renglones[401042][escala_nota]" value="243" autocomplete="off">
+										</div>
+									</td><!-- Instancia ---------------------------------------------------->
+									<td class="alinear">
+										Regular
+									</td><!-- Nro de acta -------------------------------------------------->
+									<td class="alinear">
+										26730
+									</td><!-- Fecha -------------------------------------------------------->
+									<td class="centrar alinear col-fecha"><input type="text" data-tipo="fecha"
+											name="renglones[401042][fecha]" value="11/03/2024"
+											class="fecha nav  hasDatepicker" id="dp1709910298808" autocomplete="off">
+									</td><!-- Nota --------------------------------------------------------->
+									<td class="centrar alinear col-nota"><select class="nota js-nota_instancia_3"
+											data-tipo="nota" name="renglones[401042][nota]">
+											<option value="" data-resultado="vacio">-</option>
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+											<option value="8">8</option>
+											<option value="9">9</option>
+											<option value="10">10</option>
+										</select></td>
+									<!-- Resultado ---------------------------------------------------->
+									<td class="centrar alinear col-resultado"><select class="resultado"
+											data-tipo="resultado" name="renglones[401042][resultado]">
+											<option value="" data-resultado="vacio">-</option>
+											<option value="U">Ausente</option>
+											<option value="A">Aprobado</option>
+											<option value="R">Reprobado</option>
+										</select></td>
+								</tr>
+								<tr id="renglon_400625" title="" class="	">
+									<!-- Nombre del alumno -------------------------------------------->
+									<td>
+										<div class="ficha-alumno clearfix pull-left"
+											data-url-ficha="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/ficha_alumno?id_imagen=&amp;alumno=400625&amp;actividad=23942"
+											title="Cliquee para ver la cursada de la actividad"><img
+												src="./final_files/mm.png" width="35" height="35"
+												class="pull-left img-alumno">
+											<div class="pull-left"><span class="nombre">Garay Espinoza, Judith
+													Camila</span><span class="identificacion">DNI 46694118</span></div>
+											<!-- Instancia de inscripci�n -----------------------------><input
+												type="hidden" class="instancia" data-tipo="instancia"
+												name="renglones[400625][instancia]" value="3"
+												autocomplete="off"><!-- Escala de notas de la instancia ----------------------><input
+												type="hidden" class="escala_nota" data-tipo="escala_nota"
+												name="renglones[400625][escala_nota]" value="243" autocomplete="off">
+										</div>
+									</td><!-- Instancia ---------------------------------------------------->
+									<td class="alinear">
+										Regular
+									</td><!-- Nro de acta -------------------------------------------------->
+									<td class="alinear">
+										26730
+									</td><!-- Fecha -------------------------------------------------------->
+									<td class="centrar alinear col-fecha"><input type="text" data-tipo="fecha"
+											name="renglones[400625][fecha]" value="11/03/2024"
+											class="fecha nav  hasDatepicker" id="dp1709910298809" autocomplete="off">
+									</td><!-- Nota --------------------------------------------------------->
+									<td class="centrar alinear col-nota"><select class="nota js-nota_instancia_3"
+											data-tipo="nota" name="renglones[400625][nota]">
+											<option value="" data-resultado="vacio">-</option>
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7">7</option>
+											<option value="8">8</option>
+											<option value="9">9</option>
+											<option value="10">10</option>
+										</select></td>
+									<!-- Resultado ---------------------------------------------------->
+									<td class="centrar alinear col-resultado"><select class="resultado"
+											data-tipo="resultado" name="renglones[400625][resultado]">
+											<option value="" data-resultado="vacio">-</option>
+											<option value="U">Ausente</option>
+											<option value="A">Aprobado</option>
+											<option value="R">Reprobado</option>
+										</select></td>
+								</tr>
+							</tbody>
+						</table>
+				</div>
+			</div>
+
+		
+		</div>
+
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="span6">
+						<div id="copyleft">
+
+						</div>
+					</div>
+					<div class="span6">
+						<div id="copyright">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<a id="back-to-top"
+			href="https://autogestion.guarani.unlp.edu.ar/notas_mesa_examen/edicion/d256f1e64e5dd4ccea25343346dc4dc986a59b4c142cb7d436f9ff59dfabb15e2d2eb4fcd6f11489#"
+			class="btn btn-inverse btn-large" role="button" title="Ir arriba" style="display: none;">
+			<i class="fa fa-chevron-up" aria-hidden="true"></i>
+		</a>
+
+
+		<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+		</div>
+		<div class="info-msg" style="display: none;"></div>
+		<ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front"
+			style="display: none;"></ul>
+		<div role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div>
+</body>

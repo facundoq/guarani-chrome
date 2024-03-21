@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+		    	
+	
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<link rel="icon" href="/_comp/siu/img/favicon.ico" type="image/x-icon" />
+
+<title>SIU Guaraní - Inicio</title>
+
+	<script type='text/javascript' src='/_comp/siu/js/guarani_mash.js' charset="iso-8859-1"></script>
+			<link type='text/css' href='/_comp/siu/css/guarani_mash.css' rel='stylesheet' />
+			
+    <!-- No se agrega en "guarani_mash.css" porque sino pierde la referencia de las fuentes -->
+    <link type='text/css' href='/css/font-awesome-4.6.3/css/font-awesome.min.css' rel='stylesheet' />
+
+
+
+<!--[if lt IE 9]>
+	<script type='text/javascript' src='/_comp/js/html5.js'></script>
+<![endif]-->
+
+	 
+	
+<script type='text/javascript'>
+var kernel_config = {
+	widget_count: 3,
+	// Stalls js load until all widgets have loaded css and rendered its content
+	stall_js: false,
+	log: true,
+	alias: '',
+	pretty_urls: true,
+	op_default: 'inicio_docente',
+	op_actual: 'inicio_docente',
+	historia_activa: false,
+		es_produccion: true
+};
+var url_cambio_perfil = "https://autogestion.guarani.unlp.edu.ar/acceso/perfil";
+var url_cambio_carrera = "https://autogestion.guarani.unlp.edu.ar/acceso/cambiar_carrera";
+
+var autocompletar_input_habilitado = false;
+
+</script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-65070398-24"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-65070398-24');
+    </script>
+    </head>
+    
+    <body>
+        <div class="brand-nav">
+    <div class="container">
+		<div class="row-fluid">
+			<div class="span3">
+				<a class="brand" href="https://autogestion.guarani.unlp.edu.ar/inicio_docente"><img src="/_comp/unlp/img/logo-transparente.png" /></a>
+			</div>
+
+			<div class="span9">
+							<div class="row-fluid">
+					<div class="span12">
+						<div class="navbar user-navbar clearfix">
+							<ul class="nav pull-right">
+								
+                                 
+									
+								<li class="notificaciones">
+									<a href="https://autogestion.guarani.unlp.edu.ar/mensajes">
+										<i class="icon-envelope"></i>
+										<span id='js-cant-mensajes' class="badge ">
+											0
+										</span>
+									</a>
+								</li>
+								<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i> FRANCO RONCHETTI <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href='https://autogestion.guarani.unlp.edu.ar/configuracion'><i class="icon-cog"></i> Configuración</a></li>
+									<li><a href='https://autogestion.guarani.unlp.edu.ar/acceso/logout' class="no-ajax"><i class="icon-off"></i> Cerrar sesión</a></li>
+								</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+										</div>
+		</div>
+    </div>
+</div>
+<div class="navbar main-nav">
+	<div class="navbar-inner">
+		<div class="container">
+			<div role="navigation">
+								<ul id='js-nav' class='nav'>
+                                    
+                                                                
+									
+                                                                                                                                                						<li id='zona_comisiones' class='js-menuitem-root '>
+							<a class="" href='https://autogestion.guarani.unlp.edu.ar/zona_comisiones'>Cursadas</a>
+						</li>
+
+														
+                                                                                                                                                						<li id='zona_clases' class='js-menuitem-root '>
+							<a class="" href='https://autogestion.guarani.unlp.edu.ar/zona_clases'>Clases</a>
+						</li>
+
+														
+                                                                                                                                                						<li id='zona_examenes' class='js-menuitem-root '>
+							<a class="" href='https://autogestion.guarani.unlp.edu.ar/zona_examenes'>Exámenes</a>
+						</li>
+
+														
+                                        <li class='dropdown js-menuitem-root '>
+                                                
+        
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes <b class="caret"></b></a>
+    
+    <ul class='dropdown-menu'>
+
+                                    
+                                    
+                                        <li id='agenda_examenes'><a href='https://autogestion.guarani.unlp.edu.ar/agenda_examenes'>Agenda de exámenes</a></li>
+                        
+                        
+                    
+                                    
+                                        <li id='inscriptos_cursadas'><a href='https://autogestion.guarani.unlp.edu.ar/inscriptos_cursadas'>Inscriptos a comisiones</a></li>
+                        
+                        
+                    
+                                    
+                                        <li id='inscriptos_examenes'><a href='https://autogestion.guarani.unlp.edu.ar/inscriptos_examenes'>Inscriptos a exámenes</a></li>
+                        
+                        
+                    
+                                    
+                                        <li id='inscriptos_rechazados'><a href='https://autogestion.guarani.unlp.edu.ar/inscriptos_rechazados'>Inscriptos rechazados en comisiones</a></li>
+                        
+                        
+                    
+                                    
+                                        <li id='reporte_actas'><a href='https://autogestion.guarani.unlp.edu.ar/reporte_actas'>Reporte de Actas</a></li>
+                        
+                        
+                    
+                                    
+                                        <li id='resumen_cursada'><a href='https://autogestion.guarani.unlp.edu.ar/resumen_cursada'>Resultado de Cursadas</a></li>
+                        
+                        
+        
+        
+    </ul>
+
+    
+
+                                        </li>
+
+														
+                                        <li class='dropdown js-menuitem-root '>
+                                                
+        
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Encuestas <b class="caret"></b></a>
+    
+    <ul class='dropdown-menu'>
+
+                                    
+                                    
+                                        <li id='encuestas_kolla'><a href='https://autogestion.guarani.unlp.edu.ar/encuestas_kolla'>Encuestas Pendientes</a></li>
+                        
+                        
+                    
+                                    
+                                        <li id='encuestas_respondidas'><a href='https://autogestion.guarani.unlp.edu.ar/encuestas_respondidas'>Encuestas respondidas</a></li>
+                        
+                        
+                    
+                                    
+                                        <li id='encuestas_resultados'><a href='https://autogestion.guarani.unlp.edu.ar/encuestas_resultados'>Resultados de encuestas</a></li>
+                        
+                        
+                    
+                                    
+                                        <li id='encuestas_resultados_docente'><a href='https://autogestion.guarani.unlp.edu.ar/encuestas_resultados_docente'>Resultados de encuestas docentes</a></li>
+                        
+                        
+        
+        
+    </ul>
+
+    
+
+                                        </li>
+
+														
+                                        <li class='dropdown js-menuitem-root '>
+                                                
+        
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Derechos <b class="caret"></b></a>
+    
+    <ul class='dropdown-menu'>
+
+                                    
+                                    
+                                        <li id='admin_derechos_comision'><a href='https://autogestion.guarani.unlp.edu.ar/derechos_comision'>Administrar derechos en comisiones</a></li>
+                        
+                        
+        
+        
+    </ul>
+
+    
+
+                                        </li>
+
+									                                
+                                                                                                                                            <li class='dropdown js-menuitem-root menu-item-curso'>
+                                        <a href="https://autogestion.guarani.unlp.edu.ar/acceso/perfil?id=Cursos" class="no-ajax toogle-curso" title="" data-toggle="popover" data-placement="bottom" data-content="Acceso a cursos disponibles para la comunidad" data-original-title="" data-trigger="hover">Cursos</a>
+                                    </li>
+                                                                                                        				</ul>
+				
+									<ul id="js-selector-perfiles" class="nav pull-right perfiles">
+						<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class='js-texto-perfil'></span> <b class="caret"></b></a>
+						<ul class="dropdown-menu" id="js-select-perfil">
+																						<li data-perfil="Alumno" class="js-perfil-item"><a href="#">Alumno</a></li>
+																													<li data-perfil="Docente" data-perfilnombre="Docente" class='js-seleccion-perfil js-perfil-item'>
+								<a href="#"><i class="icon-ok"></i> Docente</a>
+								</li>
+																													<li data-perfil="Cursos" class="js-perfil-item"><a href="#">Cursos</a></li>
+																				</ul>
+						</li>
+					</ul>
+							</div><!--/.nav-collapse -->
+		</div><!-- container-fluid -->
+	</div><!-- navbar-inner -->
+</div><!-- navbar -->
+
+<!-- https://api.jqueryui.com/autocomplete/#option-minLength -->
+<input type="hidden" id="js-ui-autocomplete-min-length" name="ui-autocomplete-min-length" value="3" />
+
+<!-- https://gist.github.com/tentacode/3892186 -->
+
+        <div id='loading'></div>
+		<div id='loading_top' style='display:none;'>Cargando...</div>
+		<div id='_msg_placeholder' style='display:none;' class="msg_placeholder alert-success"></div>
+		<div id='kernel_contenido' class="container">
+								<div class='titulo_operacion row-fluid'>
+		<div class="span12">
+		<h2>Hola FRANCO RONCHETTI </h2>		</div>
+	</div>
+
+	<div id='layout_una_columna' class="row-fluid">
+		<div id='columna_1' class="span12">
+		 
+        
+        
+    <div class='row-fluid'>
+        <div class='span6'>
+            <div id='clases_ultimas'  class='pagelet'></div>
+        </div>
+        <div class='span6'>
+            <div id='mesas_examen'  class='pagelet'></div>
+        </div>
+        <div class='span6'>
+            <div id='lista_encuestas_pendientes'  class='pagelet'></div>
+        </div>
+        <div class='span6'>
+                    </div>
+    </div>
+
+		</div>
+	</div>
+
+			<script type='text/javascript'>kernel.renderer.on_arrival({"css":["\/_comp\/siu\/operaciones\/inicio_docente\/clases_ultimas\/default.css"],"js":["\/_comp\/siu\/operaciones\/inicio_docente\/clases_ultimas\/pagelet_clases_ultimas.js"],"op":"inicio_docente","info":{"id":"clases_ultimas","visible":"1","estado":"inicial","mensajes":[],"ver_mas":"Mostrar m\u00e1s","ocultar":"Ocultar"},"content":"<h3>Ultimas clases<\/h3><table id=\"comisiones\" class=\"table  table-condensed\" ><div class=\"alert\">No hay datos de clases<\/div><\/table>","clase_js":"clases_ultimas","tiene_archivo_js":"1"});</script><script type='text/javascript'>kernel.renderer.on_arrival({"css":["\/_comp\/siu\/operaciones\/inicio_docente\/mesas_examen\/default.css"],"js":["\/_comp\/siu\/operaciones\/inicio_docente\/mesas_examen\/pagelet_mesas_examen.js"],"op":"inicio_docente","info":{"id":"mesas_examen","visible":"1","estado":"inicial","mensajes":[],"ver_mas":"Mostrar m\u00e1s","ocultar":"Ocultar"},"content":"<h3>Mesas de ex\u00e1menes<\/h3><table id=\"comisiones\" class=\"table table-condensed\" ><tr ><td><span><\/span><span class=\"fecha\">Sin definir <\/span><\/td><td><span class=\"actividad\">Conceptos de Organizacion de Computadoras  (00CNC)<\/span><span class=\"inscriptos\">2 inscripto\/s  <\/span><span class=\"instancias\">Regular <\/span><span class=\"ubicacion\">Facultad de Inform\u00e1tica <\/span><\/td><td class=\"columna-accion\" width=100px><a class=\"btn btn-mini\" href=\"https:\/\/autogestion.guarani.unlp.edu.ar\/zona_examenes\/home\/7e50303468f3a692be51fb65b35fd08b46618e69a265ee5a9af6ed889f02e3c245674f26adb68392\">Seleccione<\/a><\/td><\/tr><\/table>","clase_js":"mesas_examen","tiene_archivo_js":"1"});</script><script type='text/javascript'>kernel.renderer.on_arrival({"css":["\/_comp\/siu\/operaciones\/inicio_docente\/lista_encuestas_pendientes\/default.css"],"js":[],"op":"inicio_docente","info":{"id":"lista_encuestas_pendientes","visible":"1","estado":"inicial","mensajes":[]},"content":"<ul class='unstyled'><h3>Encuestas pendientes<\/h3><div class=\"alert alert-warning text-center text-warning\">No hay encuestas pendientes para completar<\/div><\/ul>","clase_js":"lista_encuestas_pendientes","tiene_archivo_js":""});</script><script type='text/javascript'>kernel_config.pagelet_count = 3</script>
+					</div>
+        
+        <footer>
+    <div class='container'>
+	<div class="row">
+	    <div class="span6">
+		<div id='copyleft'>
+
+		</div>
+	    </div>
+	    <div class="span6">
+		<div id='copyright'>
+
+		</div>
+	    </div>
+	</div>
+    </div>
+</footer>
+		<a id="back-to-top" href="#" class="btn btn-inverse btn-large" role="button" title="Ir arriba">
+			<i class="fa fa-chevron-up" aria-hidden="true"></i>
+		</a>
+
+    </body>
+</html>
