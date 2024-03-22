@@ -17,7 +17,6 @@ export var _settings = { [Settings.Date]: '01/01/2024',
             unmatched:[],
           }
 
-console.log(_settings)
 export function getSettings(key:string){
   return _settings[key]
 }

@@ -104,7 +104,6 @@ export class AutofillStatsUI extends UI {
     this.update();
   }
   update() {
-    console.log("Status UI updating");
     const students = this.rows_element.map((s) => new StudentCursada2(s));
     const total = students.length;
     const nonEmpty = students.filter((s) => s.nonEmpty()).length;
@@ -120,7 +119,6 @@ export class AutofillStatsUI extends UI {
         .reduce((a, b) => a + b, 0);
       const counter = this.fieldCounters.get(field);
       counter.update(count, total);
-      console.log(`${field}=${count}`);
     });
   }
 }

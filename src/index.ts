@@ -13,19 +13,18 @@ enum PageType {
 
 function detectPageType(): PageType {
     const cabeceraElement = document.getElementById("cabecera")
-    console.log(cabeceraElement)
     if (!cabeceraElement) {
         return PageType.Otra
     }
-    const titleElement = cabeceraElement.querySelector("h2")
-    if (!titleElement) {
+    const titleElementContainer = cabeceraElement.querySelector("h2")
+    if (!titleElementContainer) {
         return PageType.Otra
     }
-
+    const titleElement = titleElementContainer.children[0] as HTMLSpanElement
     switch (titleElement.innerText) {
-        case "Carga de notas de cursada": return PageType.Cursada
-        case "Carga de notas a mesa de examen": return PageType.Final
-        default: return PageType.Otra
+        case "Carga de notas de cursada": return PageType.Cursada;
+        case "Carga de notas a mesa de examen": return PageType.Final;
+        default: return PageType.Otra;
     }
 
 }
@@ -37,11 +36,14 @@ initializeSettings(() => {
             case PageType.Cursada: {
                 console.log(`Se detectó página de carga de notas de CURSADA`)
                 when_form_renglones_ready(addAutofillUI, 1000, 10);
+                break;
             }
             case PageType.Final: {
-                console.log(`Se detectó Se detectó página de carga de notas de FINAl`)
+                console.log(`Se detectó página de carga de notas de FINAl`)
                 //TODO
+                break;
             }
+            default: console.log("No se detectó un tipo de página especial.")
         }
     })
 
