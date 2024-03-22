@@ -52,8 +52,8 @@ class ThemesUI extends UI{
 export function initializeThemeChooser(){
     console.log(`initializing theme chooser`)
     const themeURLs = new Map(Object.entries(
-        {"dark":"/dist/themes/dark.css",
-         "light":"/dist/themes/light.css"
+        {"dark":"themes/dark.css",
+         "light":"themes/light.css"
     }))
     
     const themes = mapValues(themeURLs, addCSS )

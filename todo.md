@@ -1,3 +1,4 @@
+* Arreglar build de dist
 * StudentCursada2 en todos lados
 * Explicación del formato del csv para la carga automática
 * title en  botones config/autocompletar
@@ -8,9 +9,8 @@
 
 
 * video tutorial
-* archivo de ejemplo finales
 * carga de finales
-* 
+
 Largo plazo
 
 * datos por cursada, no globales
