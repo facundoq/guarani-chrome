@@ -3,10 +3,10 @@ import { setSettings,getSettings,Settings } from "./settings";
 import { mapValues } from "./utils/utils";
 
 function addCSS(href){
-    
+    const trueHref =chrome.runtime.getURL(href)
     var link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
-    link.setAttribute('href', href);
+    link.setAttribute('href', trueHref);
     link.setAttribute('type', "text/css");
     // link.setAttribute('disabled', "disabled");
     document.head.appendChild(link);
