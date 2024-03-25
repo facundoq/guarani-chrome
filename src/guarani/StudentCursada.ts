@@ -1,5 +1,10 @@
+import { fromHTML } from "../utils/dom_utils";
 
-export class StudentCursada2 {
+const emojiClass = "result-emoji"
+
+
+
+export class StudentCursada {
   static elementSelectors = {
     dni: ".identificacion",
     nombre: ".nombre",
@@ -8,9 +13,22 @@ export class StudentCursada2 {
     resultado: ".resultado",
     condicion: ".condicion",
     observacion: ".observacion",
+    resultEmoji: `.${emojiClass}`
   };
   constructor(public row:HTMLElement){
-
+    this.addResultEmojiElement()
+  }
+  addResultEmojiElement() {
+    if (this.emojiElement){
+      // don't create element if it already exists
+      return
+    }
+    let alumnoDiv = this.row.querySelector(".datos-alumno");
+    const emojiElement = fromHTML(`<span class="${emojiClass}"> <span>`);
+    alumnoDiv.appendChild(emojiElement);
+  }
+  get emojiElement():HTMLSpanElement{
+      return this.row.querySelector(StudentCursada.elementSelectors.resultEmoji) as HTMLSpanElement
   }
 
   static fillableFields = ["fecha","nota","resultado","condicion"]
@@ -96,93 +114,58 @@ export class StudentCursada2 {
   }
   
 
-  fillableFieldsValues() {
+  get fillableFields() {
     return [this.nota, this.fecha, this.resultado, this.condicion];
   }
-  complete() {
-    return this.fillableFieldsValues().filter(f => f === "").length === 0;
+  get emptyFields(){
+    return this.fillableFields.filter(f => f === "")
   }
-  nonEmpty() {
-    return this.fillableFieldsValues().filter(f => f === "").length < 4;
+  get isFull() {
+    return this.emptyFields.length === 0;
+  }
+  get isEmpty() {
+    return this.emptyFields.length == this.fillableFields.length;
   }
 
+
+ addToStudentTitle(message: string) {
+  function appendToTitle(element:HTMLElement,s:string){
+    element.title=`${element.title}${s}`
+  }
+    appendToTitle(this.nombreElement,`\n Autofill: ${message}`)
+  appendToTitle(this.dniElement,`\n Autofill: ${message}`)
+  appendToTitle(this.emojiElement,`\n Autofill: ${message}`)
 }
 
-export class StudentCursada {
+ setStudentClass( klass) {
+  this.row.classList.remove(...this.row.classList);
+  this.row.classList.add(klass);
+}
+ markFilledStudent() {
+  this.setStudentClass( "autofilledStudent");
+  this.addEmojiStudent("✅");
+  this.addToStudentTitle("ha sido completado automaticamente");
+}
 
-  static elementSelectors = {
-    dni: ".identificacion",
-    nombre: ".nombre",
-    fecha: ".fecha",
-    nota: ".nota_cursada",
-    resultado: ".resultado",
-    condicion: ".condicion",
-    observacion: ".observacion",
-  };
-
-  static fromRow(row) {
-    const dni_element_value = row.querySelector(
-      StudentCursada.elementSelectors["dni"]
-    ).innerText;
-    const dni = dni_element_value.split(" ")[1];
-    const nombre = row.querySelector(
-      StudentCursada.elementSelectors["nombre"]
-    ).innerText;
-    const fecha = row.querySelector(StudentCursada.elementSelectors["fecha"]).value;
-    var nota = row.querySelector(StudentCursada.elementSelectors["nota"]).value;
-    const resultado = row.querySelector(
-      StudentCursada.elementSelectors["resultado"]
-    ).value;
-    const condicion = row.querySelector(
-      StudentCursada.elementSelectors["condicion"]
-    ).value;
-    const observacion = row.querySelector(
-      StudentCursada.elementSelectors["observacion"]
-    ).value;
-    if (nota === "-") {
-      nota = "";
-    }
-    return new StudentCursada(
-      dni,
-      nombre,
-      fecha,
-      nota,
-      resultado,
-      condicion,
-      observacion
-    );
+ markOverwrittenStudent() {
+  this.setStudentClass("modifiedStudent");
+  this.addEmojiStudent("✏️");
+  this.addToStudentTitle( "ha sido editado automáticamente");
+}
+ markUnmatchedStudent( matches) {
+  this.setStudentClass( "unmatchedStudent");
+  this.addEmojiStudent( "❌");
+  this.addToStudentTitle( "no se pudo encontrar en el csv");
+}
+addEmojiStudent(emoji) {
+  this.emojiElement.innerText = `${this.emojiElement.innerText}${emoji}`
+}
+ markAlreadyFilledStudent() {
+  this.setStudentClass( "alreadyFilledStudent");
+  this.addEmojiStudent( "⚠️");
+  this.addToStudentTitle("No se modificó porque ya tenía valores cargados");
+  
+}
 
 
-  }
-
-  constructor(
-    public dni: string,
-    public nombre: string,
-    public fecha: string,
-    public nota: string,
-    public resultado: string,
-    public condicion: string,
-    public observacion: string
-  ) { }
-  asDict() {
-    return {
-      dni: this.dni,
-      nombre: this.nombre,
-      fecha: this.fecha,
-      nota: this.nota,
-      resultado: this.resultado,
-      condicion: this.condicion,
-      observacion: this.observacion
-    };
-  }
-  fillableFields() {
-    return [this.nota, this.fecha, this.resultado, this.condicion];
-  }
-  complete() {
-    return this.fillableFields().filter(f => f === "").length === 0;
-  }
-  nonEmpty() {
-
-    return this.fillableFields().filter(f => f === "").length < 4;
-  }
 }

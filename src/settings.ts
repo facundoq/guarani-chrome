@@ -9,12 +9,12 @@ export const Settings = {
   Unmatched:"unmatched"
 }
 
-export var _settings = { [Settings.Date]: '01/01/2024',
+export var _settings:{[key:string]:any} = { [Settings.Date]: '01/01/2024',
               [Settings.Theme]:"dark",
               [Settings.OverwriteOnAutofill]:false,
             [Settings.AutofillDataCSV]:"",
-            [Settings.AutofillData]:[],
-            unmatched:[],
+            [Settings.AutofillData]:undefined,
+            [Settings.Unmatched]:[],
           }
 
 export function getSettings(key:string){

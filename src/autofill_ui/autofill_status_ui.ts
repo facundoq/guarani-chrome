@@ -1,5 +1,5 @@
 import { getSettings, setSettings, Settings } from "../settings";
-import { StudentCursada, StudentCursada2 } from "../guarani/StudentCursada";
+import { StudentCursada } from "../guarani/StudentCursada";
 import { fromHTML, appendChildren, UI, observe } from "../utils/dom_utils";
 
 export class CounterUI extends UI {
@@ -70,7 +70,7 @@ export class AutofillStatsUI extends UI {
         .querySelectorAll("th")
     );
     const fieldToIndex = { fecha: 3, nota: 4, resultado: 5, condicion: 6 };
-    StudentCursada2.fillableFields.forEach((f) => {
+    StudentCursada.fillableFields.forEach((f) => {
       const counterUI = new CounterUI();
       this.fieldCounters.set(f, counterUI);
       const header = headerElements[fieldToIndex[f]]
@@ -104,14 +104,15 @@ export class AutofillStatsUI extends UI {
     this.update();
   }
   update() {
-    const students = this.rows_element.map((s) => new StudentCursada2(s));
+    const students = this.rows_element.map((s) => new StudentCursada(s));
     const total = students.length;
-    const nonEmpty = students.filter((s) => s.nonEmpty()).length;
-    const complete = students.filter((s) => s.complete()).length;
+    const nonEmpty = students.filter((s) => !(s.isEmpty)).length;
+    const complete = students.filter((s) => s.isFull).length;
+    
     this.countNonEmpty.update(nonEmpty, total);
     this.countComplete.update(complete, total);
 
-    StudentCursada2.fillableFields.forEach((field) => {
+    StudentCursada.fillableFields.forEach((field) => {
       const count = students
         .map((s) => {
           return s.asDict()[field] !== "" ? 1 : 0;
