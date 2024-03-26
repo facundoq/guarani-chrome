@@ -8,7 +8,7 @@ import {
   toggleElement,
 } from "../utils/dom_utils";
 import { AutofillStatsUI } from "./autofill_status_ui";
-import { CSV } from "../autofill/csv";
+import { CSV } from "../input/csv";
 import { StudentCursada } from "../guarani/StudentCursada";
 
 

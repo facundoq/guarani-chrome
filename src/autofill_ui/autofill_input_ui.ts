@@ -1,6 +1,6 @@
 import { Settings, getSettings, setSettings } from "../settings";
-import {csv2autofillData,csvConfig} from "../autofill/parser"
-import { CSVData,CSVHeader } from "../autofill/csv";
+import {csv2autofillData,CSVCursadaConfig} from "../input/parser"
+import { CSVData,CSVHeader } from "../input/csv";
 import {fromHTML,appendChildren,UI} from "../utils/dom_utils"
 
 
@@ -12,8 +12,8 @@ export class AutofillInputUI extends UI {
         this.root.id="autofillInputUI"
 
         const labelTitle = `El CSV requiere como mínimo una columna de identificación y una columna de datos:\n
-      Cols. de identificación: ${csvConfig.keyColumns}
-      Cols. de datos: ${csvConfig.dataColumns}
+      Cols. de identificación: ${CSVCursadaConfig.keyColumns}
+      Cols. de datos: ${CSVCursadaConfig.dataColumns}
       `
         const label = fromHTML(`<label for="autofillInput" style="display:block" title="${labelTitle}">Carga de CSV para autollenado 🛈:</label>`)
 

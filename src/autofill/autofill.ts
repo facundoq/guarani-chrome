@@ -1,8 +1,8 @@
 import { getSettings } from "../settings";
 import { Either, Left, Optional, Right } from "../utils/utils";
-import { csv2autofillData, csvConfig } from "./parser";
+import { csv2autofillData, CSVCursadaConfig } from "../input/parser";
 import { fromHTML } from "../utils/dom_utils";
-import { CSV, CSVData } from "./csv";
+import { CSV, CSVData } from "../input/csv";
 import { StudentCursada } from "../guarani/StudentCursada";
 
 function dniMatcher(student: StudentCursada, data: CSV) {
@@ -18,8 +18,8 @@ function dniMatcher(student: StudentCursada, data: CSV) {
 function convertValues(value, column) {
   // TODO test alternative
 
-  if (column in csvConfig.values) {
-    return csvConfig.values[column][value];
+  if (column in CSVCursadaConfig.values) {
+    return CSVCursadaConfig.values[column][value];
   } else {
     return value;
   }
@@ -63,7 +63,7 @@ export class AutofillCursada {
   }
 
   autofillStudent(student, studentData) {
-    csvConfig.dataColumns.forEach((column) => {
+    CSVCursadaConfig.dataColumns.forEach((column) => {
       if (studentData.has(column)) {
         const autofillValue = convertValues(studentData.get(column), column);
         const element = student.row.querySelector(

@@ -1,51 +1,12 @@
 import { fromHTML } from "../utils/dom_utils";
-
-const emojiClass = "result-emoji"
-
+import { Student } from "./Student";
 
 
-export class StudentCursada {
-  static elementSelectors = {
-    dni: ".identificacion",
-    nombre: ".nombre",
-    fecha: ".fecha",
-    nota: ".nota_cursada",
-    resultado: ".resultado",
-    condicion: ".condicion",
-    observacion: ".observacion",
-    resultEmoji: `.${emojiClass}`
-  };
-  constructor(public row:HTMLElement){
-    this.addResultEmojiElement()
-  }
-  addResultEmojiElement() {
-    if (this.emojiElement){
-      // don't create element if it already exists
-      return
-    }
-    let alumnoDiv = this.row.querySelector(".datos-alumno");
-    const emojiElement = fromHTML(`<span class="${emojiClass}"> <span>`);
-    alumnoDiv.appendChild(emojiElement);
-  }
-  get emojiElement():HTMLSpanElement{
-      return this.row.querySelector(StudentCursada.elementSelectors.resultEmoji) as HTMLSpanElement
-  }
+
+
+export class StudentCursada extends Student {
 
   static fillableFields = ["fecha","nota","resultado","condicion"]
-  
-  get dniElement():HTMLSpanElement{
-    return this.row.querySelector(StudentCursada.elementSelectors.dni) as HTMLSpanElement
-  }
-
-  get dni():string {return this.dniElement.innerText.split(" ")[1]}
-
-  get nombreElement():HTMLSpanElement{
-    return this.row.querySelector(StudentCursada.elementSelectors.nombre) as HTMLSpanElement
-  }
-
-  get nombre(): string {
-    return this.nombreElement.innerText;
-  }
 
   get fechaElement():HTMLInputElement{
     return this.row.querySelector(StudentCursada.elementSelectors.fecha) as HTMLInputElement
@@ -126,46 +87,5 @@ export class StudentCursada {
   get isEmpty() {
     return this.emptyFields.length == this.fillableFields.length;
   }
-
-
- addToStudentTitle(message: string) {
-  function appendToTitle(element:HTMLElement,s:string){
-    element.title=`${element.title}${s}`
-  }
-    appendToTitle(this.nombreElement,`\n Autofill: ${message}`)
-  appendToTitle(this.dniElement,`\n Autofill: ${message}`)
-  appendToTitle(this.emojiElement,`\n Autofill: ${message}`)
-}
-
- setStudentClass( klass) {
-  this.row.classList.remove(...this.row.classList);
-  this.row.classList.add(klass);
-}
- markFilledStudent() {
-  this.setStudentClass( "autofilledStudent");
-  this.addEmojiStudent("✅");
-  this.addToStudentTitle("ha sido completado automaticamente");
-}
-
- markOverwrittenStudent() {
-  this.setStudentClass("modifiedStudent");
-  this.addEmojiStudent("✏️");
-  this.addToStudentTitle( "ha sido editado automáticamente");
-}
- markUnmatchedStudent( matches) {
-  this.setStudentClass( "unmatchedStudent");
-  this.addEmojiStudent( "❌");
-  this.addToStudentTitle( "no se pudo encontrar en el csv");
-}
-addEmojiStudent(emoji) {
-  this.emojiElement.innerText = `${this.emojiElement.innerText}${emoji}`
-}
- markAlreadyFilledStudent() {
-  this.setStudentClass( "alreadyFilledStudent");
-  this.addEmojiStudent( "⚠️");
-  this.addToStudentTitle("No se modificó porque ya tenía valores cargados");
-  
-}
-
 
 }

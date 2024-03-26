@@ -1,6 +1,6 @@
 import { Settings, getSettings, setSettings } from "../settings";
-import {CSVParseResult, csv2autofillData,csvConfig} from "../autofill/parser"
-import { CSVData,CSVHeader } from "../autofill/csv";
+import {CSVParseResult, csv2autofillData,CSVCursadaConfig} from "../input/parser"
+import { CSVData,CSVHeader } from "../input/csv";
 import {fromHTML,appendChildren,UI} from "../utils/dom_utils"
 import { Either, mapMap } from "../utils/utils";
 
