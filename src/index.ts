@@ -1,9 +1,13 @@
-import { initializeSettings, Settings, _settings } from "./settings";
+import { Settings } from "./settings";
 
 import { initializeThemeChooser } from "./themes"
 import { ready, waitForElement } from "./utils/dom_utils"
 import { when_form_renglones_ready } from "./form_renglones";
 import { addAutofillUI } from "./autofill_ui/autofill_ui"
+import { AutofillCursada, AutofillFinal } from "./autofill/autofill";
+import { AutofillParser } from "./input/parser";
+import { CSVCursadaConfig } from "./input/CSVCursadaConfig";
+import { CSVFinalConfig } from "./input/CSVFinalConfig";
 
 enum PageType {
     Cursada,
@@ -50,31 +54,29 @@ function detectPageTypeByElements(): PageType {
 
 }
 
-function addPageSpecificUI(){
+function addPageSpecificUI(settings:Settings){
     switch (detectPageTypeByURL()) {
         case PageType.Cursada: {
             console.log(`Se detectó página de carga de notas de CURSADA`)
-            when_form_renglones_ready(addAutofillUI, 4000, 10);
+            const  autofill = new AutofillCursada(new AutofillParser(new CSVCursadaConfig()))
+            when_form_renglones_ready((r) => addAutofillUI(r,settings,autofill), 4000, 10);
             break;
         }
         case PageType.Final: {
             console.log(`Se detectó página de carga de notas de FINAl`)
-            //TODO
+            const  autofill = new AutofillFinal(new AutofillParser(new CSVFinalConfig()))
+            when_form_renglones_ready((r) => addAutofillUI(r,settings,autofill), 4000, 10);
             break;
         }
         default: console.log("No se detectó un tipo de página especial.")
     }
 }
 
-initializeSettings(() => {
-    ready(initializeThemeChooser)
+
+    
+Settings.RestoreFromStorage(s =>{
+    ready(() => initializeThemeChooser(s))
     waitForElement("#cabecera",() =>{
-        addPageSpecificUI()
+        addPageSpecificUI(s)
     })
-    // ready(() => {
-        
-    // })
-
-
-}
-)
+})

@@ -59,10 +59,19 @@ export class Left<a>{
   isRight(){
     return false
   }
+  do(fL,fR){
+    return this.doLeft(fL)
+  }
   doLeft(f){
     f(this._val)
+    return this
   }
+  
   doRight(f){
+    return this
+  }
+  chainAny(fL:CallableFunction,fR:CallableFunction){
+    return fL(this._val)
   }
   map() {
       // Left is the sad path
@@ -104,10 +113,18 @@ export class Right<b>{
   isRight(){
     return true
   }
+  do(fL,fR){
+    return this.doRight(fR)
+  }
   doLeft(f){
+    return this
   }
   doRight(f){
     f(this._val)
+    return this
+  }
+  chainAny(fL,fR){
+    return this.chain(fR)
   }
   map(fn) {
       return new Right(

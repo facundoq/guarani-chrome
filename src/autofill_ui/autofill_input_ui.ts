@@ -1,4 +1,4 @@
-import { Settings, getSettings, setSettings } from "../settings";
+import { Settings } from "../settings";
 import {AutofillParser} from "../input/parser"
 import { CSVData,CSVHeader } from "../input/csv";
 import {fromHTML,appendChildren,UI} from "../utils/dom_utils"

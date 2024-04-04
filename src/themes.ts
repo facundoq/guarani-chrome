@@ -1,5 +1,5 @@
 import { fromHTML, ready,UI } from "./utils/dom_utils";
-import { setSettings,getSettings,Settings } from "./settings";
+import { Settings } from "./settings";
 import { mapValues } from "./utils/utils";
 
 function addCSS(href){
@@ -22,9 +22,9 @@ class ThemesUI extends UI{
     <option value="dark">Oscuro 🌑</option>
     </select>`) as HTMLSelectElement
 
-    constructor(public themes:Map<string,HTMLLinkElement>){
+    constructor(public themes:Map<string,HTMLLinkElement>,public settings:Settings){
         super()
-        this.root.value = getSettings(Settings.Theme) as string
+        this.root.value = settings.theme
         this.root.addEventListener('change', (event) => this.updateTheme())
         this.updateTheme()
         
@@ -35,7 +35,8 @@ class ThemesUI extends UI{
     updateTheme(){
         const newTheme = this.root.value
         console.log(`Changing theme to "${newTheme}"`)
-        setSettings("theme",newTheme);
+        this.settings.theme=newTheme
+        this.settings.save()
         //disable all themes
         this.themes.forEach((v,k) => v.disabled = true)
         //enable just this one
@@ -49,7 +50,7 @@ class ThemesUI extends UI{
 
 
 
-export function initializeThemeChooser(){
+export function initializeThemeChooser(settings:Settings){
     console.log(`initializing theme chooser`)
     const themeURLs = new Map(Object.entries(
         {"dark":"themes/dark.css",
@@ -59,7 +60,7 @@ export function initializeThemeChooser(){
     const themes = mapValues(themeURLs, addCSS )
     // wait a bit for css files to load before creating ThemesUI
     window.setTimeout(() =>{
-        const themesUI = new ThemesUI(themes)
+        const themesUI = new ThemesUI(themes,settings)
         let notifications = document.querySelector(".notificaciones")
         if (notifications){
             notifications.appendChild(themesUI.root)

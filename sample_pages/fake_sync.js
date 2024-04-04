@@ -7,13 +7,16 @@ class FakeStorage {
     constructor() {
       
     }
-    set(kv,callback){
+    set(kv){
       // console.log(`Setting ${Object.entries(kv)}..`)
       for (const [k, v] of Object.entries(kv)) {
         // console.log(`Setting key ${k} to ${JSON.stringify(v)}`)
         localStorage.setItem(k,JSON.stringify(v))
       }
-      callback()
+      
+      return new Promise(function(resolve, reject) {
+        resolve()
+     });
     }
     get(kv,callback){
       // console.log(`Getting ${Object.entries(kv)}..`)

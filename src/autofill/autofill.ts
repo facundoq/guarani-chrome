@@ -1,10 +1,12 @@
-import { getSettings } from "../settings";
+import { Settings } from "../settings";
 import { Either, Left, Optional, Right } from "../utils/utils";
 import { fromHTML } from "../utils/dom_utils";
 import { CSV, CSVData } from "../input/csv";
 import { StudentCursada } from "../guarani/StudentCursada";
 import {CSVCursadaConfig} from "../input/CSVCursadaConfig"
 import { AutofillParser } from "../input/parser";
+import { Student } from "../guarani/Student";
+import { StudentFinal } from "../guarani/StudentFinal";
 
 function dniMatcher(student: StudentCursada, data: CSV) {
   const matches = data.rows.filter((s) => s.get("dni") == student.dni);
@@ -17,25 +19,25 @@ function dniMatcher(student: StudentCursada, data: CSV) {
 }
 
 
-
-
-export class AutofillCursada {
-
+export abstract class Autofill{
   constructor(public parser:AutofillParser){
   
   }
 
-  parse(csv:string){
-    
-    return this.parser.parse(csv)
-  }
+  abstract operationType:string
 
+  parse(csv:string){ 
+    const result = this.parser.parse(csv)
+    return result
+  }
+  abstract getStudents(rowsElement: HTMLElement[])
   autofill(
-    students: StudentCursada[],
+    rowsElement: HTMLElement[],
     autofillData: CSV,
     overwrite: boolean,
     matcher: CallableFunction = dniMatcher
   ) {
+    const students = this.getStudents(rowsElement)
     const unmatched = [];
     for (let student of students) {
       const studentFormEmpty = student.isEmpty;
@@ -88,4 +90,21 @@ export class AutofillCursada {
       return value;
     }
   }
+}
+
+export class AutofillCursada extends Autofill{
+
+  public operationType= "cursada"
+  getStudents(rowsElement: HTMLElement[]) {
+    return Array.from(rowsElement.map(r => new StudentCursada(r)))
+  }  
+}
+
+export class AutofillFinal extends Autofill{
+
+  public operationType= "final"
+
+  getStudents(rowsElement: HTMLElement[]) {
+    return Array.from(rowsElement.map(r => new StudentFinal(r)))
+  }  
 }

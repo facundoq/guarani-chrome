@@ -2,7 +2,7 @@ import { fromHTML } from "../utils/dom_utils";
 
 
 
-export class Student {
+export abstract class Student {
     static EmojiClass = "result-emoji"
     static EmojiSelector = `.${Student.EmojiClass}`
 
@@ -47,6 +47,41 @@ export class Student {
         return this.nombreElement.innerText;
       }
 
+      get fechaElement():HTMLInputElement{
+        return this.row.querySelector(Student.elementSelectors.fecha) as HTMLInputElement
+      }
+      get fecha(): string {
+        return this.fechaElement.value;
+      }
+      set fecha(v:string){
+        this.fechaElement.value = v
+      }
+    
+      get notaElement():HTMLSelectElement{
+        return this.row.querySelector(Student.elementSelectors.nota) as HTMLSelectElement
+      }
+      get nota(): string {
+        const v = this.notaElement.value
+        // nota uses - as no value
+        return (v==="-")?"":v
+      }
+      set nota(v:string){
+        // nota uses - as no value
+        v = (v==="")?"-":v
+        this.notaElement.value = v
+      }
+
+  get resultadoElement():HTMLSelectElement{
+    return this.row.querySelector(Student.elementSelectors.resultado) as HTMLSelectElement
+  }
+  get resultado(): string {
+    return this.resultadoElement.value;
+  }
+  set resultado(v:string){
+    this.resultadoElement.value = v
+  }
+
+
     addToStudentTitle(message: string) {
         function appendToTitle(element: HTMLElement, s: string) {
             element.title = `${element.title}${s}`
@@ -84,4 +119,15 @@ export class Student {
         this.addEmojiStudent("⚠️");
         this.addToStudentTitle("No se modificó porque ya tenía valores cargados");
     }
+    abstract fillableFields:string[]
+
+    get emptyFields(){
+        return this.fillableFields.filter(f => f === "")
+      }
+      get isFull() {
+        return this.emptyFields.length === 0;
+      }
+      get isEmpty() {
+        return this.emptyFields.length == this.fillableFields.length;
+      }
 }

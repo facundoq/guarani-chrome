@@ -1,4 +1,4 @@
-import { Settings, getSettings, setSettings } from "../settings";
+
 import {CSVParseResult} from "../input/parser"
 import { CSVData,CSVHeader } from "../input/csv";
 import {fromHTML,appendChildren,UI} from "../utils/dom_utils"
@@ -35,7 +35,6 @@ export class AutofillResultUI extends UI {
     
     update(result:CSVParseResult){
         result.doLeft(error => {
-            setSettings(Settings.AutofillData,[])
             this.result.value = error
             this.status.innerText = "❌"
          })

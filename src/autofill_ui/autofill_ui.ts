@@ -1,5 +1,5 @@
-import { getSettings, setSettings, Settings } from "../settings";
-import { AutofillCursada } from "../autofill/autofill";
+import {  Settings} from "../settings";
+import { Autofill, AutofillCursada } from "../autofill/autofill";
 import { AutofillConfigUI } from "./autofill_config_ui";
 import {
   fromHTML,
@@ -29,7 +29,8 @@ function shortenToolButtonsNames() {
 export class AutofillUI extends UI {
   // Create a bar above main form
   root = fromHTML(`<div id="autofillBar"> </div>`);
-  constructor(protected rowsElement: HTMLElement[],public autofill:AutofillCursada) {
+
+  constructor(protected rowsElement: HTMLElement[],public autofill:AutofillCursada,settings:Settings) {
     super();
 
     // add a container with the autofill config, a toggle button to open/close it, and an autofill button to operate it
@@ -39,17 +40,20 @@ export class AutofillUI extends UI {
     const autofillStartButton = fromHTML(
       `<button type='button' class="btn btn-small"> 📝 Autocompletar </button>`
     ) as HTMLButtonElement;
+
     autofillStartButton.onclick = () => {
+        autofillConfigUI.data.doRight((csv) =>{
         
-        const students = Array.from(rowsElement.map(r => new StudentCursada(r)))
         const unmatched = this.autofill.autofill(
-          students,
-          getSettings(Settings.AutofillData) as CSV,
-          getSettings(Settings.OverwriteOnAutofill) as boolean
-        );
-        const allUnmatched = getSettings(Settings.Unmatched) as Array<object>;
-        const newUnmatched = new Set(allUnmatched.concat(unmatched));
-        setSettings(Settings.Unmatched, Array.from(newUnmatched));
+          rowsElement,
+          csv,
+          settings.overwriteOnAutofill
+        )
+    
+        // const allUnmatched = getSettings(SettingsKeys.Unmatched) as Array<object>;
+        // const newUnmatched = new Set(allUnmatched.concat(unmatched));
+        // setSettings(SettingsKeys.Unmatched, Array.from(newUnmatched));
+      })
     }
     
 
@@ -71,26 +75,24 @@ export class AutofillUI extends UI {
 
     const autofillConfigUI = new AutofillConfigUI(autofill,result =>{
       result.doLeft(error => {
-        setSettings(Settings.AutofillData,[])
         autofillStartButton.disabled = true
      })
      result.doRight(csv => {
-         setSettings("autofillData", csv)
          autofillStartButton.disabled = false
      });
-    });
+    },settings);
     config.appendChild(autofillConfigUI.root);
   }
 }
 
 
-export function addAutofillUI(form_renglones) {
+export function addAutofillUI(form_renglones:HTMLElement,settings:Settings,autofill:Autofill) {
   // const root = document.getElementById("notas_cursada_query").parentElement.parentElement.parentElement
   const table = form_renglones.children[1]
-  const table_body = table.children[1]
+  const table_body = table.children[1] as HTMLTableElement
   const rows = Array.from(table_body.rows) as HTMLElement[]
-  const  autofill = new AutofillCursada(new AutofillParser(new CSVCursadaConfig()))
-  const autofillUI = new AutofillUI(rows,autofill)
+  
+  const autofillUI = new AutofillUI(rows,autofill,settings)
 
   const renglones = document.getElementById("renglones")
   renglones.parentElement.insertBefore(autofillUI.root, renglones)

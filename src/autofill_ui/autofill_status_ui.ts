@@ -1,4 +1,4 @@
-import { getSettings, setSettings, Settings } from "../settings";
+
 import { StudentCursada } from "../guarani/StudentCursada";
 import { fromHTML, appendChildren, UI, observe } from "../utils/dom_utils";
 
@@ -40,6 +40,7 @@ export class ProgressUI extends UI {
     this.count.update(count, total);
   }
 }
+
 export class AutofillStatsUI extends UI {
   root = document.createElement("span");
   protected countNonEmpty: ProgressUI;
