@@ -1,4 +1,14 @@
 
+class Settings2{
+  constructor(public theme:string="dark",
+    public overwriteOnAutofill:boolean=true,
+    public autofillData:Map<string,string>,
+    public unmatched:Map<string,string>,
+    ){
+
+    }
+}
+
 export const Settings = {
   MissingStudents:"missingStudents",
   Theme:"theme",
@@ -37,4 +47,6 @@ export function initializeSettings(callback:CallableFunction){
       callback()
     })
 }
+
+
 
