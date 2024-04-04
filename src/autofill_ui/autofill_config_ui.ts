@@ -13,20 +13,20 @@ export class AutofillConfigUI extends UI{
 
     constructor(onParseCallback:CallableFunction){
         super()
-    const inputCSV = getSettings(Settings.AutofillDataCSV) as string
-    const autofillResultUI = new AutofillResultUI(5)
-    
-    const inputUpdate = (inputCSV) => {
-        setSettings(Settings.AutofillDataCSV,inputCSV)
-        const result = csv2autofillData(inputCSV);
-        autofillResultUI.update(result)
-        onParseCallback(result)
-    }
-    const inputUI = new AutofillInputUI(inputCSV, inputUpdate)
-    const autofillOverwriteConfigUI = new AutofillOverwriteConfigUI()
-    appendChildren(this.root, [autofillOverwriteConfigUI.root,  inputUI.root, autofillResultUI.root])
+        const inputCSV = getSettings(Settings.AutofillDataCSV) as string
+        const autofillResultUI = new AutofillResultUI(5)
+        
+        const inputUpdate = (inputCSV) => {
+            setSettings(Settings.AutofillDataCSV,inputCSV)
+            const result = csv2autofillData(inputCSV);
+            autofillResultUI.update(result)
+            onParseCallback(result)
+        }
+        const inputUI = new AutofillInputUI(inputCSV, inputUpdate)
+        const autofillOverwriteConfigUI = new AutofillOverwriteConfigUI()
+        appendChildren(this.root, [autofillOverwriteConfigUI.root,  inputUI.root, autofillResultUI.root])
 
-    inputUpdate(inputCSV)
+        inputUpdate(inputCSV)
 
     
     }   
