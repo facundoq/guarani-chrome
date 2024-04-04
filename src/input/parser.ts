@@ -40,12 +40,14 @@ function printAutofillData(data: CSVRowWithIndex[], header:string[],separator:st
   return `${headerRow}\n${rows}\n`;
 }
 export type CSVParseResult = Either<string, CSV>;
+
 export class AutofillParser {
   constructor(public config: CSVConfig) {}
 
-  parse(data): CSVParseResult {
-    const csv = parseCSV(data, this.config.csvSeparator, true);
-
+  parse(data:string): CSVParseResult {
+    const parseResult = parseCSV(data, this.config.csvSeparator, true);
+    if (parseResult.isLeft){return parseResult}
+    const csv = parseResult.get() as CSV
     const keyColumnsPresent = intersection(this.config.keyColumns, csv.header);
     if (keyColumnsPresent.length === 0) {
       return new Left(

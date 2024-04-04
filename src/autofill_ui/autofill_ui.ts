@@ -10,6 +10,8 @@ import {
 import { AutofillStatsUI } from "./autofill_status_ui";
 import { CSV } from "../input/csv";
 import { StudentCursada } from "../guarani/StudentCursada";
+import { AutofillParser } from "../input/parser";
+import { CSVCursadaConfig } from "../input/CSVCursadaConfig";
 
 
 function shortenToolButtonsNames() {
@@ -27,7 +29,7 @@ function shortenToolButtonsNames() {
 export class AutofillUI extends UI {
   // Create a bar above main form
   root = fromHTML(`<div id="autofillBar"> </div>`);
-  constructor(protected rowsElement: HTMLElement[]) {
+  constructor(protected rowsElement: HTMLElement[],public autofill:AutofillCursada) {
     super();
 
     // add a container with the autofill config, a toggle button to open/close it, and an autofill button to operate it
@@ -38,9 +40,9 @@ export class AutofillUI extends UI {
       `<button type='button' class="btn btn-small"> 📝 Autocompletar </button>`
     ) as HTMLButtonElement;
     autofillStartButton.onclick = () => {
-        const autofiller = new AutofillCursada()
+        
         const students = Array.from(rowsElement.map(r => new StudentCursada(r)))
-        const unmatched = autofiller.autofill(
+        const unmatched = this.autofill.autofill(
           students,
           getSettings(Settings.AutofillData) as CSV,
           getSettings(Settings.OverwriteOnAutofill) as boolean
@@ -87,7 +89,8 @@ export function addAutofillUI(form_renglones) {
   const table = form_renglones.children[1]
   const table_body = table.children[1]
   const rows = Array.from(table_body.rows) as HTMLElement[]
-  const autofillUI = new AutofillUI(rows)
+  const  autofill = new AutofillCursada(new AutofillParser(new CSVCursadaConfig()))
+  const autofillUI = new AutofillUI(rows,autofill)
 
   const renglones = document.getElementById("renglones")
   renglones.parentElement.insertBefore(autofillUI.root, renglones)

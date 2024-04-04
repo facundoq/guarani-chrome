@@ -1,5 +1,5 @@
 import { Settings, getSettings, setSettings } from "../settings";
-import {csv2autofillData,CSVCursadaConfig} from "../input/parser"
+import {AutofillParser} from "../input/parser"
 import { CSVData,CSVHeader } from "../input/csv";
 import {fromHTML,appendChildren,UI} from "../utils/dom_utils"
 
@@ -11,7 +11,7 @@ export class AutofillConfigUI extends UI{
     
     root = fromHTML(`<div id="autofillConfig" ></div>`) as HTMLDivElement
 
-    constructor(onParseCallback:CallableFunction){
+    constructor(onParseCallback:CallableFunction,){
         super()
         const inputCSV = getSettings(Settings.AutofillDataCSV) as string
         const autofillResultUI = new AutofillResultUI(5)

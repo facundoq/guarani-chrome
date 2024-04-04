@@ -1,10 +1,10 @@
-import { dictFromLists } from "../utils/utils";
+import { Either, Left, Right, dictFromLists } from "../utils/utils";
 
 export function validateCSV(input,separator=";"){
   return input.trim().length>0;
 }
 
-class CSVParseError extends Error {
+export class CSVParseError extends Error {
   constructor(message) {
     super(message);
     this.name = 'CSVParseError';
@@ -16,10 +16,10 @@ export type CSVHeader = Array<string>
 export class CSV {
   constructor(public rows:CSVData,public header:CSVHeader){}
 }
-export function parseCSV(input,separator=";",normalize_header=false):CSV{
+export function parseCSV(input:string,separator=";",normalize_header=false):Either<string,CSV>{
     input = input.trim()
     if (input ===""){
-      return new CSV([],[])
+      return new Right(new CSV([],[]))
     }
     const lines = input.split(/\r\n|\n/).map(r => r.trim())
     const nonemptyLines = lines.filter(r => r.length>0)    
@@ -29,15 +29,16 @@ export function parseCSV(input,separator=";",normalize_header=false):CSV{
     
     const rows = [];
     splitLines.forEach((values,i) =>{
-        if (header.size!=values.size){
-          throw new CSVParseError(`Number of values in row ${i} does not match number of values in header (row: ${values}, header: ${header}`);
+        if (header.length!=values.length){
+          
+          return new Left(`Number of values in row ${i} does not match number of values in header (row: ${values}, header: ${header}`);
         }
         const row = dictFromLists(header,values)
         rows.push(row)
         
     });
     
-    return new CSV(rows, header)
+    return new Right(new CSV(rows, header))
   }
 
   // parseCSV("dni;h1\n23;v1\n  \n  \n")

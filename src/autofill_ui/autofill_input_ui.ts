@@ -1,5 +1,5 @@
 import { Settings, getSettings, setSettings } from "../settings";
-import {csv2autofillData,CSVCursadaConfig} from "../input/parser"
+import {AutofillParser} from "../input/parser"
 import { CSVData,CSVHeader } from "../input/csv";
 import {fromHTML,appendChildren,UI} from "../utils/dom_utils"
 

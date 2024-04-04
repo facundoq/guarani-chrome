@@ -2,7 +2,7 @@ export const zip = (a, b) => a.map((k, i) => [k, b[i]]);
 
 export function intersection(a, b) { return a.filter(value => b.includes(value)); }
 
-export function dictFromLists(keys:Array<string>,vals:Array<Map<string,string>>){
+export function dictFromLists(keys:string[],vals:string[]){
     const dict = new Map<string,string>()
     zip(keys,vals).forEach(kv=>{
       const [k,v]= kv;

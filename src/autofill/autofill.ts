@@ -1,9 +1,10 @@
 import { getSettings } from "../settings";
 import { Either, Left, Optional, Right } from "../utils/utils";
-import { csv2autofillData, CSVCursadaConfig } from "../input/parser";
 import { fromHTML } from "../utils/dom_utils";
 import { CSV, CSVData } from "../input/csv";
 import { StudentCursada } from "../guarani/StudentCursada";
+import {CSVCursadaConfig} from "../input/CSVCursadaConfig"
+import { AutofillParser } from "../input/parser";
 
 function dniMatcher(student: StudentCursada, data: CSV) {
   const matches = data.rows.filter((s) => s.get("dni") == student.dni);
@@ -15,18 +16,19 @@ function dniMatcher(student: StudentCursada, data: CSV) {
   }
 }
 
-function convertValues(value, column) {
-  // TODO test alternative
 
-  if (column in CSVCursadaConfig.values) {
-    return CSVCursadaConfig.values[column][value];
-  } else {
-    return value;
-  }
-}
 
 
 export class AutofillCursada {
+
+  constructor(public parser:AutofillParser){
+
+  }
+
+  parse(csv:string){
+    return this.parser.parse(csv)
+  }
+
   autofill(
     students: StudentCursada[],
     autofillData: CSV,
@@ -63,9 +65,9 @@ export class AutofillCursada {
   }
 
   autofillStudent(student, studentData) {
-    CSVCursadaConfig.dataColumns.forEach((column) => {
+    this.parser.config.dataColumns.forEach((column) => {
       if (studentData.has(column)) {
-        const autofillValue = convertValues(studentData.get(column), column);
+        const autofillValue = this.convertValues(studentData.get(column), column);
         const element = student.row.querySelector(
           StudentCursada.elementSelectors[column]
         );
@@ -74,5 +76,15 @@ export class AutofillCursada {
         element.dispatchEvent(event);
       }
     });
+  }
+
+  convertValues(value, column) {
+    // TODO test alternative
+  
+    if (column in this.parser.config.values) {
+      return this.parser.config.values[column][value];
+    } else {
+      return value;
+    }
   }
 }
