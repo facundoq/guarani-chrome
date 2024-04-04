@@ -69,7 +69,7 @@ export class AutofillUI extends UI {
     this.root.appendChild(controls);
     this.root.appendChild(config);
 
-    const autofillConfigUI = new AutofillConfigUI(result =>{
+    const autofillConfigUI = new AutofillConfigUI(autofill,result =>{
       result.doLeft(error => {
         setSettings(Settings.AutofillData,[])
         autofillStartButton.disabled = true

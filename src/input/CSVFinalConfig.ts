@@ -1,6 +1,7 @@
 import { CSVConfig } from "./parser"
 
 export class CSVFinalConfig extends CSVConfig{
+    id = "final"
     dataColumns= ["fecha","nota", "resultado"]
     keyColumns= ["dni", "nombre"]
     csvSeparator= ";"

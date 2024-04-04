@@ -7,13 +7,13 @@ import {fromHTML,appendChildren,UI} from "../utils/dom_utils"
 export class AutofillInputUI extends UI {
     root = document.createElement("div")
 
-    constructor(inputCSV:string,changeCallback:CallableFunction){
+    constructor(inputCSV:string,changeCallback:CallableFunction,keyColumns:string[],dataColumns:string[]){
         super()
         this.root.id="autofillInputUI"
 
         const labelTitle = `El CSV requiere como mínimo una columna de identificación y una columna de datos:\n
-      Cols. de identificación: ${CSVCursadaConfig.keyColumns}
-      Cols. de datos: ${CSVCursadaConfig.dataColumns}
+      Cols. de identificación: ${keyColumns}
+      Cols. de datos: ${dataColumns}
       `
         const label = fromHTML(`<label for="autofillInput" style="display:block" title="${labelTitle}">Carga de CSV para autollenado 🛈:</label>`)
 

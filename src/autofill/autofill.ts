@@ -22,10 +22,11 @@ function dniMatcher(student: StudentCursada, data: CSV) {
 export class AutofillCursada {
 
   constructor(public parser:AutofillParser){
-
+  
   }
 
   parse(csv:string){
+    
     return this.parser.parse(csv)
   }
 

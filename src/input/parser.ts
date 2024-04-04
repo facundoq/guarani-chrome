@@ -10,6 +10,7 @@ import {
 import { parseCSV, CSVData, CSVHeader, CSV, CSVRow } from "./csv";
 
 export abstract class CSVConfig {
+  public abstract id:string;
   public abstract dataColumns: string[];
   public abstract keyColumns: string[];
   public abstract csvSeparator: string;
@@ -45,8 +46,11 @@ export class AutofillParser {
   constructor(public config: CSVConfig) {}
 
   parse(data:string): CSVParseResult {
+    
     const parseResult = parseCSV(data, this.config.csvSeparator, true);
-    if (parseResult.isLeft){return parseResult}
+    
+    if (parseResult.isLeft()){return parseResult}
+
     const csv = parseResult.get() as CSV
     const keyColumnsPresent = intersection(this.config.keyColumns, csv.header);
     if (keyColumnsPresent.length === 0) {

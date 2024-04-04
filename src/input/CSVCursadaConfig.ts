@@ -1,6 +1,7 @@
 import { CSVConfig } from "./parser"
 
-class CSVCursadaConfig extends CSVConfig{
+export class CSVCursadaConfig extends CSVConfig{
+    id = "cursada"
     dataColumns= ["fecha", "condicion", "nota", "resultado"]
     keyColumns= ["dni", "nombre"]
     csvSeparator= ";"

@@ -4,6 +4,10 @@ export function validateCSV(input,separator=";"){
   return input.trim().length>0;
 }
 
+function toEntries<T>(a: T[]) {
+  return a.map((value, index) => [index, value] as const);
+}
+
 export class CSVParseError extends Error {
   constructor(message) {
     super(message);
@@ -28,15 +32,14 @@ export function parseCSV(input:string,separator=";",normalize_header=false):Eith
     const header = normalize_header ? basicHeader.map(h => h.trim().toLowerCase()) : basicHeader;
     
     const rows = [];
-    splitLines.forEach((values,i) =>{
+    
+    for (const [i, values] of toEntries(splitLines)) {
         if (header.length!=values.length){
-          
-          return new Left(`Number of values in row ${i} does not match number of values in header (row: ${values}, header: ${header}`);
+          return new Left(`Number of values in row ${i} does not match number of values in header.\nHeader: "${header}"\nRow ${i}: "${values}"`);
         }
         const row = dictFromLists(header,values)
-        rows.push(row)
-        
-    });
+        rows.push(row)   
+    }
     
     return new Right(new CSV(rows, header))
   }
