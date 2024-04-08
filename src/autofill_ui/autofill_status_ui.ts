@@ -1,4 +1,5 @@
 
+import { BaseAutofill } from "../autofill/autofill";
 import { Student } from "../guarani/Student";
 import { StudentCursada } from "../guarani/StudentCursada";
 import { fromHTML, appendChildren, UI, observe } from "../utils/dom_utils";
@@ -42,10 +43,8 @@ export class ProgressUI extends UI {
   }
 }
 
-type StudentCreator = (HTMLElement) => Student
-
 export abstract class StudentChangeUI extends UI {
-  constructor(protected rows_element: HTMLElement[],protected studentCreator: StudentCreator) {
+  constructor(protected rows_element: HTMLElement[], protected autofill: BaseAutofill) {
     super()
     rows_element.forEach((e) => {
       const inputs = e.querySelectorAll("input, select");
@@ -68,8 +67,8 @@ export abstract class StudentChangeUI extends UI {
     });
   }
 
-  getStudents(){
-    return this.rows_element.map((s) => this.studentCreator(s));
+  getStudents() {
+    return this.autofill.getStudents(this.rows_element)
   }
 
   abstract onStudentChange()
@@ -82,8 +81,8 @@ export class AutofillStatsUI extends StudentChangeUI {
   protected countComplete: ProgressUI;
   protected fieldCounters = new Map<string, CounterUI>();
 
-  constructor(rows_element: HTMLElement[], studentCreator: StudentCreator) {
-    super(rows_element,studentCreator);
+  constructor(rows_element: HTMLElement[], autofill: BaseAutofill) {
+    super(rows_element, autofill);
     this.root.id = "statsUI";
     this.countComplete = new ProgressUI(
       "statsUIComplete",
@@ -101,46 +100,41 @@ export class AutofillStatsUI extends StudentChangeUI {
     this.onStudentChange();
   }
   onStudentChange() {
-    const students = this.rows_element.map((s) => this.studentCreator(s));
+    const students = this.autofill.getStudents(this.rows_element)
     const total = students.length;
     const nonEmpty = students.filter((s) => !(s.isEmpty)).length;
     const complete = students.filter((s) => s.isFull).length;
-    
+
     this.countNonEmpty.update(nonEmpty, total);
     this.countComplete.update(complete, total);
   }
 }
 
-// export class ColumnStatusUI extends StudentChangeUI{
-//   public root: HTMLElement;
-//   constructor(){
-//     super()
-//     // create CounterUI objects for each field/column
-//     const headerElements = Array.from(
-//       document
-//         .getElementById("renglones")
-//         .querySelector("thead")
-//         .querySelectorAll("th")
-//     );
-//     const fieldToIndex = { fecha: 3, nota: 4, resultado: 5, condicion: 6 };
-//     StudentCursada.fillableFields.forEach((f) => {
-//       const counterUI = new CounterUI();
-//       this.fieldCounters.set(f, counterUI);
-//       const header = headerElements[fieldToIndex[f]]
-//       const container = document.createElement("div")
-//       header.appendChild(container)
-//       container.appendChild(counterUI.root);
-//     });
-//   }
-//   onStudentChange(){
-//     StudentCursada.fillableFields.forEach((field) => {
-//       const count = students
-//         .map((s) => {
-//           return s.asDict()[field] !== "" ? 1 : 0;
-//         })
-//         .reduce((a, b) => a + b, 0);
-//       const counter = this.fieldCounters.get(field);
-//       counter.update(count, total);
-//     });
-//   }
-// }
+export class ColumnStatusUI extends StudentChangeUI {
+  public root: HTMLElement;
+  public counterUI: CounterUI
+  constructor(rows_element: HTMLElement[], autofill: BaseAutofill, protected field: string, protected header: HTMLTableCellElement) {
+    super(rows_element, autofill);
+    // create CounterUI objects for each field/column
+    // const headerElements = Array.from(
+    //   document
+    //     .getElementById("renglones")
+    //     .querySelector("thead")
+    //     .querySelectorAll("th")
+    // );
+    // const fieldToIndex = { fecha: 3, nota: 4, resultado: 5, condicion: 6 };
+    // const header = headerElements[fieldToIndex[f]]
+    // this.fieldCounters.set(f, counterUI);
+    this.counterUI = new CounterUI();
+    const container = document.createElement("div")
+    header.appendChild(container)
+    container.appendChild(this.counterUI.root);
+  }
+  onStudentChange() {
+    const students = this.getStudents()
+    const count = students.map((s: Student) => {
+      return s.getFillableField(this.field) !== "" ? 1 : 0
+    }).reduce((a, b) => a + b, 0);
+    this.counterUI.update(count, students.length);
+  }
+}

@@ -29,6 +29,12 @@ class FakeStorage {
       // console.log(`Set ${Object.entries(result)}..`)
       callback(result)
     }
+    clear(callback){
+      localStorage.clear()
+      if(callback){
+        callback()
+      }
+    }
   }
   
   // @ts-ignore

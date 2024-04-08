@@ -35,7 +35,12 @@ export class StudentCursada extends Student {
     };
   }
   
-
+  get notaElement(){
+    return this.row.querySelector(".nota_cursada") as HTMLSelectElement    
+}
+get fillableFieldsNames() {
+  return ["nota", "fecha","resultado","condicion"];
+}
   get fillableFields() {
     return [this.nota, this.fecha, this.resultado, this.condicion];
   }

@@ -1,7 +1,7 @@
 import { Settings } from "../settings";
 import { Either, Left, Optional, Right } from "../utils/utils";
 import { fromHTML } from "../utils/dom_utils";
-import { CSV, CSVData } from "../input/csv";
+import { CSV, CSVData, CSVRow } from "../input/csv";
 import { StudentCursada } from "../guarani/StudentCursada";
 import {CSVCursadaConfig} from "../input/CSVCursadaConfig"
 import { AutofillParser } from "../input/parser";
@@ -19,8 +19,8 @@ function dniMatcher(student: StudentCursada, data: CSV) {
 }
 
 
-export abstract class Autofill{
-  constructor(public parser:AutofillParser){
+export abstract class BaseAutofill{
+  constructor(public parser:AutofillParser,public subjectName:string){
   
   }
 
@@ -30,7 +30,8 @@ export abstract class Autofill{
     const result = this.parser.parse(csv)
     return result
   }
-  abstract getStudents(rowsElement: HTMLElement[])
+  abstract getStudents(rowsElement: HTMLElement[]):Student[]
+
   autofill(
     rowsElement: HTMLElement[],
     autofillData: CSV,
@@ -67,13 +68,11 @@ export abstract class Autofill{
     return unmatched;
   }
 
-  autofillStudent(student, studentData) {
+  autofillStudent(student:Student, studentData:CSVRow) {
     this.parser.config.dataColumns.forEach((column) => {
       if (studentData.has(column)) {
         const autofillValue = this.convertValues(studentData.get(column), column);
-        const element = student.row.querySelector(
-          StudentCursada.elementSelectors[column]
-        );
+        const element = student.getFillableFieldElement(column)
         element.value = autofillValue;
         var event = new Event("change");
         element.dispatchEvent(event);
@@ -92,19 +91,22 @@ export abstract class Autofill{
   }
 }
 
-export class AutofillCursada extends Autofill{
+export class AutofillCursada extends BaseAutofill{
 
   public operationType= "cursada"
+
   getStudents(rowsElement: HTMLElement[]) {
     return Array.from(rowsElement.map(r => new StudentCursada(r)))
   }  
 }
 
-export class AutofillFinal extends Autofill{
+export class AutofillFinal extends BaseAutofill{
 
   public operationType= "final"
 
   getStudents(rowsElement: HTMLElement[]) {
     return Array.from(rowsElement.map(r => new StudentFinal(r)))
-  }  
+  }
+  
+  
 }

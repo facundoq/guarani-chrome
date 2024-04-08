@@ -6,7 +6,7 @@ import {fromHTML,appendChildren,UI} from "../utils/dom_utils"
 import { AutofillOverwriteConfigUI } from "./autofill_overwrite_ui";
 import { AutofillResultUI } from "./autofill_result_ui";
 import { AutofillInputUI } from "./autofill_input_ui";
-import { Autofill } from "../autofill/autofill";
+import { BaseAutofill } from "../autofill/autofill";
 import { Either } from "../utils/utils";
 
 export class AutofillConfigUI extends UI{
@@ -15,13 +15,13 @@ export class AutofillConfigUI extends UI{
     
     public data : Either<string,CSV>
 
-    constructor(autofill:Autofill,onParseCallback:CallableFunction,settings:Settings){
+    constructor(autofill:BaseAutofill,onParseCallback:CallableFunction,settings:Settings){
         super()
-        const inputCSV = settings.getAutofillData(autofill.operationType,"")
+        const inputCSV = settings.getAutofillData(autofill.operationType,autofill.subjectName)
         const autofillResultUI = new AutofillResultUI(5)
         
         const inputUpdate = (inputCSV) => {
-            settings.setAutofillData(autofill.operationType,"",inputCSV)
+            settings.setAutofillData(autofill.operationType,autofill.subjectName,inputCSV)
             settings.save()
             this.data = autofill.parse(inputCSV);
             autofillResultUI.update(this.data)

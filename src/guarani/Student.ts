@@ -5,15 +5,26 @@ import { fromHTML } from "../utils/dom_utils";
 export abstract class Student {
 
     abstract fillableFields:string[]
+    abstract fillableFieldsNames:string[]
+    abstract fillableFieldsElements:(HTMLInputElement|HTMLSelectElement)[]
+
+    getFillableFieldElement(name:string){
+        const i = this.fillableFieldsNames.indexOf(name)
+        return this.fillableFieldsElements[i]
+    }
+    getFillableField(name:string){
+      const i = this.fillableFields.indexOf(name)
+      return this.fillableFields[i]
+  }
 
     static EmojiClass = "result-emoji"
     static EmojiSelector = `.${Student.EmojiClass}`
+    
 
     static elementSelectors = {
         dni: ".identificacion",
         nombre: ".nombre",
         fecha: ".fecha",
-        nota: ".nota_cursada",
         resultado: ".resultado",
         condicion: ".condicion",
         observacion: ".observacion",        
@@ -60,9 +71,8 @@ export abstract class Student {
         this.fechaElement.value = v
       }
     
-      get notaElement():HTMLSelectElement{
-        return this.row.querySelector(Student.elementSelectors.nota) as HTMLSelectElement
-      }
+      abstract get notaElement():HTMLSelectElement
+
       get nota(): string {
         const v = this.notaElement.value
         // nota uses - as no value
@@ -134,5 +144,5 @@ export abstract class Student {
         return this.emptyFields.length == this.fillableFields.length;
       }
 
-      abstract fillableFieldsElements:HTMLElement[]
+      
 }

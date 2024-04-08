@@ -1,5 +1,5 @@
 import {  Settings} from "../settings";
-import { Autofill, AutofillCursada } from "../autofill/autofill";
+import { BaseAutofill, AutofillCursada } from "../autofill/autofill";
 import { AutofillConfigUI } from "./autofill_config_ui";
 import {
   fromHTML,
@@ -31,7 +31,7 @@ export class AutofillUI extends UI {
   // Create a bar above main form
   root = fromHTML(`<div id="autofillBar"> </div>`);
 
-  constructor(protected rowsElement: HTMLElement[],public autofill:AutofillCursada,settings:Settings) {
+  constructor(protected rowsElement: HTMLElement[],public autofill:BaseAutofill,settings:Settings) {
     super();
 
     // add a container with the autofill config, a toggle button to open/close it, and an autofill button to operate it
@@ -66,7 +66,7 @@ export class AutofillUI extends UI {
       toggleElement(config, "block");
     };
 
-    const statsUI = new AutofillStatsUI(rowsElement,(e) => new StudentCursada(e))
+    const statsUI = new AutofillStatsUI(rowsElement,autofill)
     controls.appendChild(statsUI.root)
     controls.appendChild(toggleButton);
     controls.appendChild(autofillStartButton);
@@ -87,16 +87,9 @@ export class AutofillUI extends UI {
 }
 
 
-export function addAutofillUI(form_renglones:HTMLElement,settings:Settings,autofill:Autofill) {
-  // const root = document.getElementById("notas_cursada_query").parentElement.parentElement.parentElement
-  const table = form_renglones.children[1]
-  const table_body = table.children[1] as HTMLTableElement
-  const rows = Array.from(table_body.rows) as HTMLElement[]
-  
+export function addAutofillUI(rows:HTMLElement[],settings:Settings,autofill:BaseAutofill) {
   const autofillUI = new AutofillUI(rows,autofill,settings)
-
   const renglones = document.getElementById("renglones")
   renglones.parentElement.insertBefore(autofillUI.root, renglones)
-
   shortenToolButtonsNames()
 }
