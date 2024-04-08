@@ -2,8 +2,6 @@ import { Student } from "./Student";
 
 export class StudentCursada extends Student {
 
-  static fillableFields = ["fecha","nota","resultado","condicion"]
-
 
   get condicionElement():HTMLSelectElement{
     return this.row.querySelector(StudentCursada.elementSelectors.condicion) as HTMLSelectElement
@@ -41,6 +39,8 @@ export class StudentCursada extends Student {
   get fillableFields() {
     return [this.nota, this.fecha, this.resultado, this.condicion];
   }
+
+  fillableFieldsElements= [this.notaElement,this.fechaElement,this.resultadoElement,this.condicionElement]
   
 
 }

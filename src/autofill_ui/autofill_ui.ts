@@ -12,6 +12,7 @@ import { CSV } from "../input/csv";
 import { StudentCursada } from "../guarani/StudentCursada";
 import { AutofillParser } from "../input/parser";
 import { CSVCursadaConfig } from "../input/CSVCursadaConfig";
+import { Student } from "../guarani/Student";
 
 
 function shortenToolButtonsNames() {
@@ -65,7 +66,7 @@ export class AutofillUI extends UI {
       toggleElement(config, "block");
     };
 
-    const statsUI = new AutofillStatsUI(rowsElement)
+    const statsUI = new AutofillStatsUI(rowsElement,(e) => new StudentCursada(e))
     controls.appendChild(statsUI.root)
     controls.appendChild(toggleButton);
     controls.appendChild(autofillStartButton);
