@@ -35,10 +35,10 @@ export class AutofillUI extends UI {
 
     // add a container with the autofill config, a toggle button to open/close it, and an autofill button to operate it
     const toggleButton = fromHTML(
-      `<button id="autofillAdvanced" class="btn btn-small" href="#"><i   class="icon-wrench"></i> Configurar autocompletado </button>`
+      `<button id="autofillAdvanced" class="btn btn-small" href="#" title="Cargar los datos en formato csv para la materia actual desde donde se obtienen los datos para rellenar."><i   class="icon-wrench"></i> Configurar autocompletado </button>`
     );
     const autofillStartButton = fromHTML(
-      `<button type='button' class="btn btn-small"> 📝 Autocompletar </button>`
+      `<button type='button' class="btn btn-small" title="Autocompletar el formulario en base a los datos en formato csv cargados en la configuración"> 📝 Autocompletar </button>`
     ) as HTMLButtonElement;
 
     autofillStartButton.onclick = () => {

@@ -11,9 +11,9 @@ export class AutofillInputUI extends UI {
         super()
         this.root.id="autofillInputUI"
 
-        const labelTitle = `El CSV requiere como mínimo una columna de identificación y una columna de datos:\n
-      Cols. de identificación: ${keyColumns}
-      Cols. de datos: ${dataColumns}
+        const labelTitle = `El formato de entrada es de un CSV, con campos separados por el carácter ';'.\nSe requiere como mínimo una columna de identificación y una columna de datos:\n
+      Columnas de identificación: ${keyColumns}.
+      Columnas de datos: ${dataColumns}.
       `
         const label = fromHTML(`<label for="autofillInput" style="display:block" title="${labelTitle}">Carga de CSV para autollenado 🛈:</label>`)
 

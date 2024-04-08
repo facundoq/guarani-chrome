@@ -25,7 +25,7 @@ export class AutofillResultUI extends UI {
     protected status = document.createElement("span")
     constructor(protected maxRows=5){
         super()
-        const autofillDataViewerLabel = fromHTML(`<p style="display:block">Resultado de la carga:</p>`)
+        const autofillDataViewerLabel = fromHTML(`<p style="display:block">Resultado de la carga: </p>`)
         autofillDataViewerLabel.appendChild(this.status)
         this.result.id = "autofillResult"
         this.result.disabled = true

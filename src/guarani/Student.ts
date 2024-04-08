@@ -3,6 +3,9 @@ import { fromHTML } from "../utils/dom_utils";
 
 
 export abstract class Student {
+
+    abstract fillableFields:string[]
+
     static EmojiClass = "result-emoji"
     static EmojiSelector = `.${Student.EmojiClass}`
 
@@ -119,7 +122,7 @@ export abstract class Student {
         this.addEmojiStudent("⚠️");
         this.addToStudentTitle("No se modificó porque ya tenía valores cargados");
     }
-    abstract fillableFields:string[]
+    
 
     get emptyFields(){
         return this.fillableFields.filter(f => f === "")
