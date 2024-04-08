@@ -130,4 +130,6 @@ export abstract class Student {
       get isEmpty() {
         return this.emptyFields.length == this.fillableFields.length;
       }
+
+      abstract fillableFieldsElements:HTMLElement[]
 }
