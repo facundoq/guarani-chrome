@@ -60,14 +60,14 @@ function getSubjectName() {
     return nameSpan.innerText
 }
 
-function addColumnCounters(rows:HTMLElement[],autofill:BaseAutofill){
+function addColumnCounters(rows:HTMLElement[],autofill:BaseAutofill,fieldToIndex:{[key: string]:number}){
     const headerElements = Array.from(
           document
             .getElementById("renglones")
             .querySelector("thead")
             .querySelectorAll("th")
         );
-        const fieldToIndex = { fecha: 3, nota: 4, resultado: 5, condicion: 6 };
+        
         const columnsStatusUIs = Object.entries(fieldToIndex).map( (e,i,a) =>{
             const [key, value] = e
             const header = headerElements[value] as HTMLTableCellElement
@@ -76,6 +76,10 @@ function addColumnCounters(rows:HTMLElement[],autofill:BaseAutofill){
         })
         return columnsStatusUIs
 }
+interface MyObjLayout {
+    string: string;
+}
+
 function addPageSpecificUI(settings: Settings) {
 
     switch (detectPageTypeByURL()) {
@@ -85,21 +89,26 @@ function addPageSpecificUI(settings: Settings) {
                 const table = form_renglones.children[1]
                 const table_body = table.children[1] as HTMLTableElement
                 const rows = Array.from(table_body.rows) as HTMLElement[]
-
                 const subjectName = getSubjectName()
                 console.log(`Se detectó página de carga de notas de CURSADA de la materia ${subjectName}`)
                 const autofill = new AutofillCursada(new AutofillParser(new CSVCursadaConfig()), subjectName)
-                addColumnCounters(rows,autofill)
+                const fieldToIndex = { "fecha": 3, "nota": 4, "resultado": 5, "condicion": 6 } as {[key: string]:number}
+                addColumnCounters(rows,autofill,fieldToIndex)
                 addAutofillUI(rows, settings, autofill)
             }, 4000, 10);
             break;
         }
         case PageType.Final: {
-            when_form_renglones_ready((r) => {
+            when_form_renglones_ready((form_renglones) => {
+                const table = form_renglones.children[1]
+                const table_body = table.children[1] as HTMLTableElement
+                const rows = Array.from(table_body.rows) as HTMLElement[]
                 const subjectName = getSubjectName()
                 console.log(`Se detectó página de carga de notas de FINAL de la materia ${subjectName}`)
                 const autofill = new AutofillFinal(new AutofillParser(new CSVFinalConfig()), subjectName)
-                addAutofillUI(r, settings, autofill)
+                const fieldToIndex = { "fecha": 3, "nota": 4, "resultado": 5} as {[key: string]:number}
+                addColumnCounters(rows,autofill,fieldToIndex)
+                addAutofillUI(rows, settings, autofill)
             }, 4000, 10)
 
             break;

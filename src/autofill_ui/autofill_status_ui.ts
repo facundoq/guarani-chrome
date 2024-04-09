@@ -129,12 +129,14 @@ export class ColumnStatusUI extends StudentChangeUI {
     const container = document.createElement("div")
     header.appendChild(container)
     container.appendChild(this.counterUI.root);
+    this.onStudentChange()
   }
   onStudentChange() {
     const students = this.getStudents()
     const count = students.map((s: Student) => {
       return s.getFillableField(this.field) !== "" ? 1 : 0
     }).reduce((a, b) => a + b, 0);
+    console.log(students)
     this.counterUI.update(count, students.length);
   }
 }
