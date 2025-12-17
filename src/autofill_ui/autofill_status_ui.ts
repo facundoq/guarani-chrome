@@ -136,7 +136,7 @@ export class ColumnStatusUI extends StudentChangeUI {
     const count = students.map((s: Student) => {
       return s.getFillableField(this.field) !== "" ? 1 : 0
     }).reduce((a, b) => a + b, 0);
-    console.log(students)
+    // console.log(students)
     this.counterUI.update(count, students.length);
   }
 }

@@ -3,7 +3,7 @@
     "name": "guarani-chrome",
     "homepage_url": "https://github.com/facundoq/guarani-chrome",
     "description": "Plugin para mejorar la usabilidad del SIU GUARANI.\n Carga automática de notas.",
-    "version": "2024.02.29",
+    "version": "2024.05.14",
     "action": {
       "default_popup": "index.html",
       "default_icon": "images/logo.png"

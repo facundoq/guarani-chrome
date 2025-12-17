@@ -50,7 +50,9 @@ export class AutofillUI extends UI {
           csv,
           settings.overwriteOnAutofill
         )
-    
+        var save_button: HTMLInputElement = document.getElementById("js-btn-guardar") as HTMLInputElement;
+        save_button.disabled=false;
+        console.log("enabling save button");
         // const allUnmatched = getSettings(SettingsKeys.Unmatched) as Array<object>;
         // const newUnmatched = new Set(allUnmatched.concat(unmatched));
         // setSettings(SettingsKeys.Unmatched, Array.from(newUnmatched));

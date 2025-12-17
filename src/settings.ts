@@ -27,7 +27,7 @@ export class Settings {
       const settingsVersion = settings[Settings.Keys.Version] 
       if (settingsVersion != currentVersion) {
         // if versions don`t match, clear local storage and restart settings to prevent errors
-        console.log(`New version ${currentVersion} found, deleting settings from ${settingsVersion} `)
+        console.log(`GUARANI-CHROME: New version ${currentVersion} found, deleting settings from ${settingsVersion} `)
         chrome.storage.local.clear()
         chrome.storage.sync.clear()
         chrome.storage.local.set({[Settings.Keys.Version]:currentVersion})
@@ -36,7 +36,7 @@ export class Settings {
     })
   }
   static RestoreFromStorage(callback: CallableFunction) {
-    console.log(`Initializing settings...`)
+    console.log(`GUARANI-CHROME: Initializing settings... `)
     this.CheckVersion(() => {
       // console.log(`Initialized with settings: ${Object.entries(v)}`)
       chrome.storage.local.get(Settings.defaultSettings, values => {

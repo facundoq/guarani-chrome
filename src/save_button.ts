@@ -1,12 +1,12 @@
 import { observe } from "./utils/dom_utils";
-import { when_form_renglones_ready } from "./form_renglones";
+//import { when_form_renglones_ready } from "./form_renglones";
 
-function add_save_button(form_renglones){
+export function addSaveButton(form_renglones){
     const basic_save_button = document.querySelector("#js-btn-guardar") as HTMLInputElement;
     const save_button = document.createElement("input")
     save_button.type ="submit"
     save_button.value = "Guardar"
-    save_button.classList.add("btn ","btn-info","btn-small","pull-right")
+    save_button.classList.add("btn","btn-info","btn-small","pull-right")
     save_button.id="js-btn-guardar"
      
     save_button.onclick = () =>{
@@ -20,4 +20,4 @@ function add_save_button(form_renglones){
 
 
 
-when_form_renglones_ready(add_save_button)
+//when_form_renglones_ready(add_save_button)

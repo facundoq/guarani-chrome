@@ -34,7 +34,7 @@ class ThemesUI extends UI{
 
     updateTheme(){
         const newTheme = this.root.value
-        console.log(`Changing theme to "${newTheme}"`)
+        console.log(`GUARANI-CHROME: Changing theme to "${newTheme}"`)
         this.settings.theme=newTheme
         this.settings.save()
         //disable all themes
@@ -51,7 +51,7 @@ class ThemesUI extends UI{
 
 
 export function initializeThemeChooser(settings:Settings){
-    console.log(`initializing theme chooser`)
+    console.log(`GUARANI-CHROME: initializing theme chooser`)
     const themeURLs = new Map(Object.entries(
         {"dark":"themes/dark.css",
          "light":"themes/light.css"
@@ -65,7 +65,7 @@ export function initializeThemeChooser(settings:Settings){
         if (notifications){
             notifications.appendChild(themesUI.root)
         }else{
-            console.log(`Did not find element ".notificaciones" to append the theme chooser`)
+            console.log(`GUARANI-CHROME: Did not find element ".notificaciones" to append the theme chooser`)
         }    
     }, 100);
     

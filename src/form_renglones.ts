@@ -3,7 +3,7 @@ import { waitForElement } from "./utils/dom_utils";
 const form_renglones_selector = ".form-renglones"
 
 function failed_callback(timeout){
-  console.log(`after waiting for ${timeout}, assuming there's no form in page.`);
+  console.log(`GUARANI-CHROME: after waiting for ${timeout}, assuming there's no form in page.`);
 }
 
 export function when_form_renglones_ready(callback,timeout=5000,additional_wait=10){
@@ -41,13 +41,13 @@ export function when_form_renglones_ready(callback,timeout=5000,additional_wait=
 export function when_renglones_changes(observer,listeners){
       const form_renglones = document.querySelector(".form-renglones");
       if (form_renglones) {
-        console.log("Form renglones found; adding button")
+        console.log("GUARANI-CHROME: Form renglones found; adding button")
         observer.disconnect()
         listeners.forEach(listener => listener(form_renglones));
         
       }else{
-        console.log("Form renglones not found")
-        console.log(document.querySelector("#renglones"))        
+        console.log("GUARANI-CHROME: Form renglones not found")
+        // console.log(document.querySelector("#renglones"))        
       }
   }
   

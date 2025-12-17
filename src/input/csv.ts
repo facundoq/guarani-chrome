@@ -20,7 +20,7 @@ export type CSVHeader = Array<string>
 export class CSV {
   constructor(public rows:CSVData,public header:CSVHeader){}
 }
-export function parseCSV(input:string,separator=";",normalize_header=false):Either<string,CSV>{
+export function parseCSV(input:string,separator=";\t",normalize_header=false):Either<string,CSV>{
     input = input.trim()
     if (input ===""){
       return new Right(new CSV([],[]))

@@ -1,5 +1,7 @@
 import { Settings } from "./settings";
 
+import { addSaveButton } from "./save_button";
+
 import { initializeThemeChooser } from "./themes"
 import { ready, waitForElement } from "./utils/dom_utils"
 import { when_form_renglones_ready } from "./form_renglones";
@@ -30,7 +32,7 @@ function detectPageTypeByURL() {
     if (window.location.pathname.startsWith("/cursada/edicion")) {
         return PageType.Cursada
     }
-    if (window.location.pathname.endsWith("/cierre_cursadas")) {
+    if (window.location.pathname.startsWith("/notas_mesa_examen/edicion")) {
         return PageType.Final
     }
     return PageType.Other
@@ -90,11 +92,12 @@ function addPageSpecificUI(settings: Settings) {
                 const table_body = table.children[1] as HTMLTableElement
                 const rows = Array.from(table_body.rows) as HTMLElement[]
                 const subjectName = getSubjectName()
-                console.log(`Se detectó página de carga de notas de CURSADA de la materia ${subjectName}`)
+                console.log(`GUARANI-CHROME: Se detectó página de carga de notas de CURSADA de la materia ${subjectName}`)
                 const autofill = new AutofillCursada(new AutofillParser(new CSVCursadaConfig()), subjectName)
                 const fieldToIndex = { "fecha": 3, "nota": 4, "resultado": 5, "condicion": 6 } as {[key: string]:number}
                 addColumnCounters(rows,autofill,fieldToIndex)
-                addAutofillUI(rows, settings, autofill)
+                addAutofillUI(rows, settings, autofill);
+                addSaveButton(form_renglones);
             }, 4000, 10);
             break;
         }
@@ -104,7 +107,7 @@ function addPageSpecificUI(settings: Settings) {
                 const table_body = table.children[1] as HTMLTableElement
                 const rows = Array.from(table_body.rows) as HTMLElement[]
                 const subjectName = getSubjectName()
-                console.log(`Se detectó página de carga de notas de FINAL de la materia ${subjectName}`)
+                console.log(`GUARANI-CHROME: Se detectó página de carga de notas de FINAL de la materia ${subjectName}`)
                 const autofill = new AutofillFinal(new AutofillParser(new CSVFinalConfig()), subjectName)
                 const fieldToIndex = { "fecha": 3, "nota": 4, "resultado": 5} as {[key: string]:number}
                 addColumnCounters(rows,autofill,fieldToIndex)
@@ -113,7 +116,7 @@ function addPageSpecificUI(settings: Settings) {
 
             break;
         }
-        default: console.log("No se detectó un tipo de página especial.")
+        default: console.log("GUARANI-CHROME: No se detectó un tipo de página especial.")
     }
 }
 
