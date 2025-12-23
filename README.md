@@ -4,9 +4,10 @@ Plugin para mejorar la usabilidad del SIU GUARANI. [Sitio web](https://github.co
 
  Funcionalidades:
 
- * Botones extra para aprobar/desaprobar/limpiar al pasar notas de cursada y final.
+ 
+* **Autocompletar++** Carga automática de notas desde un CSV separado por ";".
    * No soporta pasar notas de cursada con promoción (se aceptan pull requests!).
- * Carga automática de notas desde un CSV separado por ";".
+ * **Tema oscuro¨**
 
 
 ## Cómo usar
