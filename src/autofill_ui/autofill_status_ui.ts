@@ -80,7 +80,7 @@ export class AutofillStatsUI extends StudentChangeUI {
   protected countNonEmpty: ProgressUI;
   protected countComplete: ProgressUI;
   protected fieldCounters = new Map<string, CounterUI>();
-
+  protected label: HTMLLabelElement;
   constructor(rows_element: HTMLElement[], autofill: BaseAutofill) {
     super(rows_element, autofill);
     this.root.id = "statsUI";
@@ -94,6 +94,8 @@ export class AutofillStatsUI extends StudentChangeUI {
       "Con datos",
       "Estudiantes con información algún dato completado, pero no todos (no considera el campo observaciones)"
     );
+    this.label = fromHTML(`<label id="statsUILabel" for="statsUIComplete">Estadísticas:</label>`) as HTMLLabelElement;
+    this.root.appendChild(this.label);
     this.root.appendChild(this.countNonEmpty.root);
     this.root.appendChild(this.countComplete.root);
     // force update the first time

@@ -12,3 +12,8 @@ body{
     background-color: blanchedalmond;
     color:black;
 }
+
+
+#autofillControlsContainer,#autofillBar{
+    background-color: #DDDDDD;
+}

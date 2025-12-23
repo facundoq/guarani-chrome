@@ -58,3 +58,7 @@
     border-radius: 5px;
 
 }
+
+#statsUILabel{
+    display:inline;
+}

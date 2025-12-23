@@ -15,7 +15,7 @@ export class AutofillInputUI extends UI {
       Columnas de identificación: ${keyColumns}.
       Columnas de datos: ${dataColumns}.
       `
-        const label = fromHTML(`<label for="autofillInput" style="display:block" title="${labelTitle}">Carga de CSV para autollenado 🛈:</label>`)
+        const label = fromHTML(`<label for="autofillInput" style="display:block" title="${labelTitle}">Carga de CSV (separado por ;) para autollenado 🛈:</label>`)
 
         const autofillDataInput = fromHTML(`
         <textarea type="text" name="autofill" 

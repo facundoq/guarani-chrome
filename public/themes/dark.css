@@ -53,3 +53,8 @@ form .g3-form-form {
 .unmatchedStudent {
     background-color: rgb(69, 18, 18)
 }
+
+
+#autofillControlsContainer,#autofillBar{
+    background-color: #444444;
+}
