@@ -7,7 +7,7 @@ Plugin para mejorar la usabilidad del SIU GUARANI. [Sitio web](https://github.co
  
 * **Autocompletar++** Carga automática de notas desde un CSV separado por ";".
    * No soporta pasar notas de cursada con promoción (se aceptan pull requests!).
- * **Tema oscuro¨**
+ * **Tema oscuro**
 
 
 ## Cómo usar
